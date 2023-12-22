@@ -1,0 +1,5 @@
+12 20 / HomeTab의 예약정보를 FlatList나 ScrollView를 이용해서 가로 슬라이더 구현
+
+12 21 / InfoReserveScreen의 현재 예약중인 컨텐츠는 상단에 View자리 주고 하단 View는 과거내역으로
+
+12 22 / SearchScreen은 검색어에 맞는 필터링 해줌 / 인기검색 || 필터링바 || 최근검색어 / 최초 화면은 인기 검색등 상단에 FlatList 사용하고 textInput에 입력값이 생기면 필터링바로 교체 후 검색기능의 list 노출
