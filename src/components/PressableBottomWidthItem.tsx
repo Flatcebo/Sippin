@@ -42,7 +42,7 @@ export default function PressableBottomWidthItem({
             style={[{marginLeft: '3%'}]}
           />
           <Text
-            style={[globalStyles.fontNormal18, globalStyles.marginHorizontal3]}>
+            style={[globalStyles.fontNormal16, globalStyles.marginHorizontal3]}>
             {title}
           </Text>
         </View>

@@ -5,11 +5,7 @@ import HomeTab from './HomeTab';
 import OrderTab from './OrderTab';
 import SearchBar from '../components/SearchBar';
 import {useNavigation} from '@react-navigation/native';
-import {
-  NavigationProp,
-  RootStackNavigationProp,
-  RootStackParamList,
-} from '../types/RootStackProps';
+import {NavigationProp} from '../types/RootStackProps';
 export default function MainTab() {
   const Tab = createBottomTabNavigator<MainTabParamList>();
   const navigation = useNavigation<NavigationProp>();
@@ -34,7 +30,10 @@ export default function MainTab() {
         name="Order"
         component={OrderTab}
         options={{
-          header: () => <SearchBar placeholder="어디로 갈까요?" />,
+          title: '경상밥상 남악점',
+          headerTitleStyle: {fontSize: 18},
+
+          // header: () => <SearchBar placeholder="어디로 갈까요?" />,
         }}
       />
     </Tab.Navigator>

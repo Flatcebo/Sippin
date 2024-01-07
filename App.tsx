@@ -5,7 +5,9 @@
  //  * @format
  */
 import {NavigationContainer} from '@react-navigation/native';
+
 import RootStack from './src/screens/RootStack';
+// import 'react-native-gesture-handler';
 export default function App() {
   return (
     <NavigationContainer>
@@ -13,3 +15,5 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+// #571d1d

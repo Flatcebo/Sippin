@@ -1,5 +1,6 @@
 import React, {useCallback} from 'react';
 import {
+  Button,
   FlatList,
   Pressable,
   ScrollView,
@@ -18,22 +19,26 @@ export default function HomeTab({navigation}: HomeTabProp) {
       id: 0,
       title: '예약하기',
       desc: '원하는 술집, 예약 시작해봐요!',
+      navigate: 'Category',
     },
     {
       id: 1,
-      title: '주문하기',
-      desc: '테이블오더 주문, 여기서 진행해봐요!',
+      title: '추가주문',
+      desc: '테이블오더 추가주문, 여기서 진행해봐요!',
+      navigate: 'AdditionalOrder',
     },
     {
       id: 2,
       title: '내 주변',
       desc: '',
+      navigate: 'MyAround',
       // height: 50,
     },
     {
       id: 3,
       title: '자주가는 곳',
       desc: '',
+      navigate: 'OftenPlace',
       // height: 50,
     },
   ];
@@ -78,11 +83,12 @@ export default function HomeTab({navigation}: HomeTabProp) {
             <View
               style={[
                 globalStyles.marginHorizontal5,
+
                 {
                   flexWrap: 'wrap',
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  // marginTop: '3%',
+                  marginTop: '3%',
                 },
               ]}>
               <Pressable
@@ -91,14 +97,21 @@ export default function HomeTab({navigation}: HomeTabProp) {
                 }}
                 style={[
                   styles.button,
-                  {width: '100%', height: 160, shadowColor: 'red'},
+                  {
+                    width: '100%',
+                    height: 160,
+                    shadowColor: 'red',
+                    elevation: 4,
+                    marginTop: 2,
+                    // borderWidth: 1,
+                  },
                 ]}>
                 <View
                   style={[
                     globalStyles.marginHorizontal5,
                     globalStyles.marginVertical5,
+
                     // globalStyles.borderWidth1,
-                    {},
                   ]}>
                   <View
                     style={{
@@ -162,6 +175,9 @@ export default function HomeTab({navigation}: HomeTabProp) {
                       desc={item.desc}
                       shadowColor
                       title
+                      onPress={() => {
+                        navigation.push(item.navigate);
+                      }}
                     />
                   );
                 }
@@ -179,11 +195,25 @@ export default function HomeTab({navigation}: HomeTabProp) {
                   광고 배너
                 </Text>
               </View>
-              {homeData.map(item => {
+              {homeData.map((item: any) => {
                 if (item.id >= 2) {
-                  return <PressableItem key={item.id} item={item} />;
+                  return (
+                    <PressableItem
+                      key={item.id}
+                      item={item}
+                      onPress={() => {
+                        navigation.push(item.navigate);
+                      }}
+                    />
+                  );
                 }
               })}
+              <Button
+                title="CalendarTest"
+                onPress={() => {
+                  navigation.push('CalendarTest');
+                }}
+              />
             </View>
           </LinearGradient>
         }
@@ -200,12 +230,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: 'white',
     // borderWidth: 0.6,
-    borderColor: '#9a9a9a',
+    // borderColor: '#9a9a9a',
     marginBottom: '3%',
-    elevation: 4,
+
     // shadowColor: 'red',
-    // shadowOffset: {width: 0, height: 2},
-    // shadowOpacity: ,
+    // shadowOffset: {width: 0, height: 20},
+    // shadowOpacity: 1,
     // shadowRadius: 2,
     // justifyContent: 'center',
   },

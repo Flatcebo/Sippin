@@ -5,6 +5,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import IconIonicons from 'react-native-vector-icons/Ionicons';
 
 export {
   IconOcticons,
@@ -14,4 +15,5 @@ export {
   IconEntypo,
   IconAntDesign,
   IconMaterialIcons,
+  IconIonicons,
 };

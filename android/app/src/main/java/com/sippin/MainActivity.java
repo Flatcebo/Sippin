@@ -1,11 +1,15 @@
 package com.sippin;
 
+import android.os.Bundle;
+
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
+import com.naver.maps.map.MapView;
 
 public class MainActivity extends ReactActivity {
+
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
@@ -16,6 +20,13 @@ public class MainActivity extends ReactActivity {
     return "Sippin";
   }
 
+//  @Override
+//  protected void onCreate(Bundle savedInstanceState) {
+//      super.onCreate(savedInstanceState);
+//      // XML 레이아웃을 로드하여 화면에 표시
+//      View view = LayoutInflater.from(this).inflate(R.layout.activity_my_native, null);
+//      setContentView(view);
+//  }
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. Here we use a util class {@link
    * DefaultReactActivityDelegate} which allows you to easily enable Fabric and Concurrent React

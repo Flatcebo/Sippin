@@ -1,13 +1,24 @@
 import React from 'react';
-import {View, Text, Pressable, StyleSheet, ColorValue} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  ColorValue,
+  GestureResponderEvent,
+  StyleProp,
+  TextStyle,
+} from 'react-native';
 import {globalStyles} from '../lib/GlobalStyles';
 
-type PressableItemProps = {
+export type PressableItemProps = {
   item: {id: number; title: string; desc: string};
   button?: boolean;
   desc?: string;
   shadowColor?: boolean;
   title?: boolean;
+  onPress?: ((event: GestureResponderEvent) => void) | null | undefined;
+  titleStyle?: StyleProp<TextStyle>;
 };
 
 export default function PressableItem({
@@ -16,9 +27,12 @@ export default function PressableItem({
   desc,
   shadowColor,
   title,
+  onPress,
+  titleStyle,
 }: PressableItemProps) {
   return (
     <Pressable
+      onPress={onPress}
       style={[
         button ? styles.button : styles.smallButton,
         {shadowColor: shadowColor ? 'blue' : undefined},
@@ -29,6 +43,7 @@ export default function PressableItem({
           style={[
             title ? globalStyles.fontBold18 : globalStyles.fontBold16,
             {textAlign: 'left'},
+            titleStyle,
           ]}>
           {item.title}
         </Text>

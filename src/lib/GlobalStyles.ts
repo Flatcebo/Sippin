@@ -30,27 +30,27 @@ export const globalStyles = StyleSheet.create({
   fontBold24: {
     fontSize: 24,
     color: 'black',
-    fontWeight: 'bold',
+    fontWeight: '600',
   },
   fontBold20: {
     fontSize: 20,
     color: 'black',
-    fontWeight: 'bold',
+    fontWeight: '600',
   },
   fontBold18: {
     fontSize: 18,
     color: 'black',
-    fontWeight: 'bold',
+    fontWeight: '600',
   },
   fontBold16: {
     fontSize: 16,
     color: 'black',
-    fontWeight: 'bold',
+    fontWeight: '600',
   },
   fontBold14: {
     fontSize: 14,
     color: 'black',
-    fontWeight: 'bold',
+    fontWeight: '600',
   },
   fontNormal24: {
     fontSize: 24,
@@ -111,3 +111,5 @@ export const globalStyles = StyleSheet.create({
     color: '#9a9a9a',
   },
 });
+
+export const SignatureColor = '#571d1d';

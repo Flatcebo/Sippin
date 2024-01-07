@@ -1,0 +1,13 @@
+<script type="text/javascript" src="https://naver.com"></script>
+<div id="map" style="width: 100%; height: 100%"></div>
+<script>
+  var map = new naver.maps.Map('map', {
+    center: new naver.maps.LatLng(37.5666103, 126.9783882),
+    zoom: 13,
+  });
+
+  var marker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(37.5666103, 126.9783882),
+    map: map,
+  });
+</script>

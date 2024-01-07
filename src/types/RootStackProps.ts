@@ -2,13 +2,37 @@ import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MainTabNavigationScreenParams, MainTabParamList} from './MainTabProps';
+import {
+  ByRegionContentsParams,
+  ContentParams,
+  MenuParams,
+  ReserveContentParam,
+} from './ParamsType';
 
 export type RootStackParamList = {
   MainTab: MainTabNavigationScreenParams | undefined;
   Home: undefined;
+  Order: undefined;
   Search: undefined;
   InfoReserve: undefined;
+  Category: undefined;
+  ShoppingBasket: undefined;
+  AdditionalOrder: undefined;
+  MyAround: undefined;
+  OftenPlace: undefined;
+  Content: ContentParams;
+  ReserveDate: {};
+  ReserveTable: {};
+  ReserveContent: ReserveContentParam;
+  ByRegionContents: ByRegionContentsParams;
+  Menu: MenuParams;
+  ReserveSuccess: {};
+  CustomerService: {};
+  CompletedOrder: undefined;
+  OrderedList: undefined;
+  CalendarTest: undefined;
 };
+
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
 
@@ -17,6 +41,10 @@ export type NavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<MainTabParamList>
 >;
 
+// export type RootNavigationProp = CompositeNavigationProp<
+//   RootStackNavigationProp,
+//   BottomTabNavigationProp<MainTabParamList>
+// >;
 //
 //
 //
@@ -31,6 +59,17 @@ type ScreenNavigationProp<T extends keyof RootStackParamList> =
 type ScreenProp<T extends keyof RootStackParamList> = {
   navigation: ScreenNavigationProp<T>;
   route: ScreenRouteProp<T>;
+  // params: RootStackParamList[T];
 };
 
 export type HomeTabProp = ScreenProp<'Home'>;
+export type OrderTabProp = ScreenProp<'Order'>;
+
+export type CategoryScreenProp = ScreenProp<'Category'>;
+export type ContentScreenProp = ScreenProp<'Content'>;
+export type MyAroundScreenProp = ScreenProp<'MyAround'>;
+export type ByRegionContentsScreenProp = ScreenProp<'ByRegionContents'>;
+export type MenuScreenProp = ScreenProp<'Menu'>;
+export type ReserveContentScreenProp = ScreenProp<'ReserveContent'>;
+export type ReserveTableScreenProp = ScreenProp<'ReserveTable'>;
+export type CompletedOrderScreenProp = ScreenProp<'CompletedOrder'>;

@@ -1,10 +1,13 @@
 import {useCallback} from 'react';
-import {View} from 'react-native';
+import {Pressable, View} from 'react-native';
 import {Text} from 'react-native-paper';
 import {globalStyles} from '../lib/GlobalStyles';
 import {format} from 'date-fns';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../types/RootStackProps';
 
-export const InfoReserveRenderItem = useCallback(({item}: any) => {
+export const InfoReserveRenderItem = ({item}: any) => {
+  // const navigation = useNavigation<any>();
   const currentDate = new Date();
   const targetDate = new Date(item.reservedAt);
   const formattedReservedAtHH = format(new Date(item.reservedAt), 'HH:mm');
@@ -15,15 +18,17 @@ export const InfoReserveRenderItem = useCallback(({item}: any) => {
 
   // 현재 시간보다 예약시간이 이후라면
   return (
-    <View
+    <Pressable
       key={item.id}
+      onPress={item.onPress}
       style={{
         backgroundColor: 'white',
         marginHorizontal: '5%',
         // marginBottom: '1.5%',
-        marginTop: '3%',
+        marginBottom: '3%',
         elevation: 4,
         borderRadius: 10,
+        // height: '100%',
       }}>
       {item.checkOutedAt ? (
         // 예약시간이 현재 시간 이후인 경우
@@ -39,7 +44,7 @@ export const InfoReserveRenderItem = useCallback(({item}: any) => {
                 {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  marginHorizontal: '3%',
+                  marginHorizontal: '5%',
                   elevation: 4,
                 },
               ]}>
@@ -118,6 +123,7 @@ export const InfoReserveRenderItem = useCallback(({item}: any) => {
             style={[
               {
                 paddingVertical: '3%',
+                // paddingBottom: '5%',
               },
             ]}>
             <View
@@ -125,7 +131,7 @@ export const InfoReserveRenderItem = useCallback(({item}: any) => {
                 {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  marginHorizontal: '3%',
+                  marginHorizontal: '5%',
                   elevation: 4,
                 },
               ]}>
@@ -137,7 +143,9 @@ export const InfoReserveRenderItem = useCallback(({item}: any) => {
                 {formattedReservedAtYY}
               </Text>
               <Text style={[globalStyles.fontBold16, {color: '#ff4d4d'}]}>
-                {item.checkOutedAt ? '결제완료' : '진행중'}
+                {item.checkOutedAt || item.reservedAt < new Date()
+                  ? '결제완료'
+                  : '진행중'}
               </Text>
             </View>
             <View
@@ -145,7 +153,7 @@ export const InfoReserveRenderItem = useCallback(({item}: any) => {
                 {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  marginHorizontal: '3%',
+                  marginHorizontal: '5%',
                   marginBottom: '1%',
                 },
               ]}>
@@ -167,9 +175,9 @@ export const InfoReserveRenderItem = useCallback(({item}: any) => {
 
             <Text
               style={[
-                globalStyles.fontBold14,
+                globalStyles.fontNormal14,
                 {
-                  marginHorizontal: '3%',
+                  marginHorizontal: '5%',
                   marginBottom: '3%',
                   height: 40,
                   color: '#3a3a3a',
@@ -179,7 +187,7 @@ export const InfoReserveRenderItem = useCallback(({item}: any) => {
             </Text>
             <View
               style={{
-                marginHorizontal: '3%',
+                marginHorizontal: '5%',
                 // justifyContent: 'flex-end',
                 alignItems: 'flex-end',
                 // borderWidth: 1,
@@ -194,6 +202,6 @@ export const InfoReserveRenderItem = useCallback(({item}: any) => {
           </View>
         </>
       )}
-    </View>
+    </Pressable>
   );
-}, []);
+};

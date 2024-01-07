@@ -8,12 +8,10 @@ import {
   Text,
   View,
 } from 'react-native';
-import FilterBar from '../components/FilterBar';
-import FilterItem from '../components/FilterItem';
 import PressableBottomWidthItem from '../components/PressableBottomWidthItem';
 import {Columns} from '../components/RankingTable';
 import {globalStyles} from '../lib/GlobalStyles';
-import {IconMaterialCommunityIcons} from '../lib/Icon';
+
 export default function SearchScreen() {
   const [text, setText] = useState();
   return (
@@ -21,28 +19,12 @@ export default function SearchScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{flex: 1}}>
       <>
-        <ScrollView
-          horizontal={true}
-          contentContainerStyle={{
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-          style={{
-            flexDirection: 'row',
-            backgroundColor: 'white',
-            // position: 'absolute',
-          }}>
-          {/* {text && console.log('hi')} */}
-          <FilterItem title="내 주변" marginLeft />
-          <FilterItem title="인기 검색어" />
-          <FilterItem title="인기 검색어" />
-          <FilterItem title="인기 검색어" marginRight />
-        </ScrollView>
         <ScrollView style={[{height: '100%', backgroundColor: 'white'}]}>
           <View
             style={[
               globalStyles.marginHorizontal5,
-              globalStyles.marginVertical5,
+              globalStyles.marginBottom5,
+              {marginTop: '3%'},
             ]}>
             <Text style={[globalStyles.fontBold14, {marginBottom: '1%'}]}>
               최근에 검색한 내용
@@ -50,10 +32,6 @@ export default function SearchScreen() {
             <View
               style={{
                 backgroundColor: 'white',
-                // height: 210,
-                // borderWidth: 1,
-                // elevation: 4,
-                // borderRadius: 10,
               }}>
               <PressableBottomWidthItem title="ScrollView" />
               <PressableBottomWidthItem title="남악" />

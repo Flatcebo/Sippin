@@ -1,5 +1,29 @@
 12 20 / HomeTab의 예약정보를 FlatList나 ScrollView를 이용해서 가로 슬라이더 구현
 
-12 21 / InfoReserveScreen의 현재 예약중인 컨텐츠는 상단에 View자리 주고 하단 View는 과거내역으로
+12 21 / InfoReserveScreen의 현재 예약중인 컨텐츠는 상단에 View자리 주고 하단 View는 과거내역으로 - 완료
 
 12 22 / SearchScreen은 검색어에 맞는 필터링 해줌 / 인기검색 || 필터링바 || 최근검색어 / 최초 화면은 인기 검색등 상단에 FlatList 사용하고 textInput에 입력값이 생기면 필터링바로 교체 후 검색기능의 list 노출
+
+12 23 / useCallback은 컴포넌트화 하면 안됨 / FlatList에선 사용하지 말것.
+
+12 25 / MapView의 컨텐츠들이 키보드 나타날때 아무런 변화 없게 하기
+
+12 26 / MapScreen의 WebView 작업할때 즐겨찾기 => MAP API의 react-native-webview github 공식문서 참고할것 / 아니면 안드로이드에서 맵을 호출하고 NativeModules로 해봐도 됨.
+
+12 27 / 주문하기 Screen에서 추가하고 싶은 메뉴 클릭시 추가한걸 알수있는 애니메이션 넣기 / Table Order와 연동하는것 참고하기 / 스크롤 내릴때 해당되는 메뉴존으로 필터아이템 안내하기
+예약하기 스크린은 리스트로 보여주고 필터링 기능 넣기 (시간선택) / 시간선택에 따른 예약 가능한 곳 보여주기 / 현재 시간 기준으로 예약가능한 시간 남아있는 업체만 보여주기 기능 /
+검색시 가장 가까운 순으로 보여주기
+
+12 28 / 예약하기 => 카테고리 스크린 => 필터링된 스크린에 상단 필터링 넣고 선택한지역, 날짜 필터링 기능 넣기(default 날짜는 오늘)
+
+12 30 / 예약하기 필터바에 자주간곳이나 즐겨찾기 기능 추가하기
+
+12 31 / ContentScreen에 Map y축 스크롤시 ScrollView가 스크롤됨 / MenuScreen map함수 내의 pressable item 배경 바뀌게 하기
+
+1 1 / 예약완료하기 버튼 클릭시 예약완료 보여주기 작업해야함
+
+1 2 / 예약 번호 필요함 / 예약 인원도 필요함?
+
+1 3 / 고객센터 screen 만들어야함 / 최근 검색어바 전체삭제 기능?
+
+1 6 / header에 관한 type조사 및 확정하기 / 예약하러가기 클릭시 bottom fade로 날짜 선택 => 테이블 선택 => ReserveContentScreen
