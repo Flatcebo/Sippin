@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import {
   Button,
   FlatList,
+  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -23,8 +24,8 @@ export default function HomeTab({navigation}: HomeTabProp) {
     },
     {
       id: 1,
-      title: '추가주문',
-      desc: '테이블오더 추가주문, 여기서 진행해봐요!',
+      title: '준비중(대리운전)',
+      // desc: '테이블오더 추가주문, 여기서 진행해봐요!',
       navigate: 'AdditionalOrder',
     },
     {
@@ -37,6 +38,13 @@ export default function HomeTab({navigation}: HomeTabProp) {
     {
       id: 3,
       title: '자주가는 곳',
+      desc: '',
+      navigate: 'OftenPlace',
+      // height: 50,
+    },
+    {
+      id: 4,
+      title: '좋아요한 업체 / 즐겨찾기',
       desc: '',
       navigate: 'OftenPlace',
       // height: 50,
@@ -66,12 +74,10 @@ export default function HomeTab({navigation}: HomeTabProp) {
         data={undefined}
         renderItem={undefined}
         keyExtractor={undefined}
-        ListHeaderComponentStyle={
-          {
-            // height: '100%',
-            // backgroundColor: 'white',
-          }
-        }
+        ListHeaderComponentStyle={{
+          // height: '100%',
+          backgroundColor: 'white',
+        }}
         ListHeaderComponent={
           <LinearGradient
             colors={[
@@ -80,29 +86,21 @@ export default function HomeTab({navigation}: HomeTabProp) {
               DefaultTheme.colors.background,
             ]}
             style={{flex: 1}}>
-            <View
-              style={[
-                globalStyles.marginHorizontal5,
-
-                {
-                  flexWrap: 'wrap',
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: '3%',
-                },
-              ]}>
+            <View style={[styles.layout]}>
               <Pressable
                 onPress={() => {
-                  navigation.push('InfoReserve');
+                  navigation.push('ReserveInfo');
                 }}
                 style={[
                   styles.button,
+
                   {
                     width: '100%',
                     height: 160,
                     shadowColor: 'red',
                     elevation: 4,
                     marginTop: 2,
+
                     // borderWidth: 1,
                   },
                 ]}>
@@ -165,6 +163,7 @@ export default function HomeTab({navigation}: HomeTabProp) {
                   </Text>
                 </View>
               </Pressable>
+
               {homeData.map((item: any) => {
                 if (item.id <= 1) {
                   return (
@@ -182,19 +181,25 @@ export default function HomeTab({navigation}: HomeTabProp) {
                   );
                 }
               })}
-
-              {/* 광고 */}
-              <View
-                style={{
-                  borderWidth: 1,
-                  height: 100,
-                  width: '100%',
-                  marginBottom: '3%',
-                }}>
-                <Text style={[globalStyles.font24, {textAlign: 'center'}]}>
-                  광고 배너
-                </Text>
-              </View>
+            </View>
+            {/* 광고 */}
+            <View
+              style={{
+                marginHorizontal: 0,
+                width: '100%',
+                height: 120,
+                elevation: 4,
+              }}>
+              <Image
+                source={{
+                  uri: 'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA4MTNfMTYy%2FMDAxNTM0MTMwNTcxMzgy.pS3YPveNk1CcjenYxxwX1f3ghv8vBwyES9iitIOI4Zgg.b0SKOcHnWGsQzvuiiCizLCSUlW87Ud5Q7f33TQVeqVcg.JPEG.lee1221000%2F%25C8%25A8%25C6%25E4%25C0%25CC%25C1%25F6-%25B9%25E8%25B3%25CA%25C1%25A6%25C0%25DB5.jpg&type=l340_165',
+                  height: 120,
+                }}
+                resizeMode="stretch"
+                style={{}}
+              />
+            </View>
+            <View style={[styles.layout]}>
               {homeData.map((item: any) => {
                 if (item.id >= 2) {
                   return (
@@ -229,30 +234,23 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 6,
     backgroundColor: 'white',
-    // borderWidth: 0.6,
-    // borderColor: '#9a9a9a',
     marginBottom: '3%',
-
-    // shadowColor: 'red',
-    // shadowOffset: {width: 0, height: 20},
-    // shadowOpacity: 1,
-    // shadowRadius: 2,
-    // justifyContent: 'center',
   },
   smallButton: {
     width: '48%',
-    // height: 120,
     borderRadius: 6,
     backgroundColor: 'white',
-    // borderWidth: 0.6,
     borderColor: '#9a9a9a',
     marginBottom: '3%',
     elevation: 2,
     paddingVertical: '3%',
-    // shadowColor: '#000',
-    // shadowOffset: {width: 0, height: 2},
-    // shadowOpacity: 0.2,
-    // shadowRadius: 2,
-    // justifyContent: 'center',
+  },
+  layout: {
+    flexWrap: 'wrap',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: '3%',
+    marginHorizontal: '5%',
+    // borderWidth: 1,
   },
 });

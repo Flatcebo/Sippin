@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react';
 import {Animated, Modal, Pressable, Text, View} from 'react-native';
-import {Calendar} from 'react-native-calendars';
+import {Calendar, CalendarProps} from 'react-native-calendars';
 import * as Animatable from 'react-native-animatable';
+import {ContextProp} from 'react-native-calendars/src/types';
+import BottomButton from './BottomButton';
 interface CalendarModalProps {
   visible?: boolean;
   onRequestClose?: () => void;
@@ -13,7 +15,8 @@ export default function CalendarModal({
   onRequestClose,
   onPressBG,
   ListContents,
-}: CalendarModalProps) {
+  ...rest
+}: CalendarModalProps & CalendarProps & ContextProp) {
   //   const opacity = new Animated.Value(0);
 
   //   useEffect(() => {
@@ -51,7 +54,9 @@ export default function CalendarModal({
               borderRadius: 16,
               elevation: 6,
             }}
+            {...rest}
           />
+          {/* <BottomButton title="확인" /> */}
         </Animatable.View>
         {/* </View> */}
       </Modal>

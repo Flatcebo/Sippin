@@ -14,7 +14,10 @@ import {
   ReserveDateButton,
   ReserveTableButton,
 } from '../components/IconButtons';
+import PressableListItem from '../components/PressableListItem';
+import QuantityItem from '../components/QuantityItem';
 import {globalStyles} from '../lib/GlobalStyles';
+import {IconMaterialCommunityIcons} from '../lib/Icon';
 import {ReserveContentScreenProp} from '../types/RootStackProps';
 
 export default function ReserveContentScreen({
@@ -23,31 +26,31 @@ export default function ReserveContentScreen({
 }: ReserveContentScreenProp) {
   const {title} = route.params;
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <View>
-              <HomeButton />
-            </View>
-            <View style={{marginLeft: 8}}>
-              <FoodButton
-                onPress={() => {
-                  navigation.push('Menu', {title: title});
-                }}
-              />
-            </View>
-          </View>
-        </>
-      ),
-    });
-  }, [navigation]);
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerRight: () => (
+  //       <>
+  //         <View
+  //           style={{
+  //             flexDirection: 'row',
+  //             justifyContent: 'center',
+  //             alignItems: 'center',
+  //           }}>
+  //           <View>
+  //             <HomeButton />
+  //           </View>
+  //           <View style={{marginLeft: 8}}>
+  //             <FoodButton
+  //               onPress={() => {
+  //                 navigation.push('Menu', {title: title});
+  //               }}
+  //             />
+  //           </View>
+  //         </View>
+  //       </>
+  //     ),
+  //   });
+  // }, [navigation]);
 
   return (
     <>
@@ -56,10 +59,10 @@ export default function ReserveContentScreen({
           <View
             style={{
               // borderBottomWidth: 1.4,
-              // borderColor: '#eaeaea',
+              borderColor: '#eaeaea',
               // marginTop: '1%',
               paddingVertical: '1%',
-              // borderWidth: 1,
+              borderBottomWidth: 1.4,
             }}>
             <View
               style={{
@@ -86,7 +89,7 @@ export default function ReserveContentScreen({
               </View>
             </View>
           </View>
-          <View
+          {/* <View
             style={{
               // height: 200,
               alignItems: 'center',
@@ -103,9 +106,9 @@ export default function ReserveContentScreen({
               }}>
               선택한 메뉴가 없습니다.
             </Text>
-          </View>
-          {/* <PressableListItem
-            title="오코노미야끼"
+          </View> */}
+          <PressableListItem
+            // title="오코노미야끼"
             layoutStyle={{borderBottomWidth: 0.4, borderColor: '#cacaca'}}
             containerStyle={{
               // justifyContent: 'center',
@@ -134,7 +137,7 @@ export default function ReserveContentScreen({
             }
           />
           <PressableListItem
-            title="오코노미야끼"
+            // title="오코노미야끼"
             layoutStyle={{borderBottomWidth: 0.4, borderColor: '#cacaca'}}
             containerStyle={{
               // justifyContent: 'center',
@@ -161,7 +164,7 @@ export default function ReserveContentScreen({
                 <QuantityItem />
               </>
             }
-          /> */}
+          />
         </ScrollView>
       </View>
       <BottomButton

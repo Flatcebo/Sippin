@@ -14,18 +14,37 @@ import {CollapsibleHeaderV1} from '../components/CollapsibleHeader';
 import FilterItem from '../components/FilterItem';
 import {globalStyles} from '../lib/GlobalStyles';
 import heartListData from '../lib/heartListData';
-import {IconMaterialCommunityIcons, IconOcticons} from '../lib/Icon';
+import {
+  IconFeather,
+  IconIonicons,
+  IconMaterialCommunityIcons,
+  IconOcticons,
+  IconSimpleLine,
+} from '../lib/Icon';
 
 import {scale} from '../utils/scaling';
 import {formatNumber} from '../utils/format';
 import CalendarModal from '../components/CalendarModal';
 import {ByRegionContentsScreenProp} from '../types/RootStackProps';
+import {format} from 'date-fns';
+import ContentListItem from '../components/ContentListItem';
 const ByRegionContentsScreen = ({
   route,
   navigation,
 }: ByRegionContentsScreenProp) => {
   const [visibleCalendar, setVisibleCalendar] = useState(false);
   const {title} = route.params;
+  const [selectedDate, setSelectedDate] = useState(
+    format(new Date(), 'yyyy-MM-dd'),
+  );
+  const [markedDates, setMarkedDates] = useState<any>({});
+  const markedSelectedDates = {
+    ...markedDates,
+    [selectedDate]: {
+      selected: true,
+      marked: markedDates[selectedDate]?.marked,
+    },
+  };
   // useEffect(() => {
   //   navigation.setOptions({
   //     headerShadowVisible: false,
@@ -52,89 +71,7 @@ const ByRegionContentsScreen = ({
     };
 
     return (
-      <>
-        <Pressable
-          style={({pressed}) => [
-            {
-              // width: '100%',
-              // height: Platform.OS === 'android' ? scale(300) : scale(300),
-              backgroundColor: pressed ? '#eaeaea' : 'white',
-              // marginTop: '3%',
-              marginBottom: '3%',
-              marginHorizontal: '3%',
-              borderWidth: 0.4,
-              borderColor: '#9a9a9a',
-              borderTopLeftRadius: 10,
-              borderTopRightRadius: 10,
-            },
-          ]}
-          onPress={onPressPushContents}
-          key={item.id}>
-          <View style={{}}>
-            <Image
-              source={{uri: item.imageUri}}
-              height={scale(180)}
-              resizeMode="cover"
-              style={{borderTopLeftRadius: 10, borderTopRightRadius: 10}}
-            />
-            <View
-              style={[
-                {
-                  marginHorizontal: '3%',
-                  flexDirection: 'row',
-                },
-              ]}>
-              <View
-                style={{
-                  flex: 1,
-                  //   borderWidth: 1,
-                  width: '10%',
-                  rowGap: 2,
-                  marginVertical: '3%',
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    // alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontSize: 18,
-                      fontWeight: 'bold',
-                    }}>
-                    {item.title}
-                  </Text>
-                  <Text style={[globalStyles.font14]}>{item.category}</Text>
-                </View>
-                <Text style={[globalStyles.font14, {height: 60}]}>
-                  {item.address}
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'flex-end',
-                    justifyContent: 'flex-end',
-                  }}>
-                  <Text style={[globalStyles.font14]}>
-                    <IconOcticons name="heart" size={16} color="red" />
-                    {formatNumber(item.heart)}
-                  </Text>
-                  <Text style={[globalStyles.font14]}>
-                    <IconMaterialCommunityIcons
-                      name="chat-outline"
-                      size={17}
-                      color="black"
-                    />
-                    {formatNumber(item.chat)}
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </Pressable>
-      </>
+      <ContentListItem item={item} onPressPushContents={onPressPushContents} />
     );
   }, []);
   return (
@@ -153,32 +90,50 @@ const ByRegionContentsScreen = ({
               onPressBG={() => {
                 setVisibleCalendar(false);
               }}
+              monthFormat="M월"
+              markedDates={markedSelectedDates}
+              onDayPress={day => {
+                setSelectedDate(day.dateString);
+                setVisibleCalendar(false);
+              }}
+              onPress={() => {}}
             />
 
             <View
               style={{
                 flexDirection: 'row',
-                backgroundColor: 'white',
+                backgroundColor: '#ffffff',
                 justifyContent: 'space-evenly',
                 alignItems: 'center',
+                // borderBottomWidth: 0.4,
+                // borderColor: '#9a9a9a',
               }}>
               <FilterItem
                 title={title}
                 marginLeft
                 pressableStyle={{width: '40%'}}
-                style={{fontSize: 14, fontWeight: 'normal'}}
+                style={{fontSize: 14, fontWeight: 'normal', marginLeft: 4}}
                 onPress={() => {
                   navigation.push('Category');
                 }}
+                content={<IconIonicons name="location-outline" size={22} />}
               />
+
               <FilterItem
                 title="12월 30일"
                 marginRight
                 pressableStyle={{width: '40%'}}
-                style={{fontSize: 14, fontWeight: 'normal'}}
+                style={{fontSize: 14, fontWeight: 'normal', marginLeft: 4}}
                 onPress={() => {
                   setVisibleCalendar(true);
                 }}
+                content={
+                  <IconMaterialCommunityIcons
+                    name="calendar-month-outline"
+                    size={22}
+                    // color="#333"
+                  />
+                }
               />
             </View>
           </>

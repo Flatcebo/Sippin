@@ -1,0 +1,336 @@
+**************************************************************Animation Ver.1**************************************************************
+
+const [isVisible, setIsVisible] = useState(true);
+  const fadeOut1 = new Animated.Value(1);
+  const fadeInTitle = new Animated.Value(0);
+  const fadeInCalendar = new Animated.Value(0);
+
+  const fadeOutAndRemove = () => {
+    setIsVisible(any => !any);
+  };
+
+  const [title, setTitle] = useState(true);
+
+  useEffect(() => {
+    const titleFadeIn = Animated.timing(fadeInTitle, {
+      toValue: 1,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start(() => {
+      Animated.timing(fadeInCalendar, {
+        toValue: 1,
+        duration: 2000,
+        useNativeDriver: true,
+      }).start(() => {
+        setTitle(false);
+      });
+    });
+    // Animated.parallel([]);
+  }, []);
+
+  return (
+    <View style={{flex: 1, justifyContent: 'center'}}>
+      {title && (
+        <Animated.View
+          style={{
+            height: '100%',
+            width: '100%',
+            opacity: fadeInTitle,
+            position: 'absolute',
+            justifyContent: 'center',
+            alignItems: 'center',
+            bottom: '20%',
+          }}>
+          <Animatable.Text
+            animation="pulse"
+            //   easing="ease-out"
+            iterationCount="infinite"
+            duration={1200}
+            style={{fontSize: 20}}>
+            예약 날짜를 선택해주세요.
+          </Animatable.Text>
+        </Animated.View>
+      )}
+      <Animated.View style={{flex: 1, opacity: fadeInCalendar}}>
+        <Calendar />
+      </Animated.View>
+    </View>
+  );
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+import {Pressable, ScrollView, Text, View} from 'react-native';
+import {Calendar} from 'react-native-calendars';
+import {historyData} from '../lib/historyData';
+import {format} from 'date-fns';
+import {useEffect, useId, useState} from 'react';
+// import {getPosts} from '../lib/posts';
+import firestore from '@react-native-firebase/firestore';
+import {getUser} from '../lib/users';
+import usePostActions from '../hooks/usePostActions';
+import {v4} from 'uuid';
+import {useUserContext} from '../contexts/UserContext';
+
+export default function CalendarScreen({route, navigation}: any) {
+  const [selectedDate, setSelectedDate] = useState(
+    format(new Date(), 'yyyy-MM-dd'),
+  );
+  const [markedDates, setMarkedDates] = useState<any>({});
+  const markedSelectedDates = {
+    ...markedDates,
+    [selectedDate]: {
+      selected: true,
+      marked: markedDates[selectedDate]?.marked,
+    },
+  };
+  const {uid} = route.params;
+  // console.log(uid);
+  const {user} = useUserContext();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const snapshot = await firestore()
+          .collection(`posts`)
+          .where('user.id', '==', uid)
+          .orderBy('createdAt', 'desc')
+          .get();
+
+        const data = snapshot.docs.map((doc: any) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        console.log(data);
+
+        const formattedData = data.reduce((acc: any, current: any) => {
+          if (!current.createdAt) {
+            // createdAt 값이 없는 경우 해당 데이터를 건너뜁니다.
+            return acc;
+          }
+          const formattedDate = format(
+            new Date(current.createdAt.toDate()),
+            'yyyy-MM-dd',
+          );
+
+          // console.log(formattedDate);
+
+          if (!acc[formattedDate]) {
+            acc[formattedDate] = [
+              {
+                marked: true,
+                title: current.title,
+                result: current.result,
+                notDrinkResult: current.notDrinkResult,
+              },
+            ];
+          } else {
+            acc[formattedDate].push({
+              marked: true,
+              title: current.title,
+              result: current.result,
+              notDrinkResult: current.notDrinkResult,
+            });
+          }
+
+          acc[formattedDate].marked = true;
+
+          return acc;
+        }, {});
+
+        setMarkedDates(formattedData);
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+      }
+    };
+
+    fetchData();
+  }, [uid]);
+  const handleDelete = async (id: any) => {
+    try {
+      const postsCollectionRef = firestore().collection(`posts`);
+
+      postsCollectionRef.doc(id).delete();
+      // .get()
+      // .then(querySnapshot => {
+      //   querySnapshot.forEach(doc => {
+      //     const postId = doc.id;
+      //     console.log('Post ID:', postId);
+
+      //     // 이제 postId를 사용하여 해당 문서를 삭제할 수 있습니다.
+      //     const documentRef = postsCollectionRef.doc(postId);
+      //     documentRef
+      //       .delete()
+      //       .then(() => {
+      //         console.log('Document successfully deleted!');
+      //       })
+      //       .catch(error => {
+      //         console.error('Error deleting document:', error);
+      //       });
+      //   });
+      // })
+      // .catch(error => {
+      //   console.error('Error getting users collection:', error);
+      // });
+
+      // 상태 업데이트: 삭제된 데이터를 markedDates에서도 제거
+      setMarkedDates((prevMarkedDates: any) => {
+        const updatedMarkedDates = {...prevMarkedDates};
+
+        Object.keys(updatedMarkedDates).forEach(date => {
+          updatedMarkedDates[date] = updatedMarkedDates[date].filter(
+            (data: any) => data.id !== uid,
+          );
+
+          if (updatedMarkedDates[date].length === 0) {
+            delete updatedMarkedDates[date];
+          }
+        });
+
+        return updatedMarkedDates;
+      });
+
+      // navigation.navigate('Calendar', {id: id});
+
+      console.log('Document deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting document: ', error);
+    }
+  };
+
+  return (
+    <View>
+      <Calendar
+        markedDates={markedSelectedDates}
+        monthFormat={'MM월'}
+        onDayPress={day => {
+          setSelectedDate(day.dateString);
+        }}
+      />
+      <View style={{backgroundColor: 'white'}}>
+        {/* <Pressable
+          onPress={handlePressGetPost}
+          style={{backgroundColor: 'red', padding: 10}}>
+          <Text>조회 버튼</Text>
+        </Pressable>
+        <Text>{data}</Text> */}
+        <Text
+          style={{
+            backgroundColor: 'white',
+            color: 'black',
+            fontSize: 13,
+            marginHorizontal: '3%',
+            borderBottomWidth: 0.4,
+            // borderTopWidth: 0.4,
+            borderColor: '#9a9a9a',
+            fontWeight: '500',
+            marginTop: '3%',
+            marginBottom: '3%',
+          }}>
+          {selectedDate}
+        </Text>
+        <ScrollView style={{height: '30%'}}>
+          {markedDates[selectedDate] && (
+            <View>
+              {markedDates[selectedDate].map((item: any, index: number) => (
+                <Pressable
+                  key={index}
+                  style={({pressed}) => [
+                    {
+                      height: 60,
+                      backgroundColor: pressed ? '#9a9a9a' : 'white',
+                    },
+                  ]}>
+                  <View
+                    style={{
+                      marginHorizontal: '3%',
+                      height: '100%',
+                      borderBottomWidth: 0.4,
+                      borderColor: '#9a9a9a',
+                      flexDirection: 'row',
+                    }}>
+                    <Pressable
+                      style={{
+                        // borderWidth: 1,
+                        flex: 0.15,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: '#d1d0d0ca',
+                        borderBottomColor: '#9a9a9a',
+                        borderBottomWidth: 0.4,
+                      }}
+                      onPress={() => {
+                        console.log(item.id);
+                        handleDelete(item.id);
+                      }}>
+                      <Text
+                        style={{
+                          textAlignVertical: 'center',
+                          color: 'red',
+                        }}>
+                        X
+                      </Text>
+                    </Pressable>
+                    <View
+                      style={{
+                        flex: 0.65,
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: 'black',
+                          marginHorizontal: '5%',
+                          fontWeight: 'bold',
+                          fontSize: 15,
+                        }}>
+                        {item.title}
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        flex: 0.4,
+                        justifyContent: 'center',
+                        alignItems: 'flex-end',
+                      }}>
+                      <Text
+                        style={{
+                          color: 'black',
+                          fontSize: 13,
+                          fontWeight: '500',
+                        }}>
+                        D{' '}
+                        {Math.round(item.result)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        원{' '}
+                      </Text>
+                      <Text
+                        style={{
+                          color: 'black',
+                          fontSize: 13,
+                          fontWeight: '500',
+                        }}>
+                        N{' '}
+                        {Math.round(item.notDrinkResult)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        원{' '}
+                      </Text>
+                    </View>
+                  </View>
+                </Pressable>
+              ))}
+            </View>
+          )}
+        </ScrollView>
+      </View>
+    </View>
+  );
+}
+
+// markedDates={{
+//     '2023-12-26': {selected: true},
+//     '2023-12-27': {marked: true},
+//   }}

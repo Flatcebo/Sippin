@@ -1,22 +1,40 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {NavigationProp} from '../types/RootStackProps';
 import BackVisible from './BackVisible';
-import {HomeButton} from './IconButtons';
+import {
+  CheckButton,
+  CloseButton,
+  FoodButton,
+  HomeButton,
+  CustomerServiceButton,
+} from './IconButtons';
 
 interface CustomHeaderProps {
   headerFooterContents?: React.ReactNode;
   title?: string;
   backVisible?: boolean;
   homeButton?: boolean;
+  foodButton?: boolean;
+  closeButton?: boolean;
+  customerServiceButton?: boolean;
+  checkButton?: boolean;
+  onPressCheck?: () => void;
 }
 const CustomHeader = ({
   headerFooterContents,
   backVisible,
   title,
   homeButton,
+  foodButton,
+  closeButton,
+  customerServiceButton,
+  checkButton,
+  onPressCheck,
 }: CustomHeaderProps) => {
+  const navigation = useNavigation<NavigationProp>();
   return (
     <>
       <SafeAreaView
@@ -30,7 +48,6 @@ const CustomHeader = ({
               height: 50,
               backgroundColor: 'white',
               alignItems: 'center',
-              // borderWidth: 1,
               flexDirection: 'row',
             },
           ]}>
@@ -61,11 +78,26 @@ const CustomHeader = ({
           </Text>
           <View
             style={{
-              justifyContent: 'flex-end',
-              alignItems: 'flex-end',
+              justifyContent: 'space-between',
+              alignItems: 'center',
               width: '18%',
+              flexDirection: 'row',
+              // rowGap: 10,
+              // borderWidth: 1,
             }}>
-            {homeButton && <HomeButton />}
+            <View>{customerServiceButton && <CustomerServiceButton />}</View>
+            <View>
+              {foodButton && <FoodButton />}
+              {homeButton && <HomeButton />}
+              {checkButton && (
+                <CheckButton
+                  onPress={() => {
+                    navigation.push('ReserveDate', {});
+                  }}
+                />
+              )}
+              {closeButton && <CloseButton />}
+            </View>
           </View>
           {/* {createChat && (
             <CreateChatButton

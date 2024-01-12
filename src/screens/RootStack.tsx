@@ -11,7 +11,6 @@ import MainTab from '../screens/MainTab';
 import SearchScreen from './SearchScreen';
 import SearchBar from '../components/SearchBar';
 import {Platform, Pressable, StatusBar, Text, View} from 'react-native';
-import InfoReserveScreen from './InfoReserveScreen';
 import ShoppingBasketScreen from './ShoppingBasketScreen';
 import MenuScreen from './MenuScreen';
 import MyAroundScreen from './MyAroundScreen';
@@ -32,6 +31,9 @@ import CustomHeader from '../components/CustomHeader';
 import CategoryScreen from './CategoryScreen';
 import ByRegionContentsScreen from './ByRegionContentsScreen';
 import CalendarTestScreen from './CalendarTestScreen';
+import SelectFriendScreen from './SelectFriendScreen';
+import ShopListScreen from './ShopListScreen';
+import ReserveInfoScreen from './ReserveInfoScreen';
 
 interface Props {
   options: NativeStackNavigationOptions;
@@ -49,6 +51,7 @@ export default function RootStack() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
 
   const navigation = useNavigation<RootStackNavigationProp>();
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -57,14 +60,22 @@ export default function RootStack() {
         // headerTitleStyle: {fontSize: 18, fontWeight: 'bold'},
         header: ({options}: any) => {
           const title = options?.title || '';
-          const backVisible = options?.backVisible !== false;
-          const homeButton = options?.homeButton !== false;
+          const backVisible = options?.backVisible;
+          const homeButton = options?.homeButton;
+          const foodButton = options?.foodButton;
+          const closeButton = options?.closeButton;
+          const customerServiceButton = options?.customerServiceButton;
+          const checkButton = options?.checkButton;
 
           return (
             <CustomHeader
               title={title}
               backVisible={backVisible}
               homeButton={homeButton}
+              foodButton={foodButton}
+              closeButton={closeButton}
+              customerServiceButton={customerServiceButton}
+              checkButton={checkButton}
             />
           );
         },
@@ -92,9 +103,13 @@ export default function RootStack() {
         }}
       />
       <Stack.Screen
-        name="InfoReserve"
-        component={InfoReserveScreen}
-        options={{title: '예약내역'}}
+        name="ReserveInfo"
+        component={ReserveInfoScreen}
+        options={{
+          title: '예약내역',
+          backVisible: true,
+          homeButton: false,
+        }}
       />
       <Stack.Screen
         name="Category"
@@ -123,6 +138,8 @@ export default function RootStack() {
         options={{
           title: '주문하기',
           headerStyle: {backgroundColor: 'white'},
+          backVisible: true,
+
           headerRight: () => (
             <Pressable
               onPress={() => {
@@ -130,33 +147,24 @@ export default function RootStack() {
               }}>
               <IconFeather name="shopping-cart" size={20} color="black" />
             </Pressable>
-            // <View>
-            //   <OrderModal
-            //     onRequestClose={() => {
-            //       setModalVisible(!modalVisible);
-            //     }}
-            //     visible={modalVisible}
-            //   />
-            //   <Pressable
-            //     onPress={() => {
-            //       setModalVisible(true);
-            //     }}>
-            //     <IconEntypo name="menu" size={26} color="black" />
-            //   </Pressable>
-            // </View>
           ),
         }}
       />
       <Stack.Screen
         name="MyAround"
         component={MyAroundScreen}
-        options={{title: '내 주변'}}
+        options={{
+          title: '내 주변',
+          backVisible: true,
+        }}
       />
       <Stack.Screen
         name="OftenPlace"
         component={OftenPlaceScreen}
         options={{
+          headerShown: true,
           title: '자주가는 곳',
+          backVisible: true,
         }}
       />
       <Stack.Screen
@@ -165,11 +173,8 @@ export default function RootStack() {
         options={{
           title: '업체정보',
           animation: 'simple_push',
-          // backVisible: true,
-          // homeButton: true,
-
-          // header: () => <CustomHeader backVisible={false} />,
-          // headerTitle: 'hihi',
+          backVisible: true,
+          homeButton: true,
         }}
       />
       <Stack.Screen
@@ -177,19 +182,8 @@ export default function RootStack() {
         component={ReserveContentScreen}
         options={{
           title: '예약하기',
-          // headerShadowVisible: false,
-          // headerRight: () => (
-          //   <>
-          //     <View>
-          //       <ReserveTableButton />
-          //     </View>
-          //     <View>
-          //       <ReserveDateButton />
-          //     </View>
-          //   </>
-          // ),
-
-          // headerTransparent: true,
+          backVisible: true,
+          foodButton: true,
         }}
       />
       <Stack.Screen
@@ -197,18 +191,8 @@ export default function RootStack() {
         component={ReserveTableScreen}
         options={{
           title: '테이블 선택',
-          // headerLeft: () => (
-          //   <CloseButton
-          //     onPress={() => {
-          //       navigation.goBack();
-          //     }}
-          //   />
-          // ),
-          // headerBackVisible: false,
           headerTitleAlign: 'center',
-
-          // presentation: '',
-          // contentStyle: {backgroundColor: '#0000003e'},
+          backVisible: true,
         }}
       />
       <Stack.Screen
@@ -216,33 +200,23 @@ export default function RootStack() {
         component={ReserveDateScreen}
         options={{
           title: '예약시간',
-          homeButton: false,
+          backVisible: true,
           animation: 'slide_from_bottom',
-          // headerShown:false
-          // headerLeft: () => (
-          //   <CloseButton
-          //     onPress={() => {
-          //       navigation.goBack();
-          //     }}
-          //   />
-          // ),
-          // headerShown: false,
-          // headerBackVisible: false,
-          // headerTitleAlign: 'center',
         }}
       />
       <Stack.Screen
         name="ByRegionContents"
         component={ByRegionContentsScreen}
-        options={{
-          headerShown: false,
-          backVisible: false,
-        }}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="Menu"
         component={MenuScreen}
-        options={{headerShown: true, title: '메뉴'}}
+        options={{
+          headerShown: true,
+          title: '메뉴',
+          closeButton: true,
+        }}
       />
       <Stack.Screen
         name="ReserveSuccess"
@@ -250,15 +224,8 @@ export default function RootStack() {
         options={{
           headerShown: true,
           title: '',
-          headerBackVisible: true,
-          headerRight: () => (
-            <Pressable
-              onPress={() => {
-                navigation.navigate('CustomerService', {});
-              }}>
-              <IconAntDesign name="customerservice" size={24} />
-            </Pressable>
-          ),
+          closeButton: true,
+          customerServiceButton: true,
         }}
       />
       <Stack.Screen
@@ -274,7 +241,11 @@ export default function RootStack() {
       <Stack.Screen
         name="OrderedList"
         component={OrderedListScreen}
-        options={{headerShown: true, title: '주문내역'}}
+        options={{
+          headerShown: true,
+          title: '주문내역',
+          closeButton: true,
+        }}
       />
       <Stack.Screen
         name="CalendarTest"
@@ -283,6 +254,25 @@ export default function RootStack() {
           headerShown: true,
           title: '주문내역',
           animation: 'slide_from_bottom',
+          backVisible: true,
+        }}
+      />
+      <Stack.Screen
+        name="SelectFriend"
+        component={SelectFriendScreen}
+        options={{
+          title: '친구 선택',
+          backVisible: true,
+          checkButton: true,
+        }}
+      />
+      <Stack.Screen
+        name="ShopList"
+        component={ShopListScreen}
+        options={{
+          headerShown: false,
+          title: '주문내역',
+          closeButton: true,
         }}
       />
     </Stack.Navigator>

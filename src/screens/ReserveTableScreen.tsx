@@ -37,15 +37,25 @@ export default function ReserveTableScreen({
             </Text>
             <View style={[styles.tableLayout]}>
               {/* TABLE */}
-              <Pressable style={[styles.tableView]}>
+              <Pressable
+                onPress={() => {
+                  navigation.push('ReserveContent', {title: 'T-1'});
+                }}
+                style={({pressed}) => [
+                  styles.tableView,
+                  {backgroundColor: pressed ? '#dadada75' : '#dadada'},
+                ]}>
                 <Text style={[globalStyles.fontBold14]}>T-1</Text>
                 <Text>4인</Text>
               </Pressable>
               {/*  */}
               <Pressable
-                style={[
+                style={({pressed}) => [
                   styles.tableView,
-                  {top: 120, backgroundColor: '#91f3ca'},
+                  {
+                    top: 120,
+                    backgroundColor: pressed ? '#91f3ca75' : '#91f3ca',
+                  },
                 ]}>
                 <Text style={[globalStyles.fontBold14]}>T-2</Text>
                 <Text>6인</Text>
@@ -60,7 +70,12 @@ export default function ReserveTableScreen({
           </View>
         </View>
       </ScrollView>
-      <BottomButton title="선택완료" />
+      {/* <BottomButton
+        title="선택완료"
+        onPress={() => {
+          navigation.push('ReserveContent', {title: 'aa'});
+        }}
+      /> */}
     </>
   );
 }

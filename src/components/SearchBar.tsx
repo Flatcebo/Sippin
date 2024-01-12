@@ -73,11 +73,10 @@ export default function SearchBar({
               borderRadius: 100,
               paddingVertical: Platform.OS === 'android' ? '2%' : '2.5%',
               paddingHorizontal: '12%',
-
               fontSize: 16,
-              // borderWidth: 1,
-              borderColor: '#9a9a9a',
-              elevation: 2,
+              borderWidth: 1.2,
+              borderColor: '#dadada',
+              // elevation: 2,
               marginLeft: '2%',
               color: 'black',
             }}

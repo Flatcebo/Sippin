@@ -12,6 +12,7 @@ import {globalStyles} from '../lib/GlobalStyles';
 import {
   IconAntDesign,
   IconFeather,
+  IconIonicons,
   IconMaterialCommunityIcons,
   IconMaterialIcons,
 } from '../lib/Icon';
@@ -27,6 +28,7 @@ interface FilterItemProps {
   recentSearch?: boolean;
   onPress?: ((event: GestureResponderEvent) => void) | null | undefined;
   pressedColor?: boolean;
+  content?: React.ReactNode;
 }
 export default function FilterItem({
   title,
@@ -40,6 +42,7 @@ export default function FilterItem({
   recentSearch,
   onPress,
   pressedColor,
+  content,
   ...rest
 }: FilterItemProps) {
   return (
@@ -60,8 +63,8 @@ export default function FilterItem({
           borderRadius: borderRadius ? 100 : 8,
           borderWidth: borderWidth ? 0.6 : 0,
           borderColor: '#9a9a9a',
-          margin: 4,
-          elevation: elevation ? 4 : 0,
+          // margin: 4,
+          elevation: elevation ? 0 : 0,
           marginLeft: marginLeft ? 12 : 4,
           marginRight: marginRight ? 12 : 4,
           marginHorizontal: 4,
@@ -70,6 +73,7 @@ export default function FilterItem({
         },
         pressableStyle,
       ]}>
+      {content}
       {recentSearch ? (
         <>
           <Text
@@ -86,7 +90,7 @@ export default function FilterItem({
         </>
       ) : (
         <>
-          <Text style={[globalStyles.font14, style, {paddingHorizontal: 16}]}>
+          <Text style={[globalStyles.font14, style, {paddingHorizontal: 0}]}>
             {title}
           </Text>
         </>

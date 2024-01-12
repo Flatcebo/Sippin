@@ -1,3 +1,4 @@
+import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {
   Pressable,
@@ -62,7 +63,7 @@ export function ReserveDateButton({title}: ReserveDateButtonProps) {
   return (
     <Pressable
       onPress={() => {
-        navigation.push('ReserveDate');
+        navigation.push('ReserveDate', {});
       }}
       style={({pressed}) => [
         {
@@ -119,8 +120,12 @@ interface CloseButtonProps {
 }
 
 export function CloseButton({onPress}: CloseButtonProps) {
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
-    <Pressable onPress={onPress}>
+    <Pressable
+      onPress={() => {
+        navigation.goBack();
+      }}>
       <IconMaterialCommunityIcons name="close" size={26} />
     </Pressable>
   );
@@ -148,8 +153,12 @@ interface FoodButtonProps {
 }
 
 export function FoodButton({onPress}: FoodButtonProps) {
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
-    <Pressable onPress={onPress}>
+    <Pressable
+      onPress={() => {
+        navigation.push('Menu', {title: ''});
+      }}>
       <IconMaterialCommunityIcons name="food-outline" size={24} />
     </Pressable>
   );
@@ -192,6 +201,30 @@ export function MinusButton({style, onPress, hitSlop}: MinusButtonProps) {
         color="black"
         style={{fontWeight: 'bold'}}
       />
+    </Pressable>
+  );
+}
+
+export function CustomerServiceButton() {
+  const navigation = useNavigation<RootStackNavigationProp>();
+  return (
+    <Pressable
+      onPress={() => {
+        navigation.navigate('CustomerService', {});
+      }}>
+      <IconAntDesign name="customerservice" size={24} />
+    </Pressable>
+  );
+}
+
+interface CheckButtonProps {
+  onPress?: () => void;
+}
+
+export function CheckButton({onPress}: CheckButtonProps) {
+  return (
+    <Pressable onPress={onPress} hitSlop={10}>
+      <Text>확인</Text>
     </Pressable>
   );
 }

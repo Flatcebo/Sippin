@@ -118,7 +118,8 @@ HeaderProps) {
             // animatedStyle,
             {
               height: headerHeight,
-              backgroundColor: 'white',
+
+              // backgroundColor: 'white',
               // position: 'absolute',
               // top: 10,
               // zIndex: 10,

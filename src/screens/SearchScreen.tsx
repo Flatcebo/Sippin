@@ -33,10 +33,22 @@ export default function SearchScreen() {
               style={{
                 backgroundColor: 'white',
               }}>
-              <PressableBottomWidthItem title="ScrollView" />
-              <PressableBottomWidthItem title="남악" />
-              <PressableBottomWidthItem title="ScrollView" />
-              <PressableBottomWidthItem title="ScrollView" />
+              <PressableBottomWidthItem
+                title="ScrollView"
+                iconClose
+                iconClock
+              />
+              <PressableBottomWidthItem title="남악" iconClose iconClock />
+              <PressableBottomWidthItem
+                title="ScrollView"
+                iconClose
+                iconClock
+              />
+              <PressableBottomWidthItem
+                title="ScrollView"
+                iconClose
+                iconClock
+              />
             </View>
           </View>
           <View

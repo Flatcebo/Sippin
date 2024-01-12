@@ -8,6 +8,7 @@ import {RootStackNavigationProp} from './RootStackProps';
 export type MainTabParamList = {
   Home: undefined;
   Order: undefined;
+  My: undefined;
 };
 
 export type MainTabNavigationScreenParams =

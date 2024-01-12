@@ -63,6 +63,8 @@ export default function CategoryScreen() {
           backgroundColor: 'white',
           //   height: '30%',
           // position: 'absolute',
+          borderBottomWidth: 0.4,
+          borderColor: '#eaeaea',
         }}>
         <FilterItem title="최근 검색어" marginLeft recentSearch borderRadius />
         <FilterItem title="평택" recentSearch borderRadius />

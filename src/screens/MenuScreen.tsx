@@ -67,7 +67,7 @@ export default function MenuScreen({route, navigation}: MenuScreenProp) {
         <ImageCard
           uri={menuItem.imageUri}
           height={scale(150)}
-          imageStyle={{width: '100%'}}
+          imageStyle={{width: '100%', borderRadius: 10}}
           layoutStyle={{
             alignItems: 'center',
             rowGap: 4,
@@ -87,7 +87,7 @@ export default function MenuScreen({route, navigation}: MenuScreenProp) {
                 }}>
                 {menuItem.name}
               </Text>
-              <Text
+              {/* <Text
                 style={{
                   color: '#5a5a5a',
                   fontSize: 12,
@@ -97,7 +97,7 @@ export default function MenuScreen({route, navigation}: MenuScreenProp) {
                   textAlign: 'center',
                 }}>
                 {menuItem.desc}
-              </Text>
+              </Text> */}
               <Text
                 style={{
                   color: 'black',

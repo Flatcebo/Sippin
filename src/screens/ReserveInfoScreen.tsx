@@ -5,7 +5,7 @@ import {globalStyles} from '../lib/GlobalStyles';
 import {keyExtractor} from '../lib/keyExtractor';
 import {format} from 'date-fns';
 
-export default function InfoReserveScreen({navigation}: any) {
+export default function ReserveInfoScreen({navigation}: any) {
   const reserveData = [
     {
       id: 0,

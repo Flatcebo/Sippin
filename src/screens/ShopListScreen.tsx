@@ -5,8 +5,8 @@ import heartListData from '../lib/heartListData';
 import {scale} from '../utils/scaling';
 
 export default function ShopListScreen({route, navigation}: any) {
-  const {id, state, city, liquorType} = route.params;
-  console.log(city);
+  // const {id, state, city, liquorType} = route.params;
+  // console.log(city);
 
   const [scrollY] = useState(new Animated.Value(0));
 

@@ -13,8 +13,9 @@ export type RootStackParamList = {
   MainTab: MainTabNavigationScreenParams | undefined;
   Home: undefined;
   Order: undefined;
+  My: undefined;
   Search: undefined;
-  InfoReserve: undefined;
+  ReserveInfo: undefined;
   Category: undefined;
   ShoppingBasket: undefined;
   AdditionalOrder: undefined;
@@ -31,6 +32,8 @@ export type RootStackParamList = {
   CompletedOrder: undefined;
   OrderedList: undefined;
   CalendarTest: undefined;
+  SelectFriend: undefined;
+  ShopList: undefined;
 };
 
 export type RootStackNavigationProp =
@@ -64,6 +67,7 @@ type ScreenProp<T extends keyof RootStackParamList> = {
 
 export type HomeTabProp = ScreenProp<'Home'>;
 export type OrderTabProp = ScreenProp<'Order'>;
+export type MyTabProp = ScreenProp<'My'>;
 
 export type CategoryScreenProp = ScreenProp<'Category'>;
 export type ContentScreenProp = ScreenProp<'Content'>;
@@ -72,4 +76,7 @@ export type ByRegionContentsScreenProp = ScreenProp<'ByRegionContents'>;
 export type MenuScreenProp = ScreenProp<'Menu'>;
 export type ReserveContentScreenProp = ScreenProp<'ReserveContent'>;
 export type ReserveTableScreenProp = ScreenProp<'ReserveTable'>;
+export type ReserveDateScreenProp = ScreenProp<'ReserveDate'>;
 export type CompletedOrderScreenProp = ScreenProp<'CompletedOrder'>;
+export type ReserveSuccessScreenProp = ScreenProp<'ReserveSuccess'>;
+export type OftenPlaceScreenProp = ScreenProp<'OftenPlace'>;

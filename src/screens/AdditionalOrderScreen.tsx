@@ -14,22 +14,24 @@ export default function AdditionalOrderScreen({route}: any) {
         key={menuItem.id}
         style={{
           width: '48%',
-          borderWidth: 0.4,
+          // borderWidth: 0.4,
           // borderBottomWidth: 0.4,
           borderColor: '#9a9a9a',
           margin: '1%',
-          borderRadius: 4,
+          // borderRadius: 4,
           // marginBottom: '1%',
           // marginHorizontal: '3%',
         }}>
         <ImageCard
           uri={menuItem.imageUri}
           height={scale(150)}
-          imageStyle={{width: '99%'}}
+          imageStyle={{width: '100%', borderRadius: 10}}
           layoutStyle={{
             alignItems: 'center',
             rowGap: 4,
             flex: 1,
+            marginBottom: '3%',
+
             // borderWidth: 1,
           }}
           inline={
@@ -43,7 +45,7 @@ export default function AdditionalOrderScreen({route}: any) {
                 }}>
                 {menuItem.name}
               </Text>
-              <Text
+              {/* <Text
                 style={{
                   color: '#5a5a5a',
                   fontSize: 12,
@@ -53,7 +55,7 @@ export default function AdditionalOrderScreen({route}: any) {
                   textAlign: 'center',
                 }}>
                 {menuItem.desc}
-              </Text>
+              </Text> */}
               <Text
                 style={{
                   color: 'black',

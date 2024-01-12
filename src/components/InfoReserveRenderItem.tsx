@@ -157,11 +157,13 @@ export const InfoReserveRenderItem = ({item}: any) => {
                   marginBottom: '1%',
                 },
               ]}>
-              <Text style={[globalStyles.fontBold16, {color: '#3a3a3a'}]}>
+              <Text
+                style={[{color: '#3a3a3a', fontWeight: 'bold', fontSize: 16}]}>
                 {item.title}
               </Text>
 
-              <Text style={[globalStyles.fontBold16, {color: '#3a3a3a'}]}>
+              <Text
+                style={[{color: '#3a3a3a', fontWeight: 'bold', fontSize: 16}]}>
                 No.{item.tableNumber} {formattedReservedAtHH} ~ {''}
                 {formattedCheckOutedAt}
               </Text>
