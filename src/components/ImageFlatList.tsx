@@ -20,9 +20,15 @@ export default function ImageFlatList(props: any) {
     [homeBannerListData],
   );
 
-  const renderItem = useCallback(
-    ({item}: any) => (
-      <View key={item.key} style={styles.renderItemLayoutView}>
+  const renderItem = useCallback(({item}: any) => {
+    // const totalPageNumber = item.reduce(
+    //   (acc: any, pageItem: any) => acc + pageItem.id,
+    //   0,
+    // );
+    // console.log(totalPageNumber);
+    // console.log(new Array(item.id).reduce((acc, item) => acc.length));
+    return (
+      <View key={item.id} style={styles.renderItemLayoutView}>
         <Image
           source={{
             uri: item.imageUri,
@@ -31,15 +37,19 @@ export default function ImageFlatList(props: any) {
           }}
           resizeMode="cover"
         />
+        <View style={[styles.pageNumberView]}>
+          <Text style={{color: 'white', fontSize: 11}}>
+            {item.id} / {item.length || '10'}
+          </Text>
+        </View>
 
         <View style={styles.renderItemTextView}>
           {/* <Text style={styles.renderItemTitleText}>{item.title}</Text> */}
           <Text style={styles.renderItemDescText}>{item.description}</Text>
         </View>
       </View>
-    ),
-    [],
-  );
+    );
+  }, []);
   return (
     <FlatList
       ref={flatListRef}
@@ -81,5 +91,17 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     width: verticalScale(250),
     color: 'white',
+  },
+  pageNumberView: {
+    position: 'absolute',
+    width: 50,
+    zIndex: 100,
+    right: -0,
+    top: -0,
+    backgroundColor: '#00000050',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomLeftRadius: 4,
+    paddingVertical: 2,
   },
 });

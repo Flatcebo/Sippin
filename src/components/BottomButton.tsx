@@ -1,6 +1,6 @@
 import React from 'react';
 import {Pressable, Text} from 'react-native';
-import {globalStyles} from '../lib/GlobalStyles';
+import {globalStyles, SojuColor} from '../lib/GlobalStyles';
 
 interface BottomButtonProps {
   title?: string;
@@ -19,13 +19,15 @@ export default function BottomButton({
       style={{
         position: 'absolute',
         bottom: 0,
-        backgroundColor: '#b5cf8c',
+        backgroundColor: SojuColor,
         width: '100%',
         height: 60,
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text style={[globalStyles.font16]}>{title}</Text>
+      <Text style={[globalStyles.font16, {color: 'white'}]}>{title}</Text>
     </Pressable>
   );
 }
+
+// '#b5cf8c'

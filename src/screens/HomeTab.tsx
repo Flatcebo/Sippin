@@ -3,6 +3,7 @@ import {
   Button,
   FlatList,
   Image,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -14,59 +15,50 @@ import LinearGradient from 'react-native-linear-gradient';
 import {DefaultTheme} from '@react-navigation/native';
 import PressableItem from '../components/PressableItem';
 import {HomeTabProp} from '../types/RootStackProps';
-export default function HomeTab({navigation}: HomeTabProp) {
-  const homeData = [
-    {
-      id: 0,
-      title: '예약하기',
-      desc: '원하는 술집, 예약 시작해봐요!',
-      navigate: 'Category',
-    },
-    {
-      id: 1,
-      title: '준비중(대리운전)',
-      // desc: '테이블오더 추가주문, 여기서 진행해봐요!',
-      navigate: 'AdditionalOrder',
-    },
-    {
-      id: 2,
-      title: '내 주변',
-      desc: '',
-      navigate: 'MyAround',
-      // height: 50,
-    },
-    {
-      id: 3,
-      title: '자주가는 곳',
-      desc: '',
-      navigate: 'OftenPlace',
-      // height: 50,
-    },
-    {
-      id: 4,
-      title: '좋아요한 업체 / 즐겨찾기',
-      desc: '',
-      navigate: 'OftenPlace',
-      // height: 50,
-    },
-  ];
+import {useColorScheme} from 'react-native';
+import {homeData} from '../lib/homeData';
+import {scale} from '../utils/scaling';
 
-  const reserveData = [
-    {
-      id: 0,
-      title: '',
-      addr: '',
-      phoneNumber: '',
-      name: '',
+const HomeTab = ({navigation}: HomeTabProp) => {
+  const colorScheme = useColorScheme();
+  // const isDarkMode = colorScheme === 'light';
+  const styles = StyleSheet.create({
+    button: {
+      width: '48%',
+      height: 120,
+      borderRadius: 6,
+      backgroundColor: 'white',
+      marginBottom: '3%',
     },
-    {
-      id: 0,
-      title: '',
-      addr: '',
-      phoneNumber: '',
-      name: '',
+    smallButton: {
+      width: '48%',
+      borderRadius: 6,
+      backgroundColor: 'white',
+      borderColor: '#9a9a9a',
+      marginBottom: '3%',
+
+      ...Platform.select({
+        ios: {
+          shadowColor: 'black',
+          shadowOpacity: 0.5,
+          shadowRadius: 5,
+          shadowOffset: {height: -1, width: 0},
+        },
+        android: {elevation: 2},
+      }),
+      // borderWidth: 2,
+      paddingVertical: '3%',
     },
-  ];
+    layout: {
+      flexWrap: 'wrap',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: '3%',
+      marginHorizontal: '5%',
+
+      // borderWidth: 1,
+    },
+  });
 
   return (
     <>
@@ -86,6 +78,7 @@ export default function HomeTab({navigation}: HomeTabProp) {
               DefaultTheme.colors.background,
             ]}
             style={{flex: 1}}>
+            {/* <View style={{height: scale(30)}} /> */}
             <View style={[styles.layout]}>
               <Pressable
                 onPress={() => {
@@ -96,20 +89,20 @@ export default function HomeTab({navigation}: HomeTabProp) {
 
                   {
                     width: '100%',
-                    height: 160,
-                    shadowColor: 'red',
-                    elevation: 4,
+                    height: scale(160),
                     marginTop: 2,
-
-                    // borderWidth: 1,
+                    elevation: 4,
+                    borderRadius: 10,
+                    shadowOffset: {height: 1, width: 0},
+                    shadowOpacity: 0.1,
+                    shadowRadius: 6,
                   },
                 ]}>
                 <View
                   style={[
                     globalStyles.marginHorizontal5,
                     globalStyles.marginVertical5,
-
-                    // globalStyles.borderWidth1,
+                    ,
                   ]}>
                   <View
                     style={{
@@ -121,7 +114,11 @@ export default function HomeTab({navigation}: HomeTabProp) {
                       예약정보
                     </Text>
                     <Text
-                      style={[globalStyles.fontBold18, {textAlign: 'left'}]}>
+                      style={[
+                        globalStyles.fontBold18,
+                        // globalStyles.textGray,
+                        {textAlign: 'left'},
+                      ]}>
                       No.1 16:30 ~
                     </Text>
                   </View>
@@ -172,7 +169,7 @@ export default function HomeTab({navigation}: HomeTabProp) {
                       item={item}
                       button
                       desc={item.desc}
-                      shadowColor
+                      // shadowColor
                       title
                       onPress={() => {
                         navigation.push(item.navigate);
@@ -214,9 +211,27 @@ export default function HomeTab({navigation}: HomeTabProp) {
                 }
               })}
               <Button
-                title="CalendarTest"
+                title="Table"
                 onPress={() => {
-                  navigation.push('CalendarTest');
+                  navigation.push('ReserveTable', {});
+                }}
+              />
+              <Button
+                title="SignIn"
+                onPress={() => {
+                  navigation.push('SignIn');
+                }}
+              />
+              <Button
+                title="TestHeader"
+                onPress={() => {
+                  navigation.push('TestHeader');
+                }}
+              />
+              <Button
+                title="TestTimePicker"
+                onPress={() => {
+                  navigation.push('TestTimePicker');
                 }}
               />
             </View>
@@ -226,31 +241,6 @@ export default function HomeTab({navigation}: HomeTabProp) {
       {/* <ScrollView style={{height: '100%', marginTop: '3%'}}></ScrollView> */}
     </>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  button: {
-    width: '48%',
-    height: 120,
-    borderRadius: 6,
-    backgroundColor: 'white',
-    marginBottom: '3%',
-  },
-  smallButton: {
-    width: '48%',
-    borderRadius: 6,
-    backgroundColor: 'white',
-    borderColor: '#9a9a9a',
-    marginBottom: '3%',
-    elevation: 2,
-    paddingVertical: '3%',
-  },
-  layout: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: '3%',
-    marginHorizontal: '5%',
-    // borderWidth: 1,
-  },
-});
+export default HomeTab;

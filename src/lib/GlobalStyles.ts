@@ -110,6 +110,17 @@ export const globalStyles = StyleSheet.create({
   textGray: {
     color: '#9a9a9a',
   },
+  marginTop3: {
+    marginTop: '3%',
+  },
+  marginTop5: {
+    marginTop: '5%',
+  },
+  marginTop7: {
+    marginTop: '7%',
+  },
 });
 
 export const SignatureColor = '#571d1d';
+export const SojuColor = '#34a014';
+// '#248905cd'

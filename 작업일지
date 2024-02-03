@@ -35,3 +35,9 @@
 1 11 / SelectFriendScreen은 Collapsible Header로 검색창 띄우기 / ByRegionContentsScreen에 하트 클릭시 좋아요 업체로 분리
 
 1 12 / ReserveSuccessScreen에서는 현재 진행중인 예약은 수정가능하게 수정버튼 보여주기 (예약시간 지나면 수정버튼도 사라짐) / 지역별 스크린의 필터바 디자인 생각해보기
+
+1 14 / 헤더에 회원가입 절차 몇번째인지 노출해주기
+
+1 15 / 이메일 => 비밀번호 => 회원정보 입력 다음에 & 완료
+
+1 29 / ContentScren의 Image item number 작업해야함

@@ -10,6 +10,7 @@ import {
   TextStyle,
 } from 'react-native';
 import {globalStyles} from '../lib/GlobalStyles';
+import {scale, verticalScale} from '../utils/scaling';
 
 export type PressableItemProps = {
   item: {id: number; title: string; desc: string};
@@ -35,7 +36,9 @@ export default function PressableItem({
       onPress={onPress}
       style={[
         button ? styles.button : styles.smallButton,
-        {shadowColor: shadowColor ? 'blue' : undefined},
+        {
+          shadowColor: shadowColor ? 'blue' : undefined,
+        },
       ]}>
       <View
         style={[globalStyles.marginHorizontal7, globalStyles.marginVertical7]}>
@@ -63,33 +66,29 @@ export default function PressableItem({
 const styles = StyleSheet.create({
   button: {
     width: '48%',
-    height: 120,
-    borderRadius: 6,
+    height: scale(120),
+    borderRadius: 10,
     backgroundColor: 'white',
-    // borderWidth: 0.6,
+    // borderWidth: 2.6,
     borderColor: '#9a9a9a',
     marginBottom: '3%',
-    elevation: 4,
-    // shadowColor: 'red',
-    // shadowOffset: {width: 0, height: 2},
-    // shadowOpacity: ,
-    // shadowRadius: 2,
-    // justifyContent: 'center',
+    elevation: 2,
+    shadowOffset: {height: 4, width: 0},
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   smallButton: {
     width: '48%',
     // height: 120,
-    borderRadius: 6,
+    borderRadius: 10,
     backgroundColor: 'white',
     // borderWidth: 0.6,
     borderColor: '#9a9a9a',
     marginBottom: '3%',
     elevation: 2,
     paddingVertical: '3%',
-    // shadowColor: '#000',
-    // shadowOffset: {width: 0, height: 2},
-    // shadowOpacity: 0.2,
-    // shadowRadius: 2,
-    // justifyContent: 'center',
+    shadowOffset: {height: 4, width: 0},
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
 });

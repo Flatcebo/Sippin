@@ -7,6 +7,8 @@ import SearchBar from '../components/SearchBar';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationProp} from '../types/RootStackProps';
 import MyTab from './MyTab';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {View} from 'react-native';
 export default function MainTab() {
   const Tab = createBottomTabNavigator<MainTabParamList>();
   const navigation = useNavigation<NavigationProp>();

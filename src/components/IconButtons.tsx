@@ -73,7 +73,7 @@ export function ReserveDateButton({title}: ReserveDateButtonProps) {
           width: 120,
           // borderRadius: 10,
           paddingVertical: '5%',
-          borderLeftWidth: 1.4,
+          // borderLeftWidth: 1.4,
           // paddingHorizontal: '4%',
           // marginLeft: 16,
           // borderRadius: 100,
@@ -225,6 +225,18 @@ export function CheckButton({onPress}: CheckButtonProps) {
   return (
     <Pressable onPress={onPress} hitSlop={10}>
       <Text>확인</Text>
+    </Pressable>
+  );
+}
+
+export function ShoppingBasketButton() {
+  const navigation = useNavigation<RootStackNavigationProp>();
+  return (
+    <Pressable
+      onPress={() => {
+        navigation.push('ShoppingBasket');
+      }}>
+      <IconFeather name="shopping-cart" size={20} color="black" />
     </Pressable>
   );
 }

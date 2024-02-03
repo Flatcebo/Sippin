@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, Pressable, Text, View} from 'react-native';
 import {
   IconFeather,
   IconOcticons,
   IconMaterialCommunityIcons,
+  IconIonicons,
+  IconMaterialIcons,
 } from '../lib/Icon';
 import {globalStyles} from '../lib/GlobalStyles';
 import {formatNumber} from '../utils/format';
 import {scale} from '../utils/scaling';
+import {StyleSheet} from 'react-native';
 
 interface ContentListItemProp {
   item?: any;
@@ -20,134 +23,69 @@ const ContentListItem = ({
   onPressPushContents,
   hits,
 }: ContentListItemProp) => {
+  const [star, setStar] = useState(false);
+  const handleStar = () => {
+    setStar(!star);
+  };
   return (
     <>
       <Pressable
         style={({pressed}) => [
+          styles.container,
           {
-            // width: '100%',
-            // height: Platform.OS === 'android' ? scale(300) : scale(300),
             backgroundColor: pressed ? '#eaeaea' : 'white',
-            // marginTop: '3%',
-            marginBottom: '3%',
-            marginHorizontal: '3%',
-            // borderWidth: 0.4,
-            borderColor: '#9a9a9a',
-            borderRadius: 10,
-            // borderTopLeftRadius: 10,
-            // borderTopRightRadius: 10,
-            elevation: 4,
           },
         ]}
         onPress={onPressPushContents}
         key={item.id}>
         <View style={{}}>
-          <Pressable
-            style={{
-              position: 'absolute',
-              zIndex: 100,
-              right: -0,
-              top: -0,
-              backgroundColor: '#00000040',
-              padding: '1%',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderTopRightRadius: 10,
-              borderBottomLeftRadius: 10,
-            }}>
-            <IconFeather
-              name="star"
-              size={28}
-              color="#eaeaea"
-
-              // style={{backgroundColor: 'white', borderRadius: 10}}
-            />
+          <Pressable onPress={handleStar} style={[styles.starButton]}>
+            {star ? (
+              <IconMaterialIcons name="star" size={28} color="yellow" />
+            ) : (
+              <IconMaterialIcons
+                name="star-outline"
+                size={28}
+                color="#eaeaea"
+              />
+            )}
           </Pressable>
           <Image
             source={{uri: item.imageUri}}
-            height={scale(180)}
+            height={scale(160)}
             resizeMode="cover"
             style={{borderTopLeftRadius: 10, borderTopRightRadius: 10}}
           />
           {hits && (
-            <View
-              style={{
-                position: 'absolute',
-                zIndex: 100,
-                right: -0,
-                top: 158,
-                backgroundColor: '#00000060',
-                padding: '1%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderTopLeftRadius: 10,
-
-                paddingHorizontal: '3%',
-              }}>
+            <View style={[styles.hitsView]}>
               <Text style={{color: '#eaeaea'}}>총 방문횟수 : 14</Text>
             </View>
           )}
 
-          <View
-            style={[
-              {
-                marginHorizontal: '3%',
-                flexDirection: 'row',
-              },
-            ]}>
-            <View
-              style={{
-                flex: 1,
-                //   borderWidth: 1,
-                width: '10%',
-                rowGap: 2,
-                marginVertical: '3%',
+          <View style={[styles.infoContainer]}>
+            <Text style={[styles.categoryText]}>{item.category}</Text>
+            <Text style={[styles.titleText]}>{item.title}</Text>
+            <Pressable
+              style={[styles.addressView]}
+              onPress={() => {
+                // navigation.push('MapView');
               }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  // alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}>
-                <Text
-                  style={{
-                    color: 'black',
-                    fontSize: 18,
-                    fontWeight: 'bold',
-                  }}>
-                  {item.title}
-                </Text>
-                <Text style={[globalStyles.font14]}>{item.category}</Text>
-              </View>
-              <Text style={[globalStyles.font14, {height: 40}]}>
-                {item.address}
-              </Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'flex-end',
-                  justifyContent: 'space-between',
-                }}>
-                <View style={{flexDirection: 'row', columnGap: 8}}>
-                  <Pressable>
-                    <IconOcticons name="heart" size={20} color="black" />
-                  </Pressable>
-                </View>
+              <IconIonicons name="location" size={18} color={'#9a9a9a'} />
+              <Text style={[styles.addressText]}>{item.address}</Text>
+              {/* <IconMaterialIcons
+                name="keyboard-arrow-right"
+                size={20}
+                color={'#9a9a9a'}
+              /> */}
+            </Pressable>
 
-                <View>
-                  <Text style={[globalStyles.font14]}>
-                    <IconOcticons name="heart" size={16} color="red" />
-                    {formatNumber(item.heart)}
-                  </Text>
-                  <Text style={[globalStyles.font14]}>
-                    <IconMaterialCommunityIcons
-                      name="chat-outline"
-                      size={17}
-                      color="black"
-                    />
-                    {formatNumber(item.chat)}
-                  </Text>
-                </View>
+            <View style={[{rowGap: 4}]}>
+              <View style={[{flexDirection: 'row', alignItems: 'center'}]}>
+                <IconMaterialIcons name="star" size={22} color="#feed03" />
+                <Text style={[globalStyles.fontBold14]}>5.0</Text>
+                <Text style={[{fontSize: 13}]}>({formatNumber(9999)})</Text>
+
+                {/* <IconMaterialIcons name="keyboard-arrow-right" size={20} /> */}
               </View>
             </View>
           </View>
@@ -158,3 +96,111 @@ const ContentListItem = ({
 };
 
 export default ContentListItem;
+
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: '3%',
+    borderColor: '#9a9a9a',
+    borderRadius: 10,
+    elevation: 4,
+    // marginTop: '3%',
+    shadowOffset: {height: 1, width: 0},
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    marginVertical: 6,
+    zIndex: 100,
+  },
+
+  starButton: {
+    position: 'absolute',
+    zIndex: 100,
+    right: -0,
+    top: -0,
+    backgroundColor: '#00000040',
+    padding: '1%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderTopRightRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
+  hitsView: {
+    position: 'absolute',
+    zIndex: 100,
+    right: -0,
+    top: 158,
+    backgroundColor: '#00000060',
+    padding: '1%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderTopLeftRadius: 10,
+    paddingHorizontal: '3%',
+  },
+  contentLayout: {
+    marginHorizontal: '3%',
+    flexDirection: 'row',
+  },
+  contentContainer: {
+    flex: 1,
+    width: '10%',
+    rowGap: 2,
+    marginVertical: '3%',
+  },
+  contentHeaderView: {
+    flexDirection: 'row',
+    // alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  contentFooterContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+  },
+  infoContainer: {
+    marginVertical: '2%',
+    paddingHorizontal: '3%',
+    paddingBottom: '3%',
+    rowGap: 2,
+    // alignItems: 'center',
+  },
+  categoryText: {
+    color: '#571d1d',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  titleText: {
+    fontSize: 18,
+    textAlign: 'left',
+    color: 'black',
+    fontWeight: '700',
+  },
+  addressView: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    // justifyContent: 'flex-start',
+  },
+  addressText: {
+    fontSize: 13,
+    textAlign: 'left',
+    color: '#5a5a5a',
+  },
+  reviewContainer: {
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+  },
+  menuButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '3%',
+    // height: '5%',
+    paddingVertical: '3%',
+    borderWidth: 0.4,
+    borderColor: '#9a9a9a',
+    borderRadius: 4,
+  },
+  webViewContainer: {
+    height: 140,
+    borderWidth: 2,
+    borderRadius: 4,
+    borderColor: '#eaeaea',
+  },
+});

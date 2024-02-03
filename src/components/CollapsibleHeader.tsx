@@ -32,53 +32,24 @@ interface HeaderProps {
     | null
     | undefined;
   headerFooterContents?: React.ReactNode;
-  // filterBarLocation?: string;
-  // filterBarTitle?: string;
-  backVisible?: boolean;
-  // createChat?: boolean;
-  // createChatOnPress?:
-  //   | ((event: GestureResponderEvent) => void)
-  //   | null
-  //   | undefined;
 
-  // createChatParams?: any;
-  // ShoppingBasketParams?: any;
+  backVisible?: boolean;
+
   collapsible?: boolean;
-  // shoppingBasket?: boolean;
-  // shoppingBasketOnPress?:
-  //   | ((event: GestureResponderEvent) => void)
-  //   | null
-  //   | undefined;
-  // reserveBar?: boolean;
-  // reserveBarTitle?: string;
-  // submitHeader?: boolean;
-  // height: any;
+
   homeButton?: boolean;
 }
 
 export function CollapsibleHeaderV1({
   title,
-  // height,
-  // searchBar,
+
   bottomContents,
-  // filterBar,
-  // filterBarLocation,
-  // filterBarTitle,
+
   backVisible,
   headerFooterContents,
   collapsible,
   homeButton,
-}: // createChat,
-// createChatOnPress,
-// createChatParams,
-// ShoppingBasketParams,
-// shoppingBasket,
-// shoppingBasketOnPress,
-// reserveBar,
-// reserveBarTitle,
-// submitHeader,
-
-HeaderProps) {
+}: HeaderProps) {
   // const [scrollY] = useState(new Animated.Value(0));
 
   // const handleScroll = Animated.event(

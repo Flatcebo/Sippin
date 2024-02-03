@@ -26,9 +26,11 @@ interface FilterItemProps {
   elevation?: boolean;
   borderWidth?: boolean;
   recentSearch?: boolean;
-  onPress?: ((event: GestureResponderEvent) => void) | null | undefined;
+  onPress?: () => void;
   pressedColor?: boolean;
   content?: React.ReactNode;
+  height50?: boolean;
+  onLayout?: (e: any) => void;
 }
 export default function FilterItem({
   title,
@@ -43,10 +45,13 @@ export default function FilterItem({
   onPress,
   pressedColor,
   content,
+  height50,
+  onLayout,
   ...rest
 }: FilterItemProps) {
   return (
     <Pressable
+      onLayout={onLayout}
       onPress={onPress}
       {...rest}
       style={({pressed}) => [
@@ -54,16 +59,15 @@ export default function FilterItem({
           justifyContent: 'center',
           alignItems: 'center',
           // width: 100,
-          height: 35,
+          height: height50 ? 45 : 35,
           backgroundColor: pressedColor
             ? pressed
               ? '#eaeaea'
               : 'white'
             : 'white',
           borderRadius: borderRadius ? 100 : 8,
-          borderWidth: borderWidth ? 0.6 : 0,
-          borderColor: '#9a9a9a',
-          // margin: 4,
+          borderWidth: borderWidth ? 1.6 : 0,
+          borderColor: '#cacaca',
           elevation: elevation ? 0 : 0,
           marginLeft: marginLeft ? 12 : 4,
           marginRight: marginRight ? 12 : 4,
@@ -79,8 +83,8 @@ export default function FilterItem({
           <Text
             style={[
               globalStyles.font14,
-              style,
               {paddingLeft: 16, paddingRight: 4},
+              style,
             ]}>
             {title}
           </Text>
@@ -90,7 +94,7 @@ export default function FilterItem({
         </>
       ) : (
         <>
-          <Text style={[globalStyles.font14, style, {paddingHorizontal: 0}]}>
+          <Text style={[globalStyles.font14, {paddingHorizontal: 0}, style]}>
             {title}
           </Text>
         </>

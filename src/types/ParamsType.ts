@@ -16,10 +16,14 @@ export type ContentParams = {
   backVisible?: boolean;
 };
 
-export type ReserveContentParam = {
+export type ReserveOrderListParams = {
   title: string;
 };
 
 export type MenuParams = {
   title: string;
+};
+
+export type MyInfoModifyParams = {
+  // address: string;
 };

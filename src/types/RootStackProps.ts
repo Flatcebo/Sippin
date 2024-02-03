@@ -6,7 +6,8 @@ import {
   ByRegionContentsParams,
   ContentParams,
   MenuParams,
-  ReserveContentParam,
+  MyInfoModifyParams,
+  ReserveOrderListParams,
 } from './ParamsType';
 
 export type RootStackParamList = {
@@ -15,6 +16,7 @@ export type RootStackParamList = {
   Order: undefined;
   My: undefined;
   Search: undefined;
+  SearchAddr: undefined;
   ReserveInfo: undefined;
   Category: undefined;
   ShoppingBasket: undefined;
@@ -24,16 +26,34 @@ export type RootStackParamList = {
   Content: ContentParams;
   ReserveDate: {};
   ReserveTable: {};
-  ReserveContent: ReserveContentParam;
+  ReserveOrderList: ReserveOrderListParams;
   ByRegionContents: ByRegionContentsParams;
   Menu: MenuParams;
   ReserveSuccess: {};
   CustomerService: {};
   CompletedOrder: undefined;
   OrderedList: undefined;
-  CalendarTest: undefined;
   SelectFriend: undefined;
   ShopList: undefined;
+  SignIn: undefined;
+  SignUpEmail: undefined;
+  SignUpPassword: undefined;
+  SignUpCompleted: undefined;
+  SignUpUserInfo: undefined;
+  Loading: undefined;
+  Splash: undefined;
+  AgreementTerms: undefined;
+  Terms: undefined;
+  MyProfile: undefined;
+  MyProfileModify: undefined;
+  MyInfoModify: MyInfoModifyParams;
+  MapView: undefined;
+  Review: undefined;
+  UserReview: undefined;
+  // AuthMethod:undefined
+  TestHeader: undefined;
+  TestTimePicker: undefined;
+  Test: undefined;
 };
 
 export type RootStackNavigationProp =
@@ -74,9 +94,19 @@ export type ContentScreenProp = ScreenProp<'Content'>;
 export type MyAroundScreenProp = ScreenProp<'MyAround'>;
 export type ByRegionContentsScreenProp = ScreenProp<'ByRegionContents'>;
 export type MenuScreenProp = ScreenProp<'Menu'>;
-export type ReserveContentScreenProp = ScreenProp<'ReserveContent'>;
+export type ReserveOrderListScreenProp = ScreenProp<'ReserveOrderList'>;
 export type ReserveTableScreenProp = ScreenProp<'ReserveTable'>;
 export type ReserveDateScreenProp = ScreenProp<'ReserveDate'>;
 export type CompletedOrderScreenProp = ScreenProp<'CompletedOrder'>;
 export type ReserveSuccessScreenProp = ScreenProp<'ReserveSuccess'>;
 export type OftenPlaceScreenProp = ScreenProp<'OftenPlace'>;
+export type SignInScreenProp = ScreenProp<'SignIn'>;
+export type SignUpEmailScreenProp = ScreenProp<'SignUpEmail'>;
+export type SignUpPasswordScreenProp = ScreenProp<'SignUpPassword'>;
+export type SignUpUserInfoScreenProp = ScreenProp<'SignUpUserInfo'>;
+export type AgreementTermsScreenProp = ScreenProp<'AgreementTerms'>;
+export type SearchAddrScreenProp = ScreenProp<'SearchAddr'>;
+export type MyProfileScreenProp = ScreenProp<'MyProfile'>;
+export type MyInfoModifyScreenProp = ScreenProp<'MyInfoModify'>;
+export type ReviewScreenProp = ScreenProp<'Review'>;
+export type UserReviewScreenProp = ScreenProp<'UserReview'>;

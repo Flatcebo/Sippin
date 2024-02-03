@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {Animated, Button, Text, View} from 'react-native';
 
-export default function CalendarTestScreen() {
+export default function TestHeaderScreen() {
   const [header, setHeader] = useState(false);
   const HEADER_HEIGHT = 60;
   const SCROLL_THRESHOLD = 1; // 조건에 따라 조절

@@ -20,19 +20,49 @@ export default function ReserveSuccessScreen() {
         ]}
       />
       <ContainerItem
-        title="메뉴정보"
-        items={['• 해물라면', '• 오코노미야끼']}
-        bottomContents={
-          <Text style={[globalStyles.fontBold16, {marginTop: 6}]}>
-            총 26,900원
-          </Text>
-        }
-      />
-      <ContainerItem
         title="예약자 정보"
-        items={['예약자 : 황서은', '전화번호 : 010-5554-6667']}
+        items={['예약자 : 황서은 외 4명', '예약자번호 : 010-5554-6667']}
       />
       <ContainerItem
+        title="메뉴정보"
+        // items={['• 해물라면 X 2', '• 오코노미야끼 X 1']}
+        betweenItem={[
+          {left: '• 해물라면 X 2', right: '9,900원'},
+          {left: '• 오코노미야끼 X 1', right: '19,900원'},
+        ]}
+        containerStyle={{marginBottom: 0}}
+        // bottomContents={
+        //   <Text style={[globalStyles.fontBold16, {marginTop: 6}]}>
+        //     총 26,900원
+        //   </Text>
+        // }
+      />
+
+      <View style={[styles.container]}>
+        <View
+          style={[
+            styles.marginContents,
+            {
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              paddingVertical: '5%',
+            },
+          ]}>
+          <Text style={[globalStyles.fontBold16, {textAlign: 'right'}]}>
+            총 금액
+          </Text>
+          <Text
+            style={[
+              globalStyles.font16,
+              {textAlign: 'right', color: '#333', fontWeight: 'bold'},
+            ]}>
+            29,800원
+          </Text>
+        </View>
+      </View>
+      {/* <View style={{height: 30}}></View> */}
+
+      {/* <ContainerItem
         title="결제 예상 금액"
         // items={['주문금액 : 26,900원', '할인금액 : 3000원']}
         // items={['주문금액', '26,900원']}
@@ -55,8 +85,8 @@ export default function ReserveSuccessScreen() {
             <Text style={[globalStyles.fontBold16]}>23,900원</Text>
           </View>
         }
-      />
-      <View style={[styles.container]}>
+      /> */}
+      {/* <View style={[styles.container]}>
         <View
           style={[
             styles.marginContents,
@@ -78,7 +108,7 @@ export default function ReserveSuccessScreen() {
           </Text>
         </View>
       </View>
-      <View style={{height: 30}}></View>
+      <View style={{height: 30}}></View> */}
     </ScrollView>
   );
 }

@@ -52,6 +52,7 @@ export default function CategoryScreen() {
     <>
       <ScrollView
         horizontal={true}
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
           justifyContent: 'center',
           alignItems: 'center',
@@ -69,6 +70,8 @@ export default function CategoryScreen() {
         <FilterItem title="최근 검색어" marginLeft recentSearch borderRadius />
         <FilterItem title="평택" recentSearch borderRadius />
         <FilterItem title="청주" recentSearch borderRadius />
+        <FilterItem title="광주" marginRight recentSearch borderRadius />
+        <FilterItem title="광주" marginRight recentSearch borderRadius />
         <FilterItem title="광주" marginRight recentSearch borderRadius />
       </ScrollView>
       <View

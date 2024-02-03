@@ -28,14 +28,15 @@ import CalendarModal from '../components/CalendarModal';
 import {ByRegionContentsScreenProp} from '../types/RootStackProps';
 import {format} from 'date-fns';
 import ContentListItem from '../components/ContentListItem';
+import {DateData} from 'react-native-calendars';
 const ByRegionContentsScreen = ({
   route,
   navigation,
 }: ByRegionContentsScreenProp) => {
-  const [visibleCalendar, setVisibleCalendar] = useState(false);
   const {title} = route.params;
+  const [visibleCalendar, setVisibleCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
-    format(new Date(), 'yyyy-MM-dd'),
+    format(new Date(), 'M월 dd일'),
   );
   const [markedDates, setMarkedDates] = useState<any>({});
   const markedSelectedDates = {
@@ -45,14 +46,10 @@ const ByRegionContentsScreen = ({
       marked: markedDates[selectedDate]?.marked,
     },
   };
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerShadowVisible: false,
-  //     headerTitle: 'hihi',
-  //     title: 'hihihi',
-  //   });
-  //   navigation.setParams({title: 'hihi'});
-  // }, [navigation]);
+  const onDayPressCalendar = (day: DateData) => {
+    setSelectedDate(format(new Date(day.dateString), 'M월 dd일'));
+    setVisibleCalendar(false);
+  };
 
   const renderItem = useCallback(({item}: any) => {
     const onPressPushContents = () => {
@@ -71,89 +68,79 @@ const ByRegionContentsScreen = ({
     };
 
     return (
-      <ContentListItem item={item} onPressPushContents={onPressPushContents} />
+      <>
+        <ContentListItem
+          item={item}
+          onPressPushContents={onPressPushContents}
+        />
+        {/* <View style={{height: 10}} /> */}
+      </>
     );
   }, []);
   return (
     <>
-      <CollapsibleHeaderV1
-        title="지역별"
-        backVisible
-        homeButton
-        headerFooterContents={
-          <>
-            <CalendarModal
-              visible={visibleCalendar}
-              onRequestClose={() => {
-                setVisibleCalendar(false);
-              }}
-              onPressBG={() => {
-                setVisibleCalendar(false);
-              }}
-              monthFormat="M월"
-              markedDates={markedSelectedDates}
-              onDayPress={day => {
-                setSelectedDate(day.dateString);
-                setVisibleCalendar(false);
-              }}
-              onPress={() => {}}
-            />
+      <View style={{height: '100%'}}>
+        <CalendarModal
+          visible={visibleCalendar}
+          onRequestClose={() => {
+            setVisibleCalendar(false);
+          }}
+          onPressBG={() => {
+            setVisibleCalendar(false);
+          }}
+          monthFormat="M월"
+          markedDates={markedSelectedDates}
+          onDayPress={onDayPressCalendar}
+          onPress={() => {}}
+        />
+        <View
+          style={{
+            flexDirection: 'row',
+            backgroundColor: '#ffffff',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+          }}>
+          <FilterItem
+            title={title}
+            marginLeft
+            pressableStyle={{width: '40%'}}
+            style={{fontSize: 14, fontWeight: 'normal', marginLeft: 4}}
+            onPress={() => {
+              navigation.push('Category');
+            }}
+            content={<IconIonicons name="location-outline" size={22} />}
+          />
 
-            <View
-              style={{
-                flexDirection: 'row',
-                backgroundColor: '#ffffff',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                // borderBottomWidth: 0.4,
-                // borderColor: '#9a9a9a',
-              }}>
-              <FilterItem
-                title={title}
-                marginLeft
-                pressableStyle={{width: '40%'}}
-                style={{fontSize: 14, fontWeight: 'normal', marginLeft: 4}}
-                onPress={() => {
-                  navigation.push('Category');
-                }}
-                content={<IconIonicons name="location-outline" size={22} />}
+          <FilterItem
+            title={`${selectedDate}`}
+            marginRight
+            pressableStyle={{width: '40%'}}
+            style={{fontSize: 14, fontWeight: 'normal', marginLeft: 4}}
+            onPress={() => {
+              setVisibleCalendar(true);
+            }}
+            content={
+              <IconMaterialCommunityIcons
+                name="calendar-month-outline"
+                size={22}
               />
-
-              <FilterItem
-                title="12월 30일"
-                marginRight
-                pressableStyle={{width: '40%'}}
-                style={{fontSize: 14, fontWeight: 'normal', marginLeft: 4}}
-                onPress={() => {
-                  setVisibleCalendar(true);
-                }}
-                content={
-                  <IconMaterialCommunityIcons
-                    name="calendar-month-outline"
-                    size={22}
-                    // color="#333"
-                  />
-                }
-              />
-            </View>
-          </>
-        }
-        bottomContents={
-          <>
-            <View style={{height: '92%', marginTop: '3%'}}>
-              <FlatList
-                data={heartListData}
-                renderItem={renderItem}
-                // onScroll={handleScrolls}
-                showsHorizontalScrollIndicator={false}
-                showsVerticalScrollIndicator={false}
-                scrollEventThrottle={16}
-                // style={{marginHorizontal: '3%'}}
-              />
-            </View>
-          </>
-        }
-      />
+            }
+          />
+        </View>
+        <View style={{height: '100%'}}>
+          <FlatList
+            data={heartListData}
+            renderItem={renderItem}
+            // onScroll={handleScrolls}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            scrollEventThrottle={16}
+            // style={{height: '100%', paddingBottom: 10}}
+            contentContainerStyle={{paddingBottom: 50}}
+          />
+          {/* <View style={{height: '3%'}} /> */}
+        </View>
+      </View>
     </>
   );
 };

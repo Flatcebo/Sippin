@@ -22,18 +22,18 @@ export default function MenuScreen({route, navigation}: MenuScreenProp) {
   //   setChecked(prev => !prev);
   // };
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerShadowVisible: false,
-      headerRight: () => (
-        <SubmitButton
-          onPress={() => {
-            navigation.pop();
-          }}
-        />
-      ),
-    });
-  }, [navigation]);
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerShadowVisible: false,
+  //     headerRight: () => (
+  //       <SubmitButton
+  //         onPress={() => {
+  //           navigation.pop();
+  //         }}
+  //       />
+  //     ),
+  //   });
+  // }, [navigation]);
   const [selectedButtonIndex, setSelectedButtonIndex] = useState(-1);
 
   const handlePress = (index: any) => {
@@ -48,33 +48,22 @@ export default function MenuScreen({route, navigation}: MenuScreenProp) {
         }}
         style={({pressed}) => [
           {
-            width: '48%',
-            // borderWidth: 0.4,
-            // borderBottomWidth: 0.4,
+            width: '24%',
             borderColor: '#9a9a9a',
-            margin: '1%',
-            // borderRadius: 4,
+            margin: 1,
             backgroundColor:
               menuItem.id === selectedButtonIndex ? 'red' : 'white',
-            // height: 400,
-            // zIndex: 100,
-            // marginBottom: '1%',
-            // marginHorizontal: '3%',
-            // justifyContent: 'center',
-            // alignItems: 'center',
           },
         ]}>
         <ImageCard
           uri={menuItem.imageUri}
           height={scale(150)}
-          imageStyle={{width: '100%', borderRadius: 10}}
+          imageStyle={{width: '100%', borderRadius: 4}}
           layoutStyle={{
             alignItems: 'center',
             rowGap: 4,
             flex: 1,
             marginBottom: '3%',
-
-            // borderWidth: 1,
           }}
           inline={
             <>
@@ -82,22 +71,13 @@ export default function MenuScreen({route, navigation}: MenuScreenProp) {
                 style={{
                   color: 'black',
                   fontWeight: 'bold',
-                  fontSize: 16,
+                  fontSize: 13,
                   flex: 1,
+                  height: 34,
+                  textAlign: 'center',
                 }}>
                 {menuItem.name}
               </Text>
-              {/* <Text
-                style={{
-                  color: '#5a5a5a',
-                  fontSize: 12,
-                  // borderWidth: 1,
-                  width: '100%',
-                  height: scale(50),
-                  textAlign: 'center',
-                }}>
-                {menuItem.desc}
-              </Text> */}
               <Text
                 style={{
                   color: 'black',
@@ -105,8 +85,6 @@ export default function MenuScreen({route, navigation}: MenuScreenProp) {
                   fontWeight: '500',
                   width: '100%',
                   textAlign: 'center',
-                  // marginBottom: '3%',
-                  // borderWidth: 1,
                 }}>
                 {menuItem.price}
               </Text>
@@ -114,6 +92,58 @@ export default function MenuScreen({route, navigation}: MenuScreenProp) {
           }
         />
       </Pressable>
+      // <Pressable
+      //   key={menuItem.id}
+      //   onPress={() => {
+      //     handlePress(menuItem.id);
+      //   }}
+      //   style={({pressed}) => [
+      //     {
+      //       width: '48%',
+      //       borderColor: '#9a9a9a',
+      //       margin: '1%',
+      //       backgroundColor:
+      //         menuItem.id === selectedButtonIndex ? 'red' : 'white',
+      //     },
+      //   ]}>
+      //   <ImageCard
+      //     uri={menuItem.imageUri}
+      //     height={scale(150)}
+      //     imageStyle={{width: '100%', borderRadius: 10}}
+      //     layoutStyle={{
+      //       alignItems: 'center',
+      //       rowGap: 4,
+      //       flex: 1,
+      //       marginBottom: '3%',
+      //       // borderWidth: 1,
+      //     }}
+      //     inline={
+      //       <>
+      //         <Text
+      //           style={{
+      //             color: 'black',
+      //             fontWeight: 'bold',
+      //             fontSize: 16,
+      //             flex: 1,
+      //           }}>
+      //           {menuItem.name}
+      //         </Text>
+      //         <Text
+      //           style={{
+      //             color: 'black',
+      //             fontSize: 14,
+      //             fontWeight: '500',
+      //             width: '100%',
+      //             textAlign: 'center',
+      //             // marginBottom: '3%',
+      //             // borderWidth: 1,
+      //           }}>
+      //           {menuItem.price}
+      //         </Text>
+      //       </>
+      //     }
+      //   />
+      // </Pressable>
     ));
   };
 
@@ -136,6 +166,7 @@ export default function MenuScreen({route, navigation}: MenuScreenProp) {
           borderRadius={false}
           elevation={false}
           borderWidth={false}
+
           // onPress={() => {}}
         />
         <View
@@ -179,21 +210,24 @@ export default function MenuScreen({route, navigation}: MenuScreenProp) {
             <FilterItem
               key={item.id}
               title={item.category}
+              style={{paddingHorizontal: 20}}
               pressableStyle={{
                 marginLeft: item.id === 0 ? 16 : 4, // 첫 번째 아이템에만 왼쪽 마진
                 marginRight: item.id === Menu.length - 1 ? 16 : 4, // 마지막 아이템에만 오른쪽 마진
               }}
-              borderRadius
+              // borderRadius
+              borderWidth
             />
           ))}
         </ScrollView>
       </View>
-      <View style={{backgroundColor: 'white'}}>
+      <View style={{backgroundColor: 'white', height: '100%'}}>
         <FlatList
           data={Menu}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
-          style={{marginHorizontal: '3%'}}
+          style={{marginHorizontal: '3%', marginBottom: '10%'}}
+          showsVerticalScrollIndicator={false}
           ListHeaderComponent={
             <View style={{backgroundColor: 'white'}}>
               <View
