@@ -27,3 +27,8 @@ export type MenuParams = {
 export type MyInfoModifyParams = {
   // address: string;
 };
+
+export type MapViewParams = {
+  address: string;
+  title: string;
+};

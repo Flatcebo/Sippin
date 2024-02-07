@@ -323,11 +323,11 @@ export default function OrderTab({route, navigation}: OrderTabProp) {
         <IconMaterialIcons name="arrow-drop-up" size={30} color="#3a3a3a" />
         {/* <Text style={[globalStyles.fontBold18]}>장바구니</Text> */}
       </Pressable>
-      {/* <BottomButton
+      <BottomButton
         onPress={() => {
           navigation.push('Test');
         }}
-      /> */}
+      />
     </>
   );
 }

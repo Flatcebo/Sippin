@@ -6,6 +6,7 @@ import {
   StyleProp,
   Text,
   TextStyle,
+  View,
   ViewStyle,
 } from 'react-native';
 import {globalStyles} from '../lib/GlobalStyles';
@@ -31,6 +32,9 @@ interface FilterItemProps {
   content?: React.ReactNode;
   height50?: boolean;
   onLayout?: (e: any) => void;
+  IconLocation?: boolean;
+  IconCalendar?: boolean;
+  borderRightWidth?: boolean;
 }
 export default function FilterItem({
   title,
@@ -39,7 +43,7 @@ export default function FilterItem({
   pressableStyle,
   style,
   borderRadius,
-  elevation = true,
+  elevation = false,
   borderWidth = false,
   recentSearch,
   onPress,
@@ -47,6 +51,9 @@ export default function FilterItem({
   content,
   height50,
   onLayout,
+  IconLocation,
+  IconCalendar,
+  borderRightWidth,
   ...rest
 }: FilterItemProps) {
   return (
@@ -59,7 +66,7 @@ export default function FilterItem({
           justifyContent: 'center',
           alignItems: 'center',
           // width: 100,
-          height: height50 ? 45 : 35,
+          height: height50 ? 45 : 30,
           backgroundColor: pressedColor
             ? pressed
               ? '#eaeaea'
@@ -68,16 +75,16 @@ export default function FilterItem({
           borderRadius: borderRadius ? 100 : 8,
           borderWidth: borderWidth ? 1.6 : 0,
           borderColor: '#cacaca',
-          elevation: elevation ? 0 : 0,
-          marginLeft: marginLeft ? 12 : 4,
-          marginRight: marginRight ? 12 : 4,
-          marginHorizontal: 4,
+          elevation: elevation ? 6 : 0,
+          marginLeft: marginLeft ? 12 : 0,
+          marginRight: marginRight ? 12 : 0,
+          // marginHorizontal: 4,
           marginBottom: '2%',
           flexDirection: 'row',
+          // borderWidth: 1,
         },
         pressableStyle,
       ]}>
-      {content}
       {recentSearch ? (
         <>
           <Text
@@ -93,11 +100,38 @@ export default function FilterItem({
           </Pressable>
         </>
       ) : (
-        <>
-          <Text style={[globalStyles.font14, {paddingHorizontal: 0}, style]}>
+        <View
+          style={{
+            flexDirection: 'row',
+            borderRightWidth: borderRightWidth ? 1 : 0,
+            paddingHorizontal: 16,
+            borderColor: '#cacaca',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {content}
+          {IconLocation && <IconIonicons name="location-outline" size={18} />}
+          {IconCalendar && (
+            <IconMaterialCommunityIcons
+              name="calendar-month-outline"
+              size={18}
+            />
+          )}
+
+          <Text
+            style={[
+              globalStyles.font14,
+              {
+                paddingHorizontal: 0,
+                fontSize: 13,
+                fontWeight: '700',
+                marginLeft: 4,
+              },
+              style,
+            ]}>
             {title}
           </Text>
-        </>
+        </View>
       )}
     </Pressable>
   );

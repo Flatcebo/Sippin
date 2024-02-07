@@ -52,6 +52,11 @@ export const globalStyles = StyleSheet.create({
     color: 'black',
     fontWeight: '600',
   },
+  fontBold12: {
+    fontSize: 12,
+    color: 'black',
+    fontWeight: 'bold',
+  },
   fontNormal24: {
     fontSize: 24,
     color: 'black',

@@ -18,15 +18,16 @@ export default function MainTab() {
         name="Home"
         component={HomeTab}
         options={{
-          header: () => (
-            <SearchBar
-              pressableInput
-              placeholder="무엇을 검색해볼까요?"
-              onPress={() => {
-                navigation.navigate('Search');
-              }}
-            />
-          ),
+          headerShown: false,
+          // header: () => (
+          //   <SearchBar
+          //     pressableInput
+          //     placeholder="무엇을 검색해볼까요?"
+          //     onPress={() => {
+          //       navigation.navigate('Search');
+          //     }}
+          //   />
+          // ),
         }}
       />
       <Tab.Screen

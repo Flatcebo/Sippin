@@ -65,6 +65,9 @@ import MapViewScreen from './MapViewScreen';
 import ReviewScreen from './ReviewScreen';
 import TestScreen from './TestScreen';
 import UserReviewScreen from './UserReviewScreen';
+import MapMainScreen from './MapMainScreen';
+import SearchRegionScreen from './SearchRegionScreen';
+import SearchMyAroundScreen from './SearchMyAroundScreen';
 
 interface Props {
   options: NativeStackNavigationOptions;
@@ -168,26 +171,8 @@ export default function RootStack() {
         name="Search"
         component={SearchScreen}
         options={{
-          headerShown: true,
-          header: () => (
-            // <SafeAreaView
-            //   style={{backgroundColor: 'white', height: verticalScale(100)}}>
-            <SearchBar
-              autoFocus
-              placeholder="어디로 가고 싶으신가요?"
-              backVisible
-            />
-            // </SafeAreaView>
-          ),
-          headerBackVisible: false,
-
-          // header: () => (
-          //   <SearchBar
-          //     autoFocus
-          //     placeholder="어디로 가고 싶으신가요?"
-          //     backVisible
-          //   />
-          // ),
+          headerShown: false,
+          animation: 'slide_from_bottom',
         }}
       />
       <Stack.Screen
@@ -196,6 +181,22 @@ export default function RootStack() {
         options={{
           title: '주소검색',
           headerBackVisible: true,
+        }}
+      />
+      <Stack.Screen
+        name="SearchRegion"
+        component={SearchRegionScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SearchMyAround"
+        component={SearchMyAroundScreen}
+        options={{
+          headerShown: true,
+          title: '내주변 검색',
+          animation: 'slide_from_bottom',
         }}
       />
       <Stack.Screen
@@ -212,16 +213,7 @@ export default function RootStack() {
         name="Category"
         component={CategoryScreen}
         options={{
-          header: () => (
-            <>
-              <SearchBar
-                // autoFocus
-                placeholder="어디로 가고 싶으신가요?"
-                backVisible
-              />
-              {/* <FilterBar /> */}
-            </>
-          ),
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -433,6 +425,16 @@ export default function RootStack() {
         options={{
           headerShown: true,
           title: '지도',
+          // closeButton: true,
+        }}
+      />
+      <Stack.Screen
+        name="MapMain"
+        component={MapMainScreen}
+        options={{
+          headerShown: true,
+          title: '지도',
+          animation: 'slide_from_bottom',
           // closeButton: true,
         }}
       />

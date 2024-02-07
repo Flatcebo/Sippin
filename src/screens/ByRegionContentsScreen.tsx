@@ -29,6 +29,7 @@ import {ByRegionContentsScreenProp} from '../types/RootStackProps';
 import {format} from 'date-fns';
 import ContentListItem from '../components/ContentListItem';
 import {DateData} from 'react-native-calendars';
+import {ImageBackground} from 'react-native';
 const ByRegionContentsScreen = ({
   route,
   navigation,
@@ -36,7 +37,7 @@ const ByRegionContentsScreen = ({
   const {title} = route.params;
   const [visibleCalendar, setVisibleCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
-    format(new Date(), 'M월 dd일'),
+    format(new Date(), 'M월 d일'),
   );
   const [markedDates, setMarkedDates] = useState<any>({});
   const markedSelectedDates = {
@@ -47,7 +48,7 @@ const ByRegionContentsScreen = ({
     },
   };
   const onDayPressCalendar = (day: DateData) => {
-    setSelectedDate(format(new Date(day.dateString), 'M월 dd일'));
+    setSelectedDate(format(new Date(day.dateString), 'M월 d일'));
     setVisibleCalendar(false);
   };
 
@@ -73,7 +74,6 @@ const ByRegionContentsScreen = ({
           item={item}
           onPressPushContents={onPressPushContents}
         />
-        {/* <View style={{height: 10}} /> */}
       </>
     );
   }, []);
@@ -97,48 +97,39 @@ const ByRegionContentsScreen = ({
           style={{
             flexDirection: 'row',
             backgroundColor: '#ffffff',
-            justifyContent: 'space-evenly',
             alignItems: 'center',
+            borderBottomWidth: 0.4,
+            borderColor: '#eaeaea',
           }}>
           <FilterItem
             title={title}
-            marginLeft
-            pressableStyle={{width: '40%'}}
-            style={{fontSize: 14, fontWeight: 'normal', marginLeft: 4}}
+            IconLocation
+            borderRightWidth
+            pressableStyle={{borderWidth: 0}}
+            style={{}}
             onPress={() => {
               navigation.push('Category');
             }}
-            content={<IconIonicons name="location-outline" size={22} />}
           />
 
           <FilterItem
             title={`${selectedDate}`}
-            marginRight
-            pressableStyle={{width: '40%'}}
-            style={{fontSize: 14, fontWeight: 'normal', marginLeft: 4}}
+            IconCalendar
+            pressableStyle={{}}
+            style={{}}
             onPress={() => {
               setVisibleCalendar(true);
             }}
-            content={
-              <IconMaterialCommunityIcons
-                name="calendar-month-outline"
-                size={22}
-              />
-            }
           />
         </View>
         <View style={{height: '100%'}}>
           <FlatList
             data={heartListData}
             renderItem={renderItem}
-            // onScroll={handleScrolls}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             scrollEventThrottle={16}
-            // style={{height: '100%', paddingBottom: 10}}
-            contentContainerStyle={{paddingBottom: 50}}
           />
-          {/* <View style={{height: '3%'}} /> */}
         </View>
       </View>
     </>

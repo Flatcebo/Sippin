@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Image, Pressable, Text, View} from 'react-native';
+import {Image, ImageBackground, Pressable, Text, View} from 'react-native';
 import {
   IconFeather,
   IconOcticons,
@@ -39,6 +39,12 @@ const ContentListItem = ({
         onPress={onPressPushContents}
         key={item.id}>
         <View style={{}}>
+          {/* <ImageBackground
+            source={{
+              uri: 'https://postfiles.pstatic.net/20160925_74/lovexoxo0217_1474733696748Awv7y_JPEG/image_3450045751474733680585.jpg?type=w966',
+              height: 300,
+              width: 300,
+            }}> */}
           <Pressable onPress={handleStar} style={[styles.starButton]}>
             {star ? (
               <IconMaterialIcons name="star" size={28} color="yellow" />
@@ -65,19 +71,10 @@ const ContentListItem = ({
           <View style={[styles.infoContainer]}>
             <Text style={[styles.categoryText]}>{item.category}</Text>
             <Text style={[styles.titleText]}>{item.title}</Text>
-            <Pressable
-              style={[styles.addressView]}
-              onPress={() => {
-                // navigation.push('MapView');
-              }}>
+            <View style={[styles.addressView]}>
               <IconIonicons name="location" size={18} color={'#9a9a9a'} />
               <Text style={[styles.addressText]}>{item.address}</Text>
-              {/* <IconMaterialIcons
-                name="keyboard-arrow-right"
-                size={20}
-                color={'#9a9a9a'}
-              /> */}
-            </Pressable>
+            </View>
 
             <View style={[{rowGap: 4}]}>
               <View style={[{flexDirection: 'row', alignItems: 'center'}]}>
@@ -89,6 +86,7 @@ const ContentListItem = ({
               </View>
             </View>
           </View>
+          {/* </ImageBackground> */}
         </View>
       </Pressable>
     </>
@@ -102,13 +100,13 @@ const styles = StyleSheet.create({
     marginHorizontal: '3%',
     borderColor: '#9a9a9a',
     borderRadius: 10,
-    elevation: 4,
+    elevation: 3,
     // marginTop: '3%',
     shadowOffset: {height: 1, width: 0},
     shadowOpacity: 0.3,
     shadowRadius: 4,
     marginVertical: 6,
-    zIndex: 100,
+    zIndex: 200,
   },
 
   starButton: {
@@ -176,7 +174,6 @@ const styles = StyleSheet.create({
   addressView: {
     alignItems: 'flex-start',
     flexDirection: 'row',
-    // justifyContent: 'flex-start',
   },
   addressText: {
     fontSize: 13,

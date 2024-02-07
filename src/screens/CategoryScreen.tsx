@@ -1,7 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {Appbar} from 'react-native-paper';
 import FilterItem from '../components/FilterItem';
+import SearchBar from '../components/SearchBar';
 import {BusanCity} from '../lib/Citys/BusanCity';
 import {ChungbukDo} from '../lib/Citys/ChungbukDo';
 import {ChungnamDo} from '../lib/Citys/ChungnamDo';
@@ -50,30 +52,94 @@ export default function CategoryScreen() {
   };
   return (
     <>
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          //   height:60
-          // borderWidth: 1,
-        }}
+      <Appbar.Header
         style={{
-          flexDirection: 'row',
           backgroundColor: 'white',
-          //   height: '30%',
-          // position: 'absolute',
-          borderBottomWidth: 0.4,
+          justifyContent: 'center',
+        }}>
+        <Appbar.BackAction
+          size={26}
+          style={{position: 'absolute', left: 16, zIndex: 200}}
+          onPress={() => {
+            navigation.pop();
+          }}
+        />
+        <SearchBar
+          placeholder="어디로 가고싶으신가요?"
+          pressableInput={true}
+          onPress={() => {
+            navigation.push('Search');
+          }}
+        />
+      </Appbar.Header>
+      <View
+        style={{
+          backgroundColor: 'white',
+          borderTopWidth: 0.4,
           borderColor: '#eaeaea',
         }}>
-        <FilterItem title="최근 검색어" marginLeft recentSearch borderRadius />
-        <FilterItem title="평택" recentSearch borderRadius />
-        <FilterItem title="청주" recentSearch borderRadius />
-        <FilterItem title="광주" marginRight recentSearch borderRadius />
-        <FilterItem title="광주" marginRight recentSearch borderRadius />
-        <FilterItem title="광주" marginRight recentSearch borderRadius />
-      </ScrollView>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'flex-end',
+          }}>
+          <Text
+            style={{
+              fontWeight: 'bold',
+              paddingHorizontal: '5%',
+              fontSize: 14,
+              paddingVertical: '3%',
+            }}>
+            최근 검색어
+          </Text>
+          <TouchableOpacity>
+            <Text
+              style={{
+                // fontWeight: 'bold',
+                paddingHorizontal: '5%',
+                fontSize: 11,
+                paddingVertical: '3%',
+                color: '#7a7a7a',
+              }}>
+              모두 지우기
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            columnGap: 10,
+          }}
+          style={{
+            flexDirection: 'row',
+            backgroundColor: 'white',
+            borderBottomWidth: 0.4,
+            borderColor: '#eaeaea',
+          }}>
+          <FilterItem
+            title="평택"
+            recentSearch
+            borderRadius
+            borderWidth
+            marginLeft
+          />
+
+          <FilterItem title="청주" recentSearch borderRadius borderWidth />
+          <FilterItem title="광주" recentSearch borderRadius borderWidth />
+          <FilterItem title="광주" recentSearch borderRadius borderWidth />
+          <FilterItem
+            title="광주"
+            marginRight
+            recentSearch
+            borderRadius
+            borderWidth
+          />
+        </ScrollView>
+      </View>
       <View
         style={{
           height: '92%',

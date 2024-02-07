@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {
   Button,
   FlatList,
@@ -18,14 +18,42 @@ import {HomeTabProp} from '../types/RootStackProps';
 import {useColorScheme} from 'react-native';
 import {homeData} from '../lib/homeData';
 import {scale} from '../utils/scaling';
+import BottomButton from '../components/BottomButton';
+import {Appbar} from 'react-native-paper';
+import SearchBar from '../components/SearchBar';
 
 const HomeTab = ({navigation}: HomeTabProp) => {
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     header: () => (
+  //       <Appbar.Header
+  //         style={{
+  //           backgroundColor: 'white',
+  //           justifyContent: 'center',
+  //           // animate:
+  //         }}>
+  //         {/* <Appbar.BackAction
+  //           size={22}
+  //           onPress={() => {
+  //             navigation.pop();
+  //           }}
+  //         /> */}
+  //         <SearchBar
+  //           pressableInput={true}
+  //           onPress={() => {
+  //             navigation.push('Search');
+  //           }}
+  //         />
+  //       </Appbar.Header>
+  //     ),
+  //   });
+  // }, []);
   const colorScheme = useColorScheme();
   // const isDarkMode = colorScheme === 'light';
   const styles = StyleSheet.create({
     button: {
       width: '48%',
-      height: 120,
+      // height: 120,
       borderRadius: 6,
       backgroundColor: 'white',
       marginBottom: '3%',
@@ -58,10 +86,83 @@ const HomeTab = ({navigation}: HomeTabProp) => {
 
       // borderWidth: 1,
     },
+    naviButton: {
+      paddingVertical: '3%',
+    },
   });
+  const naviData = [
+    {
+      id: 0,
+      navigate: 'ReserveTable',
+      params: {},
+      title: 'ReserveTable',
+    },
+    {
+      id: 1,
+      navigate: 'SignIn',
+      title: 'SignIn',
+    },
+    {
+      id: 2,
+      navigate: 'TestHeader',
+      title: 'TestHeader',
+    },
+    // {
+    //   id: 3,
+    //   navigate: 'TestTimePicker',
+    //   title: 'TestTimePicker',
+    // },
+    {
+      id: 4,
+      navigate: 'MapMain',
+      title: 'MapMain',
+    },
+    {
+      id: 5,
+      title: 'Test',
+      navigate: 'Test',
+    },
+    // {
+    //   id: 6,
+    //   title: 'SearchAddr',
+    //   navigate: 'SearchAddr',
+    // },
+  ];
+
+  const TestButton = () => {
+    return (
+      <>
+        {naviData.map((item: any) => (
+          <Button
+            key={item.id}
+            // style={[styles.naviButton]}
+            title={item.title}
+            onPress={() => {
+              navigation.push(item.navigate, item.params && item.params);
+            }}
+          />
+        ))}
+      </>
+    );
+  };
 
   return (
     <>
+      <Appbar.Header
+        style={{
+          backgroundColor: 'white',
+          justifyContent: 'center',
+          // animate:
+        }}>
+        <SearchBar
+          placeholder="무엇을 검색해볼까요?"
+          center
+          pressableInput={true}
+          onPress={() => {
+            navigation.push('Search');
+          }}
+        />
+      </Appbar.Header>
       <FlatList
         data={undefined}
         renderItem={undefined}
@@ -89,8 +190,8 @@ const HomeTab = ({navigation}: HomeTabProp) => {
 
                   {
                     width: '100%',
-                    height: scale(160),
-                    marginTop: 2,
+                    // height: scale(160),
+                    // marginTop: 2,
                     elevation: 4,
                     borderRadius: 10,
                     shadowOffset: {height: 1, width: 0},
@@ -101,8 +202,8 @@ const HomeTab = ({navigation}: HomeTabProp) => {
                 <View
                   style={[
                     globalStyles.marginHorizontal5,
-                    globalStyles.marginVertical5,
                     ,
+                    {borderWidth: 0, paddingVertical: '5%'},
                   ]}>
                   <View
                     style={{
@@ -137,8 +238,7 @@ const HomeTab = ({navigation}: HomeTabProp) => {
                       globalStyles.textGray,
                       // globalStyles.marginHorizontal3,
                       globalStyles.marginBottom1,
-
-                      {textAlign: 'left', height: '30%'},
+                      {textAlign: 'left', height: 40},
                     ]}>
                     전남 무안군 삼향읍 대죽서로 41 114호, 115호
                   </Text>
@@ -169,7 +269,7 @@ const HomeTab = ({navigation}: HomeTabProp) => {
                       item={item}
                       button
                       desc={item.desc}
-                      // shadowColor
+                      viewIcon
                       title
                       onPress={() => {
                         navigation.push(item.navigate);
@@ -210,35 +310,13 @@ const HomeTab = ({navigation}: HomeTabProp) => {
                   );
                 }
               })}
-              <Button
-                title="Table"
-                onPress={() => {
-                  navigation.push('ReserveTable', {});
-                }}
-              />
-              <Button
-                title="SignIn"
-                onPress={() => {
-                  navigation.push('SignIn');
-                }}
-              />
-              <Button
-                title="TestHeader"
-                onPress={() => {
-                  navigation.push('TestHeader');
-                }}
-              />
-              <Button
-                title="TestTimePicker"
-                onPress={() => {
-                  navigation.push('TestTimePicker');
-                }}
-              />
             </View>
           </LinearGradient>
         }
       />
-      {/* <ScrollView style={{height: '100%', marginTop: '3%'}}></ScrollView> */}
+      <ScrollView style={{backgroundColor: '#333', height: 100}}>
+        <TestButton />
+      </ScrollView>
     </>
   );
 };

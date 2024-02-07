@@ -1,26 +1,26 @@
-import react, {useEffect} from 'react';
-
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   FlatList,
+  ImageBackground,
   Pressable,
+  StatusBar,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import ImageFlatList from '../components/ImageFlatList';
 
+import ImageFlatList from '../components/ImageFlatList';
 import {keyExtractor} from '../lib/keyExtractor';
 import {moderateScale, scale, verticalScale} from '../utils/scaling';
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconOcticons from 'react-native-vector-icons/Octicons';
-
 import {ContentScreenProp} from '../types/RootStackProps';
 import {formatNumber} from '../utils/format';
 import WebView from 'react-native-webview';
 import BottomButton from '../components/BottomButton';
 import {IconIonicons, IconMaterialIcons} from '../lib/Icon';
 import {globalStyles} from '../lib/GlobalStyles';
+
+import MapView from '../components/MapView';
 
 export default function ContentScreen({route, navigation}: ContentScreenProp) {
   const {
@@ -35,6 +35,7 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
     reviewImageUri,
     menu,
   } = route.params;
+
   const data = [
     {
       id,
@@ -42,7 +43,6 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
       title,
     },
   ];
-
   const thumbData = [
     {
       id: 1,
@@ -61,12 +61,19 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
     },
   ];
 
-  // const onPressPushMenu = (item: any) => {
-  //   navigation.push('Menu', {
-  //     id,
-  //     menu,
-  //   });
-  // };
+  const onPressAddress = () => {
+    navigation.push('MapView', {
+      address: address,
+      title: title,
+    });
+  };
+  const onPressReview = () => {
+    navigation.push('Review');
+  };
+  const onPressMenuButton = () => {
+    navigation.push('Menu', {title: title});
+  };
+  // console.log(StatusBar.currentHeight);
 
   return (
     <>
@@ -77,111 +84,119 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
             renderItem={undefined}
             keyExtractor={keyExtractor}
             scrollEventThrottle={16}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{paddingBottom: scale(80)}}
             ListHeaderComponent={
               <>
-                <ImageFlatList
-                  data={thumbData}
-                  imageHeight={verticalScale(240)}
-                  imageWidth={Dimensions.get('window').width}
-                  keyExtractor={true}
-                />
-                <View style={[styles.infoContainer]}>
-                  <Text style={[styles.categoryText]}>{category}</Text>
-                  <Text style={[styles.titleText]}>{title}</Text>
-                  <Pressable
-                    style={[styles.addressView]}
-                    onPress={() => {
-                      navigation.push('MapView');
-                    }}>
-                    <IconIonicons name="location" size={18} color={'#9a9a9a'} />
-                    <Text style={[styles.addressText]}>{address}</Text>
-                    <IconMaterialIcons
-                      name="keyboard-arrow-right"
-                      size={20}
-                      color={'#9a9a9a'}
-                    />
-                  </Pressable>
-
-                  <Pressable
-                    style={[{rowGap: 4}]}
-                    onPress={() => {
-                      navigation.push('Review');
-                    }}>
-                    <View
-                      style={[{flexDirection: 'row', alignItems: 'center'}]}>
-                      <IconMaterialIcons
-                        name="star"
-                        size={22}
-                        color="#feed03"
-                      />
-                      <Text style={[globalStyles.fontBold14]}>5.0</Text>
-                      <Text style={[{fontSize: 13}]}>
-                        ({formatNumber(heart)})
-                      </Text>
-                      <IconMaterialIcons
-                        name="keyboard-arrow-right"
-                        size={20}
-                      />
-                    </View>
-                  </Pressable>
-                </View>
-                {/* ReviewImage */}
-                <View style={{paddingBottom: 10}}>
+                <View style={[styles.headerContainer]}>
                   <ImageFlatList
                     data={thumbData}
-                    imageHeight={140}
-                    imageWidth={140}
-                    keyExtractor={(item: any) => item}
+                    imageHeight={scale(240)}
+                    imageWidth={Dimensions.get('window').width}
+                    keyExtractor={true}
                   />
-                </View>
+                  <View style={[styles.infoContainer]}>
+                    <View style={{rowGap: 6}}>
+                      <Text style={[styles.categoryText]}>{category}</Text>
+                      <Text style={[styles.titleText]}>{title}</Text>
 
-                {/* MenuButton */}
-                <Pressable
-                  onPress={() => {
-                    navigation.push('Menu', {title: title});
-                  }}
-                  style={({pressed}) => [
-                    styles.menuButton,
-                    {
-                      backgroundColor: pressed ? '#eaeaea' : 'white',
-                    },
-                  ]}
-                  // onPress={onPressPushMenu}
-                >
-                  <Text style={{fontSize: 16, color: 'black'}}>메뉴 보기</Text>
-                </Pressable>
-                <View style={[styles.webViewContainer]}>
-                  <WebView
-                    style={{flex: 1, backgroundColor: 'white'}}
-                    originWhitelist={['*']}
-                    source={{
-                      uri: 'https://host-portf.web.app/Map',
-                      headers: {
-                        'Access-Control-Allow-Origin': '*',
+                      <Pressable
+                        style={[styles.addressView]}
+                        onPress={onPressAddress}>
+                        <IconIonicons
+                          name="location"
+                          size={18}
+                          color={'#0063e4'}
+                        />
+                        <Text style={[styles.addressText]}>{address}</Text>
+                        <IconMaterialIcons
+                          name="keyboard-arrow-right"
+                          size={20}
+                          color={'#0063e4'}
+                        />
+                      </Pressable>
+                    </View>
+                    <Pressable
+                      style={[{marginVertical: 4}]}
+                      onPress={onPressReview}>
+                      <View
+                        style={[{flexDirection: 'row', alignItems: 'center'}]}>
+                        <IconMaterialIcons
+                          name="star"
+                          size={18}
+                          color="#feed03"
+                        />
+                        <Text style={[globalStyles.fontBold12]}>5.0</Text>
+                        <Text style={[{fontSize: 12}]}>
+                          ({formatNumber(heart)})
+                        </Text>
+                        <IconMaterialIcons
+                          name="keyboard-arrow-right"
+                          size={20}
+                        />
+                      </View>
+                    </Pressable>
+                    <Text
+                      style={{color: 'black', lineHeight: 18, fontSize: 14}}>
+                      {/* {desc} */}
+                      설명 설명설명설명. 설명설 명 설명설명 설명 설명 설명설명
+                    </Text>
+                  </View>
+                  {/* ReviewImage */}
+                  <View style={{paddingBottom: '3%'}}>
+                    <ImageFlatList
+                      data={thumbData}
+                      imageHeight={120}
+                      imageWidth={120}
+                      keyExtractor={(item: any) => item}
+                      marginRight
+                    />
+                  </View>
+
+                  {/* MenuButton */}
+                  <Pressable
+                    onPress={onPressMenuButton}
+                    style={({pressed}) => [
+                      styles.menuButton,
+                      {
+                        backgroundColor: pressed ? '#eaeaea' : 'white',
                       },
-                    }}
-                  />
+                    ]}>
+                    <Text style={{fontSize: 16, color: 'black'}}>
+                      메뉴 보기
+                    </Text>
+                  </Pressable>
                 </View>
-                <View style={{marginBottom: '3%'}}>
-                  <Text style={{color: 'black', lineHeight: 18, fontSize: 14}}>
-                    {/* {desc} */}
-                    desc
-                  </Text>
-                </View>
-
-                {/* 추천Image */}
                 <View
                   style={{
-                    marginBottom: '20%',
+                    // height: '50%',
+                    // marginBottom: '20%',
+                    backgroundColor: 'white',
+                    paddingVertical: '5%',
+                    paddingHorizontal: '5%',
+                    rowGap: 10,
                   }}>
+                  <Text style={{fontSize: 16, fontWeight: 'bold'}}>위치</Text>
+                  <MapView address={address} />
+
+                  {/* <View
+                  style={{
+                    marginBottom: '3%',
+                    backgroundColor: 'white',
+                    paddingVertical: '5%',
+                  }}></View> */}
+                </View>
+                {/* 추천Image */}
+                <View style={{}}>
+                  <Text style={{fontWeight: 'bold', padding: '3%'}}>
+                    추천 업체
+                  </Text>
                   <ImageFlatList
                     data={data}
                     imageHeight={150}
                     imageWidth={150}
                     keyExtractor={(item: any) => item}
                   />
-                  <Text>추천 업체</Text>
-                  <View style={{flexDirection: 'row'}}></View>
                 </View>
               </>
             }
@@ -190,6 +205,7 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
 
         <BottomButton
           title="예약하러 가기"
+          star
           onPress={() => {
             navigation.push('SelectFriend');
           }}
@@ -200,32 +216,39 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
 }
 
 const styles = StyleSheet.create({
-  layout: {width: '100%', height: '100%', backgroundColor: 'white'},
+  layout: {width: '100%', height: '100%'},
   infoContainer: {
-    marginVertical: '2%',
+    paddingVertical: '3%',
     paddingHorizontal: '5%',
-    rowGap: 2,
+    // rowGap: 6,
+    backgroundColor: 'white',
     // alignItems: 'center',
   },
   categoryText: {
     color: '#571d1d',
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '600',
   },
   titleText: {
-    fontSize: 18,
+    fontSize: 19,
     textAlign: 'left',
     color: 'black',
     fontWeight: '700',
   },
   addressView: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
     flexDirection: 'row',
+    // borderWidth: 1,
+    // justifyContent: 'center',
   },
   addressText: {
     fontSize: 13,
     textAlign: 'left',
-    color: '#5a5a5a',
+    color: '#0063e4',
+    alignItems: 'center',
+    textAlignVertical: 'center',
+    verticalAlign: 'middle',
+    fontWeight: 'bold',
   },
   reviewContainer: {
     flexDirection: 'row',
@@ -234,44 +257,15 @@ const styles = StyleSheet.create({
   menuButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: '3%',
-    // height: '5%',
     paddingVertical: '3%',
     borderWidth: 0.4,
     borderColor: '#9a9a9a',
     borderRadius: 4,
   },
-  webViewContainer: {
-    height: 140,
-    borderWidth: 2,
-    borderRadius: 4,
-    borderColor: '#eaeaea',
+
+  headerContainer: {
+    backgroundColor: 'white',
+    paddingBottom: '5%',
+    marginBottom: '3%',
   },
 });
-
-{
-  /* <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'flex-start',
-                        justifyContent: 'flex-end',
-                        width: '30%',
-                      }}>
-                      <View style={{flexDirection: 'row'}}>
-                        <IconOcticons name="heart" size={16} color="red" />
-                        <Text style={{color: 'black'}}>
-                          {formatNumber(heart)}
-                        </Text>
-                      </View>
-                      <View style={{flexDirection: 'row'}}>
-                        <IconMaterialCommunityIcons
-                          name="chat-outline"
-                          size={17}
-                          color="black"
-                        />
-                        <Text style={{color: 'black'}}>
-                          {formatNumber(chat)}
-                        </Text>
-                      </View>
-                    </View> */
-}

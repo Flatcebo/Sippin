@@ -13,6 +13,44 @@ import {keyExtractor} from '../lib/keyExtractor';
 import {verticalScale} from '../utils/scaling';
 
 export default function ImageFlatList(props: any) {
+  const styles = StyleSheet.create({
+    renderItemLayoutView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginRight: props.marginRight ? 1 : 0,
+    },
+    renderItemTextView: {
+      position: 'absolute',
+      bottom: '20%',
+    },
+    renderItemTitleText: {
+      fontSize: 26,
+      color: 'white',
+      fontWeight: '700',
+      textAlign: 'center',
+      letterSpacing: 1,
+      marginBottom: '3%',
+    },
+    renderItemDescText: {
+      textAlign: 'center',
+      fontWeight: '400',
+      width: verticalScale(250),
+      color: 'white',
+    },
+    pageNumberView: {
+      position: 'absolute',
+      width: 50,
+      zIndex: 100,
+      right: -0,
+      top: -0,
+      backgroundColor: '#00000050',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderBottomLeftRadius: 4,
+      paddingVertical: 2,
+    },
+  });
   const flatListRef = useRef<FlatList>(null);
   const snapToOffsets = useMemo(
     () =>
@@ -21,12 +59,6 @@ export default function ImageFlatList(props: any) {
   );
 
   const renderItem = useCallback(({item}: any) => {
-    // const totalPageNumber = item.reduce(
-    //   (acc: any, pageItem: any) => acc + pageItem.id,
-    //   0,
-    // );
-    // console.log(totalPageNumber);
-    // console.log(new Array(item.id).reduce((acc, item) => acc.length));
     return (
       <View key={item.id} style={styles.renderItemLayoutView}>
         <Image
@@ -67,41 +99,3 @@ export default function ImageFlatList(props: any) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  renderItemLayoutView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  renderItemTextView: {
-    position: 'absolute',
-    bottom: '20%',
-  },
-  renderItemTitleText: {
-    fontSize: 26,
-    color: 'white',
-    fontWeight: '700',
-    textAlign: 'center',
-    letterSpacing: 1,
-    marginBottom: '3%',
-  },
-  renderItemDescText: {
-    textAlign: 'center',
-    fontWeight: '400',
-    width: verticalScale(250),
-    color: 'white',
-  },
-  pageNumberView: {
-    position: 'absolute',
-    width: 50,
-    zIndex: 100,
-    right: -0,
-    top: -0,
-    backgroundColor: '#00000050',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderBottomLeftRadius: 4,
-    paddingVertical: 2,
-  },
-});

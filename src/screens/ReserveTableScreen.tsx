@@ -34,7 +34,7 @@ export default function ReserveTableScreen({
   const [markedDates, setMarkedDates] = useState<any>({});
 
   const [selectedDate, setSelectedDate] = useState(
-    format(new Date(), 'M월 dd일'),
+    format(new Date(), 'M월 d일'),
   );
   const [selectedTime, setSelectedTime] = useState(
     format(new Date(), 'HH시 mm분'),
@@ -51,7 +51,7 @@ export default function ReserveTableScreen({
   };
 
   const onDayPressCalendar = (day: DateData) => {
-    setSelectedDate(format(new Date(day.dateString), 'M월 dd일'));
+    setSelectedDate(format(new Date(day.dateString), 'M월 d일'));
     setVisibleCalendar(false);
   };
   const onConfirmDatePicker = (dates: Date) => {

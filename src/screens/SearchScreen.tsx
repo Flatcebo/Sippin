@@ -8,16 +8,38 @@ import {
   Text,
   View,
 } from 'react-native';
+import {Appbar} from 'react-native-paper';
 import PressableBottomWidthItem from '../components/PressableBottomWidthItem';
 import {Columns} from '../components/RankingTable';
+import SearchBar from '../components/SearchBar';
 import {globalStyles} from '../lib/GlobalStyles';
+import {SearchScreenProp} from '../types/RootStackProps';
 
-export default function SearchScreen() {
+export default function SearchScreen({navigation}: SearchScreenProp) {
   const [text, setText] = useState();
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{flex: 1}}>
+      <Appbar.Header
+        style={{
+          backgroundColor: 'white',
+          justifyContent: 'center',
+        }}>
+        <Appbar.BackAction
+          size={26}
+          style={{position: 'absolute', left: 16, zIndex: 200}}
+          onPress={() => {
+            navigation.pop();
+          }}
+        />
+        <SearchBar
+          placeholder="무엇을 검색해볼까요?"
+          onPress={() => {
+            // navigation.push('Search');
+          }}
+        />
+      </Appbar.Header>
       <>
         <ScrollView style={[{height: '100%', backgroundColor: 'white'}]}>
           <View
