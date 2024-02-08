@@ -57,15 +57,9 @@ export default function CategoryScreen() {
           backgroundColor: 'white',
           justifyContent: 'center',
         }}>
-        <Appbar.BackAction
-          size={26}
-          style={{position: 'absolute', left: 16, zIndex: 200}}
-          onPress={() => {
-            navigation.pop();
-          }}
-        />
         <SearchBar
           placeholder="어디로 가고싶으신가요?"
+          backVisible
           pressableInput={true}
           onPress={() => {
             navigation.push('Search');

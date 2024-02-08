@@ -16,7 +16,7 @@ import {StatusBar} from 'react-native';
 // import {SafeAreaView} from 'react-native-safe-area-context';
 import {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {DefaultTheme} from 'react-native-paper';
+import {Appbar, DefaultTheme} from 'react-native-paper';
 import BackVisible from './BackVisible';
 import LinearGradient from 'react-native-linear-gradient';
 import {moderateScale, scale, verticalScale} from '../utils/scaling';
@@ -45,6 +45,7 @@ export default function SearchBar({
       style={{
         alignItems: 'center',
         // flexDirection: 'row',
+        zIndex: 1,
       }}>
       <LinearGradient
         colors={['#02e8b6', '#00aaf9', '#005ff9', '#ff00d4']}
@@ -74,6 +75,23 @@ export default function SearchBar({
           textAlign="left"
           {...textInput}
         />
+        {backVisible && (
+          <Appbar.BackAction
+            size={22}
+            style={{
+              position: 'absolute',
+              left: 0,
+              // top: 20,
+              zIndex: 300,
+              backgroundColor: 'white',
+              // height: 3000,
+            }}
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+        )}
+
         <IconOcticons
           name="search"
           size={20}

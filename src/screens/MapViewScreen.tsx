@@ -14,7 +14,7 @@ import {MapViewScreenProp} from '../types/RootStackProps';
 import {SignatureColor, SojuColor} from '../lib/GlobalStyles';
 import {CloseButton} from '../components/IconButtons';
 export default function MapViewScreen({navigation, route}: MapViewScreenProp) {
-  const {address, title} = route.params;
+  const {coordinate, title} = route.params;
 
   useEffect(() => {
     navigation.setOptions({
@@ -64,23 +64,10 @@ export default function MapViewScreen({navigation, route}: MapViewScreenProp) {
   // PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA,{})
   return (
     <>
-      {/* <Button title="hi" onPress={geocode} /> */}
-      {/* <TextInput
-        style={{
-          height: 40,
-          borderColor: 'gray',
-          borderWidth: 1,
-          marginBottom: 10,
-          width: 200,
-        }}
-        placeholder="Enter address"
-        value={address}
-        onChangeText={text => setAddress(text)}
-      /> */}
       <NaverMapView
         style={{flex: 1}}
         showsMyLocationButton={true}
-        center={{...markerPosition, zoom: 16}}
+        center={{...coordinate, zoom: 16}}
         scaleBar={false}
         liteModeEnabled={true}
         bearing={0}
@@ -91,9 +78,9 @@ export default function MapViewScreen({navigation, route}: MapViewScreenProp) {
         zoomGesturesEnabled={true}
         zoomControl={true}
         tiltGesturesEnabled={false}>
-        {markerPosition && (
+        {coordinate && (
           <Marker
-            coordinate={markerPosition}
+            coordinate={coordinate}
             width={20}
             height={30}
             pinColor="#571d1d"

@@ -19,6 +19,7 @@ import {
   PermissionsAndroid,
   Platform,
   Pressable,
+  StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -26,7 +27,7 @@ import {MapMainScreenProp} from '../types/RootStackProps';
 import {Appbar, Searchbar, Text} from 'react-native-paper';
 import SearchBar from '../components/SearchBar';
 import ContentListItem from '../components/ContentListItem';
-import {scale} from '../utils/scaling';
+import {scale, verticalScale} from '../utils/scaling';
 import ImageFlatList from '../components/ImageFlatList';
 import {globalStyles} from '../lib/GlobalStyles';
 import {IconMaterialIcons} from '../lib/Icon';
@@ -57,15 +58,9 @@ export default function MapMainScreen({navigation}: MapMainScreenProp) {
             backgroundColor: 'transparent',
             justifyContent: 'center',
           }}>
-          <Appbar.BackAction
-            size={26}
-            style={{position: 'absolute', left: 16, zIndex: 200}}
-            onPress={() => {
-              navigation.pop();
-            }}
-          />
           <SearchBar
             pressableInput
+            backVisible
             onPress={() => {
               navigation.push('SearchMyAround');
             }}
@@ -81,7 +76,6 @@ export default function MapMainScreen({navigation}: MapMainScreenProp) {
       );
     }
   }, []);
-
   // 현재위치
   useEffect(() => {
     const aaa = Geolocation.getCurrentPosition(position => {
@@ -162,6 +156,7 @@ export default function MapMainScreen({navigation}: MapMainScreenProp) {
         desc: item.desc,
         reviewImageUri: item.reviewImageUri,
         menu: item.menu,
+        coordinate: item.coordinate,
       });
     };
 
@@ -175,14 +170,18 @@ export default function MapMainScreen({navigation}: MapMainScreenProp) {
           alignItems: 'center',
         }}>
         <Pressable
+          onPress={onPressPushContents}
           style={({pressed}) => [
             {
               backgroundColor: pressed ? '#eaeaea' : 'white',
               width: '90%',
-              elevation: 6,
               flexDirection: 'row',
               borderRadius: 4,
               alignItems: 'center',
+              elevation: 6,
+              shadowOffset: {width: 0, height: 1},
+              shadowOpacity: 0.3,
+              shadowRadius: 4,
             },
           ]}>
           <Image
@@ -247,11 +246,11 @@ export default function MapMainScreen({navigation}: MapMainScreenProp) {
         ref={naverMapViewRef}
         style={{flex: 1}}
         center={center}
-        // showsMyLocationButton={true}
+        showsMyLocationButton={true}
         logoMargin={{bottom: 4, left: 4}}
         scaleBar={false}
         onMapClick={e => {
-          console.log(e.latitude, e.longitude);
+          console.warn(e.latitude, e.longitude);
         }}
         zoomControl={false}>
         {markerData.map(
@@ -262,29 +261,19 @@ export default function MapMainScreen({navigation}: MapMainScreenProp) {
                 image={{
                   uri: item.imageUri,
                 }}
-                // caption={{align:Align}}
-                coordinate={item.coordinate}
                 animated
+                coordinate={item.coordinate}
                 width={20}
                 height={30}
                 pinColor={focusMarker === idx ? 'red' : 'transparent'}
                 onClick={handleMarkerClick(item.coordinate, idx)}
+                zIndex={50}
+                // caption={{color: 'red'}}
               />
             ),
         )}
       </NaverMapView>
-      <View
-        style={{
-          position: 'absolute',
-          width: '100%',
-          height: scale(160),
-          top: 80,
-          // zIndex: 300,
-          backgroundColor: 'transparent',
-          justifyContent: 'center',
-          alignItems: 'center',
-          // borderWidth: 1,
-        }}>
+      <View style={[styles.flatListContainer]}>
         <FlatList
           ref={flatListRef}
           data={markerData}
@@ -303,3 +292,17 @@ export default function MapMainScreen({navigation}: MapMainScreenProp) {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  flatListContainer: {
+    position: 'absolute',
+    width: '100%',
+    height: scale(160),
+    top: verticalScale(80),
+    // zIndex: 300,
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // borderWidth: 1,
+  },
+});

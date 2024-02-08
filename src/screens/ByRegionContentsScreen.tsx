@@ -65,6 +65,7 @@ const ByRegionContentsScreen = ({
         desc: item.desc,
         reviewImageUri: item.reviewImageUri,
         menu: item.menu,
+        coordinate: item.coordinate,
       });
     };
 

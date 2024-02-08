@@ -26,14 +26,8 @@ export default function SearchScreen({navigation}: SearchScreenProp) {
           backgroundColor: 'white',
           justifyContent: 'center',
         }}>
-        <Appbar.BackAction
-          size={26}
-          style={{position: 'absolute', left: 16, zIndex: 200}}
-          onPress={() => {
-            navigation.pop();
-          }}
-        />
         <SearchBar
+          backVisible
           placeholder="무엇을 검색해볼까요?"
           onPress={() => {
             // navigation.push('Search');

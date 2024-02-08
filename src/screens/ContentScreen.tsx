@@ -21,6 +21,7 @@ import {IconIonicons, IconMaterialIcons} from '../lib/Icon';
 import {globalStyles} from '../lib/GlobalStyles';
 
 import MapView from '../components/MapView';
+import heartListData from '../lib/heartListData';
 
 export default function ContentScreen({route, navigation}: ContentScreenProp) {
   const {
@@ -34,6 +35,7 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
     imageUri,
     reviewImageUri,
     menu,
+    coordinate,
   } = route.params;
 
   const data = [
@@ -63,8 +65,8 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
 
   const onPressAddress = () => {
     navigation.push('MapView', {
-      address: address,
       title: title,
+      coordinate: coordinate,
     });
   };
   const onPressReview = () => {
@@ -90,7 +92,7 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
               <>
                 <View style={[styles.headerContainer]}>
                   <ImageFlatList
-                    data={thumbData}
+                    data={data}
                     imageHeight={scale(240)}
                     imageWidth={Dimensions.get('window').width}
                     keyExtractor={true}
@@ -177,7 +179,7 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
                     rowGap: 10,
                   }}>
                   <Text style={{fontSize: 16, fontWeight: 'bold'}}>위치</Text>
-                  <MapView address={address} />
+                  <MapView coordinate={coordinate} />
 
                   {/* <View
                   style={{

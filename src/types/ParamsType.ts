@@ -14,6 +14,10 @@ export type ContentParams = {
   reviewImageUri: string;
   menu: [];
   backVisible?: boolean;
+  coordinate: {
+    latitude: number;
+    longitude: number;
+  };
 };
 
 export type ReserveOrderListParams = {
@@ -29,6 +33,9 @@ export type MyInfoModifyParams = {
 };
 
 export type MapViewParams = {
-  address: string;
-  title: string;
+  coordinate: {
+    latitude: number;
+    longitude: number;
+  };
+  title?: string;
 };
