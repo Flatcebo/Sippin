@@ -28,25 +28,25 @@ import SearchBar from '../components/SearchBar';
 import ContentListItem from '../components/ContentListItem';
 import {scale} from '../utils/scaling';
 import ImageFlatList from '../components/ImageFlatList';
+import {globalStyles} from '../lib/GlobalStyles';
+import {IconMaterialIcons} from '../lib/Icon';
+import {formatNumber} from '../utils/format';
 
 export default function MapMainScreen({navigation}: MapMainScreenProp) {
   const [markers, setMarkers] = useState<any>({});
   const [center, setCenter] = useState<any>(null);
+  const [myLocation, setMyLocation] = useState<any>(null);
+  const [focusMarker, setFocusMarker] = useState<number>();
   const flatListRef = useRef<FlatList | null>(null);
   const naverMapViewRef = useRef<any>(null);
-
-  const scrollToItem = (index: number) => {
-    flatListRef.current?.scrollToIndex({animated: true, index});
-  };
   const markerData = heartListData.filter(item => item.coordinate);
-
-  console.log(markerData[0].coordinate);
-  console.log('ㅗㅑㅗㅑ');
-
   const snapToOffsets = useMemo(
     () => heartListData.map((_, idx) => idx * Dimensions.get('window').width),
     [heartListData],
   );
+
+  // console.log(markerData[0].coordinate);
+
   useEffect(() => {
     navigation.setOptions({
       headerTransparent: true,
@@ -81,17 +81,35 @@ export default function MapMainScreen({navigation}: MapMainScreenProp) {
       );
     }
   }, []);
+
   // 현재위치
   useEffect(() => {
     const aaa = Geolocation.getCurrentPosition(position => {
       const {latitude, longitude} = position.coords;
       setCenter({latitude: latitude, longitude: longitude, zoom: 14});
-      //   setCurrentLocation({latitude: latitude, longitude: longitude});
+      setMyLocation({latitude: latitude, longitude: longitude});
+      // console.log(latitude);
     });
     return () => {
       aaa;
     };
   }, []);
+
+  markerData.sort((location1, location2) => {
+    // 각 위치와 현재 위치 간의 거리 계산 (간단하게 유클리디안 거리로 계산)
+    const distanceToLocation1 = Math.sqrt(
+      Math.pow(location1.coordinate.latitude - myLocation?.latitude, 2) +
+        Math.pow(location1.coordinate.longitude - myLocation?.longitude, 2),
+    );
+
+    const distanceToLocation2 = Math.sqrt(
+      Math.pow(location2.coordinate.latitude - myLocation?.latitude, 2) +
+        Math.pow(location2.coordinate.longitude - myLocation?.longitude, 2),
+    );
+    // 거리를 기준으로 정렬
+    return distanceToLocation1 - distanceToLocation2;
+  });
+
   // 주소 => 좌표 변환
   // useEffect(() => {
   //   const geocode = async () => {
@@ -130,6 +148,7 @@ export default function MapMainScreen({navigation}: MapMainScreenProp) {
   //   };
   //   geocode();
   // }, [markers]);
+
   const renderItem = useCallback(({item}: any) => {
     const onPressPushContents = () => {
       navigation.push('Content', {
@@ -173,20 +192,38 @@ export default function MapMainScreen({navigation}: MapMainScreenProp) {
             resizeMode="cover"
             style={{borderRadius: 4, marginHorizontal: '0%'}}
           />
-          <View>
-            <Text style={{}}>{item.title}</Text>
+          <View
+            style={{
+              width: '63%',
+              height: '100%',
+              padding: '3%',
+              justifyContent: 'flex-start',
+              alignItems: 'flex-start',
+              // borderWidth: 1,
+            }}>
+            <Text style={{fontSize: 11, color: '#571d1d', fontWeight: 'bold'}}>
+              {item.category}
+            </Text>
+            <Text style={{fontWeight: 'bold', fontSize: 14}}>{item.title}</Text>
+            <View style={[{flexDirection: 'row', alignItems: 'center'}]}>
+              <IconMaterialIcons name="star" size={18} color="#feed03" />
+              <Text style={[globalStyles.fontBold12]}>5.0</Text>
+              <Text style={[{fontSize: 12}]}>({formatNumber(item.heart)})</Text>
+            </View>
           </View>
         </Pressable>
       </View>
     );
   }, []);
-  const handleMarkerClick = (marker: any) => {
+  const handleMarkerClick = (marker: any, idx: number) => {
     const moveToMarker = () => {
       setCenter({
         latitude: marker.latitude,
         longitude: marker.longitude,
         zoom: 16,
       });
+      setFocusMarker(idx);
+      flatListRef.current?.scrollToIndex({index: idx, animated: true});
     };
     return moveToMarker;
   };
@@ -222,12 +259,16 @@ export default function MapMainScreen({navigation}: MapMainScreenProp) {
             item.coordinate && (
               <Marker
                 key={idx}
+                image={{
+                  uri: item.imageUri,
+                }}
+                // caption={{align:Align}}
                 coordinate={item.coordinate}
                 animated
                 width={20}
                 height={30}
-                pinColor="#0000ff"
-                onClick={handleMarkerClick(item.coordinate)}
+                pinColor={focusMarker === idx ? 'red' : 'transparent'}
+                onClick={handleMarkerClick(item.coordinate, idx)}
               />
             ),
         )}

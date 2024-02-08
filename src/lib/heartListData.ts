@@ -95,6 +95,19 @@ const heartListData = [
       'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240126_299%2F17062389260975j9pF_JPEG%2FC46132FC-B90C-48C0-9B46-C878F3E46F18.jpeg',
     // menu: Menu,
   },
+  {
+    id: 8,
+    title: '이솝 북항점',
+    city: '목포',
+    address: '전남 목포시 원산중앙로 10 한성골든빌 1층104호 이솝',
+    coordinate: {latitude: 34.80709196395098, longitude: 126.37423516022545},
+    category: '이자카야',
+    heart: '0',
+    chat: '0',
+    imageUri:
+      'https://search.pstatic.net/common/?src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20240121_127%2F1705814459400wAu6s_JPEG%2F20201211_153225.jpg',
+    // menu: Menu,
+  },
 ];
 
 export default heartListData;
