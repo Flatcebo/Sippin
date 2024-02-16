@@ -26,6 +26,7 @@ const MyTab = ({navigation}: MyTabProp) => {
     '자주가는',
     '즐겨찾기',
     '좋아요한',
+    '결제내역',
   ];
 
   const ListItems = () => (

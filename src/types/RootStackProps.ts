@@ -14,6 +14,7 @@ import {
 export type RootStackParamList = {
   MainTab: MainTabNavigationScreenParams | undefined;
   Home: undefined;
+  Map: undefined;
   Order: undefined;
   My: undefined;
   Search: undefined;
@@ -54,6 +55,7 @@ export type RootStackParamList = {
   Review: undefined;
   UserReview: undefined;
   MapMain: undefined;
+  GroupList: undefined;
   // AuthMethod:undefined
   TestHeader: undefined;
   TestTimePicker: undefined;
@@ -90,6 +92,7 @@ type ScreenProp<T extends keyof RootStackParamList> = {
 };
 
 export type HomeTabProp = ScreenProp<'Home'>;
+export type MapTabProp = ScreenProp<'Map'>;
 export type OrderTabProp = ScreenProp<'Order'>;
 export type MyTabProp = ScreenProp<'My'>;
 
@@ -98,6 +101,7 @@ export type ByRegionContentsScreenProp = ScreenProp<'ByRegionContents'>;
 export type CategoryScreenProp = ScreenProp<'Category'>;
 export type CompletedOrderScreenProp = ScreenProp<'CompletedOrder'>;
 export type ContentScreenProp = ScreenProp<'Content'>;
+export type GroupListScreenProp = ScreenProp<'GroupList'>;
 export type MapMainScreenProp = ScreenProp<'MapMain'>;
 export type MapViewScreenProp = ScreenProp<'MapView'>;
 export type MenuScreenProp = ScreenProp<'Menu'>;

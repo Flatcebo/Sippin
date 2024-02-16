@@ -68,6 +68,7 @@ import UserReviewScreen from './UserReviewScreen';
 import MapMainScreen from './MapMainScreen';
 import SearchRegionScreen from './SearchRegionScreen';
 import SearchMyAroundScreen from './SearchMyAroundScreen';
+import GroupListScreen from './GroupListScreen';
 
 interface Props {
   options: NativeStackNavigationOptions;
@@ -263,10 +264,8 @@ export default function RootStack() {
           title: '업체정보',
           animation: 'simple_push',
           headerBackVisible: true,
-          // homeButton: true,
           headerRight: () => <HomeButton />,
-          // headerBlurEffect: 'regular',
-          // headerTransparent: true,
+          headerShown: true,
         }}
       />
       <Stack.Screen
@@ -456,6 +455,16 @@ export default function RootStack() {
           // closeButton: true,
         }}
       />
+      <Stack.Screen
+        name="GroupList"
+        component={GroupListScreen}
+        options={{
+          headerShown: false,
+          title: '실시간 그룹',
+          // closeButton: true,
+        }}
+      />
+
       <Stack.Group>
         <Stack.Screen
           name="TestHeader"

@@ -15,7 +15,7 @@ import {keyExtractor} from '../lib/keyExtractor';
 import {IconEntypo} from '../lib/Icon';
 import ReviewListItem from '../components/ReviewListItem';
 import {ReviewScreenProp} from '../types/RootStackProps';
-import ReviewSortModal from '../components/ReviewSortModal';
+import ReviewSortModal from '../components/DropDownModal';
 
 export default function ReviewScreen({navigation}: ReviewScreenProp) {
   useEffect(() => {

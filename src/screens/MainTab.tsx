@@ -9,6 +9,9 @@ import {NavigationProp} from '../types/RootStackProps';
 import MyTab from './MyTab';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {View} from 'react-native';
+import MapTab from './MapTab';
+import {IconAntDesign, IconMaterialCommunityIcons} from '../lib/Icon';
+import GroupTab from './GroupTab';
 export default function MainTab() {
   const Tab = createBottomTabNavigator<MainTabParamList>();
   const navigation = useNavigation<NavigationProp>();
@@ -19,6 +22,9 @@ export default function MainTab() {
         component={HomeTab}
         options={{
           headerShown: false,
+          tabBarIcon: () => (
+            <IconMaterialCommunityIcons name="home-outline" size={22} />
+          ),
           // header: () => (
           //   <SearchBar
           //     pressableInput
@@ -31,12 +37,43 @@ export default function MainTab() {
         }}
       />
       <Tab.Screen
+        name="Group"
+        component={GroupTab}
+        options={{
+          title: '내 그룹',
+          headerTitleStyle: {fontSize: 18, fontWeight: 'bold'},
+          tabBarIcon: () => (
+            <IconMaterialCommunityIcons
+              name="account-group-outline"
+              size={20}
+            />
+          ),
+
+          // header: () => <SearchBar placeholder="어디로 갈까요?" />,
+        }}
+      />
+      <Tab.Screen
         name="Order"
         component={OrderTab}
         options={{
-          title: '경상밥상 남악점',
+          title: '주문',
           headerTitleStyle: {fontSize: 18, fontWeight: 'bold'},
+          tabBarIcon: () => (
+            <IconMaterialCommunityIcons name="shopping-outline" size={20} />
+          ),
 
+          // header: () => <SearchBar placeholder="어디로 갈까요?" />,
+        }}
+      />
+      <Tab.Screen
+        name="Map"
+        component={MapTab}
+        options={{
+          title: '내 주변',
+          headerTitleStyle: {fontSize: 18, fontWeight: 'bold'},
+          tabBarIcon: () => (
+            <IconMaterialCommunityIcons name="map-outline" size={20} />
+          ),
           // header: () => <SearchBar placeholder="어디로 갈까요?" />,
         }}
       />
@@ -46,7 +83,7 @@ export default function MainTab() {
         options={{
           title: '내 정보',
           headerTitleStyle: {fontSize: 18, fontWeight: 'bold'},
-
+          tabBarIcon: () => <IconAntDesign name="user" size={20} />,
           // header: () => <SearchBar placeholder="어디로 갈까요?" />,
         }}
       />

@@ -14,7 +14,8 @@ import {IconEntypo, IconMaterialIcons} from '../lib/Icon';
 import {NavigationProp} from '../types/RootStackProps';
 import {maskStringRegex} from '../utils/format';
 import EmptyList from './EmptyList';
-import ReviewSortModal from './ReviewSortModal';
+import ReviewSortModal from './DropDownModal';
+import DropDownModal from './DropDownModal';
 interface ReviewItem {
   id: number;
   desc: string;
@@ -30,12 +31,18 @@ interface ReviewListItemProps {
   shopMode?: boolean;
   onPressName?: () => void;
 }
+
+interface SortListProp {
+  onPress?: () => void;
+  title: string;
+  icon?: boolean;
+  pressableStyle?: StyleProp<ViewStyle>;
+}
 export default function ReviewListItem({
   sortBar,
   shopMode,
   onPressName,
 }: ReviewListItemProps) {
-  const navigation = useNavigation<NavigationProp>();
   const [reviewData, setReviewData] = useState([
     {
       id: 0,
@@ -58,6 +65,14 @@ export default function ReviewListItem({
         'https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAyMDVfMjYz%2FMDAxNjc1NTcyMzM1MjU5.z_Vs1oNW6BjDl02ogzpJIMn7ZpxbIB9wD7sDYXfK18Ag.7dW0E1zx9nMXEywMu2ZoETdBc1aS3PnvyaRBE1y7_Rsg.JPEG.myeonghwadg%2F01.jpg&type=sc960_832',
     },
   ]);
+  useEffect(() => {
+    const resent = [...reviewData].sort(
+      (a, b) =>
+        Number(b.createdAt.replaceAll('-', '')) -
+        Number(a.createdAt.replaceAll('-', '')),
+    );
+    setReviewData(resent);
+  }, []);
   const reviewImageData = [
     {
       id: 0,
@@ -148,12 +163,6 @@ export default function ReviewListItem({
   }, []);
   const [sort, setSort] = useState(false);
 
-  interface SortListProp {
-    onPress?: () => void;
-    title: string;
-    icon?: boolean;
-    pressableStyle?: StyleProp<ViewStyle>;
-  }
   const SortList: React.FC<SortListProp> = ({
     onPress,
     title,
@@ -205,9 +214,6 @@ export default function ReviewListItem({
         sortedData = recent;
         break;
     }
-
-    // console.log(`Sorting by: ${sortOption}`);
-    // console.log(sortedData);
     setSort(false);
     setSortLabel(label);
     setReviewData(sortedData);
@@ -218,11 +224,6 @@ export default function ReviewListItem({
   const onPressDisableSortModal = () => {
     setSort(false);
   };
-  //   useEffect(() => {
-
-  //   }, [reviewData]);
-
-  //   console.log(reviewData);
   return (
     <>
       {sortBar && (
@@ -230,7 +231,7 @@ export default function ReviewListItem({
           <SortList icon title={sortLable} onPress={onPressVisibleSortModal} />
 
           {sort && (
-            <ReviewSortModal
+            <DropDownModal
               visible={sort}
               onPressBG={onPressDisableSortModal}
               onRequestClose={onPressDisableSortModal}

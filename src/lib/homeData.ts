@@ -1,16 +1,17 @@
 export const homeData = [
   {
     id: 0,
-    title: '예약하기',
-    desc: '원하는 술집, 예약 시작해봐요!',
-    navigate: 'Category',
+    title: '실시간 그룹',
+    desc: '원하는 그룹에 참여해보아요!',
+    navigate: 'GroupList',
   },
   {
     id: 1,
-    title: '준비중(대리운전)',
-    // desc: '테이블오더 추가주문, 여기서 진행해봐요!',
-    navigate: 'AdditionalOrder',
+    title: '그룹 만들기',
+    desc: '혼자 먹지말고,\n같이 먹어요!',
+    navigate: 'Category',
   },
+
   {
     id: 2,
     title: '내 주변',
@@ -33,3 +34,16 @@ export const homeData = [
     // height: 50,
   },
 ];
+
+// {
+//   id: 1,
+//   title: '준비중(귀가 서비스)',
+//   // desc: '테이블오더 추가주문, 여기서 진행해봐요!',
+//   navigate: 'AdditionalOrder',
+// },
+// {
+//   id: 0,
+//   title: '예약하기',
+//   desc: '원하는 술집, 예약 시작해봐요!',
+//   navigate: 'Category',
+// },

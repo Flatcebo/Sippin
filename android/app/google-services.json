@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "223788268734",
+    "project_id": "sippin-5e1d5",
+    "storage_bucket": "sippin-5e1d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223788268734:android:08181948dd2533b270f2ef",
+        "android_client_info": {
+          "package_name": "com.sippin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBq2ubCO3-J-5B8T0oSTJIiw9InrltKho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

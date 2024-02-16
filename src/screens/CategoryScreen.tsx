@@ -23,6 +23,7 @@ import {UlsanCity} from '../lib/Citys/UlsanCity';
 import {globalStyles} from '../lib/GlobalStyles';
 import {shopData} from '../lib/shopData';
 import {RootStackNavigationProp} from '../types/RootStackProps';
+
 export default function CategoryScreen() {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -71,6 +72,7 @@ export default function CategoryScreen() {
           backgroundColor: 'white',
           borderTopWidth: 0.4,
           borderColor: '#eaeaea',
+          height: '12%',
         }}>
         <View
           style={{
@@ -136,7 +138,7 @@ export default function CategoryScreen() {
       </View>
       <View
         style={{
-          height: '92%',
+          height: '75.3%',
           flexDirection: 'row',
           // borderTopWidth: 2,
           // borderColor: '#cacaca',

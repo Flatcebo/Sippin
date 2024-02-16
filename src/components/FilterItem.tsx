@@ -32,8 +32,9 @@ interface FilterItemProps {
   content?: React.ReactNode;
   height50?: boolean;
   onLayout?: (e: any) => void;
-  IconLocation?: boolean;
-  IconCalendar?: boolean;
+  iconLocation?: boolean;
+  iconCalendar?: boolean;
+  iconLiquor?: boolean;
   borderRightWidth?: boolean;
 }
 export default function FilterItem({
@@ -51,8 +52,9 @@ export default function FilterItem({
   content,
   height50,
   onLayout,
-  IconLocation,
-  IconCalendar,
+  iconLocation,
+  iconCalendar,
+  iconLiquor,
   borderRightWidth,
   ...rest
 }: FilterItemProps) {
@@ -110,13 +112,14 @@ export default function FilterItem({
             alignItems: 'center',
           }}>
           {content}
-          {IconLocation && <IconIonicons name="location-outline" size={18} />}
-          {IconCalendar && (
+          {iconLocation && <IconIonicons name="location-outline" size={18} />}
+          {iconCalendar && (
             <IconMaterialCommunityIcons
               name="calendar-month-outline"
               size={18}
             />
           )}
+          {iconLiquor && <IconMaterialCommunityIcons name="liquor" size={18} />}
 
           <Text
             style={[

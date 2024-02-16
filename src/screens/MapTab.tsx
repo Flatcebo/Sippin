@@ -23,7 +23,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {MapMainScreenProp} from '../types/RootStackProps';
+import {MapMainScreenProp, MapTabProp} from '../types/RootStackProps';
 import {Appbar, Searchbar, Text} from 'react-native-paper';
 import SearchBar from '../components/SearchBar';
 import ContentListItem from '../components/ContentListItem';
@@ -33,8 +33,7 @@ import {globalStyles} from '../lib/GlobalStyles';
 import {IconMaterialIcons} from '../lib/Icon';
 import {formatNumber} from '../utils/format';
 
-// MapTab으로 코드 전부 이동
-export default function MapMainScreen({navigation}: MapMainScreenProp) {
+export default function MapTab({navigation}: MapTabProp) {
   const [markers, setMarkers] = useState<any>({});
   const [center, setCenter] = useState<any>(null);
   const [myLocation, setMyLocation] = useState<any>(null);
@@ -46,8 +45,6 @@ export default function MapMainScreen({navigation}: MapMainScreenProp) {
     () => heartListData.map((_, idx) => idx * Dimensions.get('window').width),
     [heartListData],
   );
-
-  // console.log(markerData[0].coordinate);
 
   useEffect(() => {
     navigation.setOptions({

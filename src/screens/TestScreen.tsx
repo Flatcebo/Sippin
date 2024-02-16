@@ -1,31 +1,30 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {
-  Alert,
-  Button,
-  FlatList,
-  ImageBackground,
-  Keyboard,
-  Pressable,
-  ScrollResponderEvent,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import {KeyboardAvoidingView, Platform, Text, View} from 'react-native';
-import BorderInput from '../components/BorderInput';
-import BottomButton from '../components/BottomButton';
-import ImageCard from '../components/ImageCard';
-import NaverMapView, {
-  Circle,
-  Marker,
-  Path,
-  Polyline,
-  Polygon,
-  Coord,
-} from 'react-native-nmap';
-import {NMAP_API_KEY, NMAP_API_KEY_ID} from '../lib/NMAP_API_KEY';
-import axios from 'axios';
+import {TouchableOpacity, Platform, Text, View} from 'react-native';
 
 export default function TestScreen({navigation}: any) {
-  return <></>;
+  const [views, setViews] = useState<any>([]);
+
+  // 새로운 뷰를 추가하는 함수
+  const addView = () => {
+    const newView = (
+      <View key={views.length} style={{marginVertical: 10}}>
+        <Text>New View</Text>
+      </View>
+    );
+    setViews([...views, newView]); // 기존 뷰 배열에 새로운 뷰 추가
+  };
+
+  return (
+    <View>
+      {/* 기존에 생성된 뷰들을 렌더링 */}
+      {views.map((view: any, index: any) => (
+        <React.Fragment key={index}>{view}</React.Fragment>
+      ))}
+
+      {/* 추가 버튼 */}
+      <TouchableOpacity onPress={addView}>
+        <Text>Add View</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }

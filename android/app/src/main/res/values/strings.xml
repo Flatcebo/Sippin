@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Sippin</string>
+    <string name="kakao_app_key">0827bd81156946e7cd40af275896e822</string>
 </resources>
