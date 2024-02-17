@@ -117,16 +117,23 @@ export function SubmitButton({onPress}: SubmitButtonProps) {
 
 interface CloseButtonProps {
   onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
+  color?: string;
 }
 
-export function CloseButton({onPress}: CloseButtonProps) {
+export function CloseButton({onPress, style, color}: CloseButtonProps) {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <Pressable
       onPress={() => {
         navigation.goBack();
       }}>
-      <IconMaterialCommunityIcons name="close" size={26} />
+      <IconMaterialCommunityIcons
+        name="close"
+        size={26}
+        color={color}
+        style={style}
+      />
     </Pressable>
   );
 }

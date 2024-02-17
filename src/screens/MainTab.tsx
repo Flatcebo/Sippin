@@ -16,24 +16,19 @@ export default function MainTab() {
   const Tab = createBottomTabNavigator<MainTabParamList>();
   const navigation = useNavigation<NavigationProp>();
   return (
-    <Tab.Navigator screenOptions={{tabBarShowLabel: true}}>
+    <Tab.Navigator
+      screenOptions={{tabBarShowLabel: true}}
+      initialRouteName="Home">
       <Tab.Screen
-        name="Home"
-        component={HomeTab}
+        name="Map"
+        component={MapTab}
         options={{
-          headerShown: false,
+          title: '내 주변',
+          headerTitleStyle: {fontSize: 18, fontWeight: 'bold'},
           tabBarIcon: () => (
-            <IconMaterialCommunityIcons name="home-outline" size={22} />
+            <IconMaterialCommunityIcons name="map-outline" size={20} />
           ),
-          // header: () => (
-          //   <SearchBar
-          //     pressableInput
-          //     placeholder="무엇을 검색해볼까요?"
-          //     onPress={() => {
-          //       navigation.navigate('Search');
-          //     }}
-          //   />
-          // ),
+          // header: () => <SearchBar placeholder="어디로 갈까요?" />,
         }}
       />
       <Tab.Screen
@@ -53,6 +48,16 @@ export default function MainTab() {
         }}
       />
       <Tab.Screen
+        name="Home"
+        component={HomeTab}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <IconMaterialCommunityIcons name="home-outline" size={22} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Order"
         component={OrderTab}
         options={{
@@ -62,18 +67,6 @@ export default function MainTab() {
             <IconMaterialCommunityIcons name="shopping-outline" size={20} />
           ),
 
-          // header: () => <SearchBar placeholder="어디로 갈까요?" />,
-        }}
-      />
-      <Tab.Screen
-        name="Map"
-        component={MapTab}
-        options={{
-          title: '내 주변',
-          headerTitleStyle: {fontSize: 18, fontWeight: 'bold'},
-          tabBarIcon: () => (
-            <IconMaterialCommunityIcons name="map-outline" size={20} />
-          ),
           // header: () => <SearchBar placeholder="어디로 갈까요?" />,
         }}
       />

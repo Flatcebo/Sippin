@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Alert, RefreshControl, Share} from 'react-native';
 import {
   FlatList,
   Image,
@@ -10,12 +11,45 @@ import {
   View,
 } from 'react-native';
 import EmptyList from '../../components/EmptyList';
+import GroupModal from '../../components/GroupModal';
 import GroupListData from '../../data/GroupListData.json';
 import {moderateScale, scale} from '../../utils/scaling';
+// 추천순은 본인 검색기록을 토대로?
 export default function WholeTab() {
+  const [formattedData, setFormattedData] = useState(GroupListData);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [groupItems, setGroupItems] = useState<{
+    title: string;
+    imageUrl: string;
+    hashtag: string;
+  }>({title: '', imageUrl: '', hashtag: ''});
+
+  const onCloseModal = () => {
+    setVisibleModal(false);
+  };
+
+  useEffect(() => {
+    const recent = formattedData.sort(
+      (a, b) =>
+        Number(b.createdAt.replaceAll('-', '')) -
+        Number(a.createdAt.replaceAll('-', '')),
+    );
+    setFormattedData(recent);
+  }, [formattedData]);
+
   const renderItem = ({item}: any) => {
+    const onPressVisibleModal = () => {
+      setGroupItems({
+        title: item.title,
+        imageUrl: item.imageUrl,
+        hashtag: item.hashtag,
+      });
+      setVisibleModal(true);
+    };
     return (
       <Pressable
+        onPress={onPressVisibleModal}
         key={item.id}
         android_ripple={{color: '#cacaca'}}
         style={[styles.renderItemContainer]}>
@@ -52,8 +86,33 @@ export default function WholeTab() {
       </Pressable>
     );
   };
+
+  const onPressShareButton = () => {
+    // 그룹 URL 필요함
+    Share.share({message: 'GroupShared'});
+  };
+
+  const wait = (timeout: any) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(800).then(() => setRefreshing(false));
+    Alert.alert('refresh');
+  }, []);
+
   return (
     <>
+      <GroupModal
+        title={groupItems.title}
+        hashtag={groupItems.hashtag}
+        imageUrl={groupItems.imageUrl}
+        visible={visibleModal}
+        onRequestClose={onCloseModal}
+        onPressCloseIcon={onCloseModal}
+        onPressShareButton={onPressShareButton}
+      />
       <View style={[styles.filterContainer]}>
         <Pressable style={[styles.filterButton]}>
           <Text style={{fontSize: 13}}>최신순</Text>
@@ -64,10 +123,14 @@ export default function WholeTab() {
       </View>
       <View style={[styles.container]}>
         <FlatList
-          data={GroupListData}
+          data={formattedData}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
+          showsVerticalScrollIndicator={false}
           ListEmptyComponent={<EmptyList desc="그룹이 존재하지 않습니다." />}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         />
       </View>
     </>
