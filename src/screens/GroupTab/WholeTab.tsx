@@ -15,7 +15,20 @@ import GroupModal from '../../components/GroupModal';
 import GroupListData from '../../data/GroupListData.json';
 import {moderateScale, scale} from '../../utils/scaling';
 // 추천순은 본인 검색기록을 토대로?
+type formattedDataProps = {
+  id: number;
+  title: string;
+  imageUrl: string;
+  headCount: number;
+  hashtag: string;
+  createdAt: string;
+};
+
 export default function WholeTab() {
+  // const getFormattedData = (): formattedDataProps[] => {
+  //   return GroupListData;
+  // };
+
   const [formattedData, setFormattedData] = useState(GroupListData);
   const [visibleModal, setVisibleModal] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -30,13 +43,13 @@ export default function WholeTab() {
   };
 
   useEffect(() => {
-    const recent = formattedData.sort(
+    const recent = [...formattedData].sort(
       (a, b) =>
         Number(b.createdAt.replaceAll('-', '')) -
         Number(a.createdAt.replaceAll('-', '')),
     );
     setFormattedData(recent);
-  }, [formattedData]);
+  }, []);
 
   const renderItem = ({item}: any) => {
     const onPressVisibleModal = () => {
@@ -101,6 +114,18 @@ export default function WholeTab() {
     wait(800).then(() => setRefreshing(false));
     Alert.alert('refresh');
   }, []);
+  const onPressRecentButton = () => {
+    const recent = [...formattedData].sort(
+      (a, b) =>
+        Number(b.createdAt.replaceAll('-', '')) -
+        Number(a.createdAt.replaceAll('-', '')),
+    );
+    setFormattedData(recent);
+  };
+
+  const onPressRecommendedButton = () => {
+    setFormattedData(GroupListData);
+  };
 
   return (
     <>
@@ -114,10 +139,12 @@ export default function WholeTab() {
         onPressShareButton={onPressShareButton}
       />
       <View style={[styles.filterContainer]}>
-        <Pressable style={[styles.filterButton]}>
+        <Pressable style={[styles.filterButton]} onPress={onPressRecentButton}>
           <Text style={{fontSize: 13}}>최신순</Text>
         </Pressable>
-        <Pressable style={[styles.filterButton]}>
+        <Pressable
+          style={[styles.filterButton]}
+          onPress={onPressRecommendedButton}>
           <Text style={{fontSize: 13}}>추천순</Text>
         </Pressable>
       </View>

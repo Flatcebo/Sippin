@@ -57,7 +57,6 @@ export default function SearchBar({
           alignItems: 'center',
           borderRadius: 100,
           width: '96%',
-          // marginLeft: '2%',
           flexDirection: 'row',
         }}>
         <TextInput

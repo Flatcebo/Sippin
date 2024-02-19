@@ -69,6 +69,8 @@ import MapMainScreen from './MapMainScreen';
 import SearchRegionScreen from './SearchRegionScreen';
 import SearchMyAroundScreen from './SearchMyAroundScreen';
 import GroupListScreen from './GroupListScreen';
+import GroupCreateScreen from './GroupCreateScreen';
+import HashtagScreen from './HashtagScreen';
 
 interface Props {
   options: NativeStackNavigationOptions;
@@ -461,6 +463,25 @@ export default function RootStack() {
         options={{
           headerShown: false,
           title: '실시간 그룹',
+          // closeButton: true,
+        }}
+      />
+      <Stack.Screen
+        name="GroupCreate"
+        component={GroupCreateScreen}
+        options={{
+          headerShown: false,
+          title: '그룹생성',
+          // closeButton: true,
+          animation: 'slide_from_bottom',
+        }}
+      />
+      <Stack.Screen
+        name="Hashtag"
+        component={HashtagScreen}
+        options={{
+          headerShown: false,
+          title: '그룹생성',
           // closeButton: true,
         }}
       />

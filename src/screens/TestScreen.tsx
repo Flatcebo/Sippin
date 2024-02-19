@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {TouchableOpacity, Platform, Text, View} from 'react-native';
+import {TouchableOpacity, Platform, Text, View, ScrollView} from 'react-native';
+import {Appbar} from 'react-native-paper';
 
 export default function TestScreen({navigation}: any) {
   const [views, setViews] = useState<any>([]);
@@ -15,16 +16,20 @@ export default function TestScreen({navigation}: any) {
   };
 
   return (
-    <View>
-      {/* 기존에 생성된 뷰들을 렌더링 */}
-      {views.map((view: any, index: any) => (
-        <React.Fragment key={index}>{view}</React.Fragment>
-      ))}
-
-      {/* 추가 버튼 */}
-      <TouchableOpacity onPress={addView}>
-        <Text>Add View</Text>
-      </TouchableOpacity>
-    </View>
+    <>
+      <ScrollView>
+        <Appbar.Header collapsable={true}>
+          <Appbar.Content title="My App" />
+          <Appbar.Content title="My App" />
+          <Appbar.Content title="My App" />
+          <Appbar.Content title="My App" />
+          <Appbar.Content title="My App" />
+        </Appbar.Header>
+        <View style={{height: 300, backgroundColor: 'red'}} />
+        <View style={{height: 300, backgroundColor: 'blue'}} />
+        <View style={{height: 300, backgroundColor: 'black'}} />
+        <View style={{height: 300, backgroundColor: 'green'}} />
+      </ScrollView>
+    </>
   );
 }

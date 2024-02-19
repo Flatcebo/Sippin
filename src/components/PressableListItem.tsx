@@ -29,7 +29,7 @@ export default function PressableListItem({
   content,
 }: PressableListItemProp) {
   return (
-    <Pressable style={layoutStyle}>
+    <Pressable android_ripple={{color: '#cacaca'}} style={layoutStyle}>
       <View style={containerStyle}>
         {content}
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>

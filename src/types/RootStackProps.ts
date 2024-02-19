@@ -5,6 +5,7 @@ import {MainTabNavigationScreenParams, MainTabParamList} from './MainTabProps';
 import {
   ByRegionContentsParams,
   ContentParams,
+  GroupCreateParams,
   MapViewParams,
   MenuParams,
   MyInfoModifyParams,
@@ -56,6 +57,8 @@ export type RootStackParamList = {
   UserReview: undefined;
   MapMain: undefined;
   GroupList: undefined;
+  GroupCreate: GroupCreateParams;
+  Hashtag: undefined;
   // AuthMethod:undefined
   TestHeader: undefined;
   TestTimePicker: undefined;
@@ -102,6 +105,8 @@ export type CategoryScreenProp = ScreenProp<'Category'>;
 export type CompletedOrderScreenProp = ScreenProp<'CompletedOrder'>;
 export type ContentScreenProp = ScreenProp<'Content'>;
 export type GroupListScreenProp = ScreenProp<'GroupList'>;
+export type GroupCreateScreenProp = ScreenProp<'GroupCreate'>;
+export type HashtagScreenProp = ScreenProp<'Hashtag'>;
 export type MapMainScreenProp = ScreenProp<'MapMain'>;
 export type MapViewScreenProp = ScreenProp<'MapView'>;
 export type MenuScreenProp = ScreenProp<'Menu'>;

@@ -23,6 +23,7 @@ interface BorderInputProps {
   secureTextEntry?: boolean;
   press?: boolean;
   onPressPress?: () => void;
+  absoluteTextStyle?: StyleProp<TextStyle>;
   // textContentType?: any;
 }
 
@@ -38,6 +39,7 @@ export default function BorderInput({
   secureTextEntry,
   press,
   onPressPress,
+  absoluteTextStyle,
   // textContentType,
   ...props
 }: BorderInputProps & TextInputProps) {
@@ -54,7 +56,9 @@ export default function BorderInput({
         />
       )}
       {absoluteText && (
-        <Text style={[styles.absoluteText]}>{absoluteText}</Text>
+        <Text style={[styles.absoluteText, absoluteTextStyle]}>
+          {absoluteText}
+        </Text>
       )}
       {press && <Pressable onPress={onPressPress} style={[styles.press]} />}
 
@@ -95,8 +99,6 @@ const styles = StyleSheet.create({
     paddingLeft: 35,
     color: '#333',
     fontSize: 16,
-
-    // backgroundColor: '#9a9a9a1c',
   },
   press: {
     // backgroundColor: 'red',

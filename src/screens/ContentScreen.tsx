@@ -319,10 +319,10 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
         </View>
 
         <BottomButton
-          title="예약하러 가기"
+          title="그룹 생성하기"
           star
           onPress={() => {
-            navigation.push('SelectFriend');
+            navigation.push('GroupCreate', {imageUri: imageUri});
           }}
         />
       </View>

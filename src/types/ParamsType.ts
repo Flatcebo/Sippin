@@ -19,6 +19,10 @@ export type ContentParams = {
     longitude: number;
   };
 };
+export type GroupCreateParams = {
+  // id: number;
+  imageUri: string;
+};
 
 export type ReserveOrderListParams = {
   title: string;

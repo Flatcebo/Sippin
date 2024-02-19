@@ -45,7 +45,7 @@ export default function MapTab({navigation}: MapTabProp) {
     () => heartListData.map((_, idx) => idx * Dimensions.get('window').width),
     [heartListData],
   );
-
+  // 헤더
   useEffect(() => {
     navigation.setOptions({
       headerTransparent: true,
@@ -58,7 +58,6 @@ export default function MapTab({navigation}: MapTabProp) {
           }}>
           <SearchBar
             pressableInput
-            backVisible
             onPress={() => {
               navigation.push('SearchMyAround');
             }}

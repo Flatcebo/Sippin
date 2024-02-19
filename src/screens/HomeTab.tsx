@@ -113,10 +113,15 @@ const HomeTab = ({navigation}: HomeTabProp) => {
     //   title: 'TestTimePicker',
     // },
     {
-      id: 4,
-      navigate: 'MapMain',
-      title: 'MapMain',
+      id: 3,
+      title: 'Hashtag',
+      navigate: 'Hashtag',
     },
+    // {
+    //   id: 4,
+    //   navigate: 'MapMain',
+    //   title: 'MapMain',
+    // },
     {
       id: 5,
       title: 'Test',
