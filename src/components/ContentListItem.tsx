@@ -61,6 +61,9 @@ const ContentListItem = ({
             height={scale(160)}
             resizeMode="cover"
             style={{borderTopLeftRadius: 10, borderTopRightRadius: 10}}
+            // fadeDuration={30000}
+            resizeMethod="auto"
+            progressiveRenderingEnabled
           />
           {hits && (
             <View style={[styles.hitsView]}>

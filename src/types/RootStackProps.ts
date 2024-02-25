@@ -17,6 +17,7 @@ export type RootStackParamList = {
   Home: undefined;
   Map: undefined;
   Order: undefined;
+  Group: undefined;
   My: undefined;
   Search: undefined;
   SearchAddr: undefined;
@@ -58,6 +59,7 @@ export type RootStackParamList = {
   MapMain: undefined;
   GroupList: undefined;
   GroupCreate: GroupCreateParams;
+  GroupRoom: undefined;
   Hashtag: undefined;
   // AuthMethod:undefined
   TestHeader: undefined;
@@ -106,6 +108,7 @@ export type CompletedOrderScreenProp = ScreenProp<'CompletedOrder'>;
 export type ContentScreenProp = ScreenProp<'Content'>;
 export type GroupListScreenProp = ScreenProp<'GroupList'>;
 export type GroupCreateScreenProp = ScreenProp<'GroupCreate'>;
+export type GroupRoomScreenProp = ScreenProp<'GroupRoom'>;
 export type HashtagScreenProp = ScreenProp<'Hashtag'>;
 export type MapMainScreenProp = ScreenProp<'MapMain'>;
 export type MapViewScreenProp = ScreenProp<'MapView'>;

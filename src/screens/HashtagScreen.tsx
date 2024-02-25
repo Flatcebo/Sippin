@@ -14,18 +14,37 @@ import HashtagData from '../data/HashtagData.json';
 import PressableListItem from '../components/PressableListItem';
 import EmptyList from '../components/EmptyList';
 import {HashtagScreenProp} from '../types/RootStackProps';
+import CountModal from '../components/CountModal';
 
 type HashtagItemProps = {
   items: Array<{text: string}>;
+  //   onPress: (idx: number) => void;
 };
 
 export default function HashtagScreen({navigation}: HashtagScreenProp) {
-  const [filterData, setFilterData] = useState(HashtagData);
+  const [filterData, setFilterData] = useState<
+    {id: number; text: string; count: number}[]
+  >([]);
+  const [searchText, setSearchText] = useState('');
+  const [hashtagItems, setHashtagItems] = useState<{text: string}[]>([]);
+
+  const onPressAddHashtagItem = (text: string) => {
+    setHashtagItems([...hashtagItems, {text: text}]);
+  };
+
+  const onPressRemoveHashtagItem = (idToRemove: number) => {
+    const updatedItems = hashtagItems.filter((item, idx) => idx !== idToRemove);
+    setHashtagItems(updatedItems);
+  };
+
   const HashtagItem = ({items}: HashtagItemProps) => {
     return (
       <>
         {items.map((i, idx) => (
-          <TouchableOpacity style={[styles.hashtagItem]} key={idx}>
+          <TouchableOpacity
+            key={idx}
+            style={[styles.hashtagItem]}
+            onPress={() => onPressRemoveHashtagItem(idx)}>
             <Text style={[styles.hashtagText]}>{i.text}</Text>
             <IconMaterialCommunityIcons
               name="close"
@@ -38,6 +57,7 @@ export default function HashtagScreen({navigation}: HashtagScreenProp) {
       </>
     );
   };
+
   const renderItem = ({item}: any) => {
     return (
       <PressableListItem
@@ -46,50 +66,58 @@ export default function HashtagScreen({navigation}: HashtagScreenProp) {
         titleStyle={{fontSize: 16}}
         layoutStyle={[styles.listItemLayout]}
         containerStyle={[styles.listItemContainer]}
-        titleContent={<Text>{item.count}회</Text>}
+        titleContent={<Text style={{fontSize: 13}}>{item.count}회</Text>}
+        onPress={() => onPressAddHashtagItem(item.text)}
       />
     );
   };
+
   const goBack = () => {
     navigation.goBack();
   };
+
+  const sortedData = [...HashtagData].sort(
+    (a, b) => Number(b.count) - Number(a.count),
+  );
+
+  const onChangeText = (text: string) => {
+    setSearchText(text);
+    const filter = sortedData.filter(value => value.text.includes(text));
+
+    const trueState = setFilterData(filter);
+
+    return text.trim() !== '' ? trueState : setFilterData([]);
+  };
+
+  const onPressCheck = () => {
+    navigation.navigate('GroupCreate', {hashtag: hashtagItems});
+  };
+
   return (
     <>
       <Appbar.Header style={{}} collapsable={true}>
         <Appbar.BackAction onPress={goBack} />
-        <SearchBarV2 />
-        <TouchableOpacity style={[styles.checkIcon]}>
+        <SearchBarV2 value={searchText} onChangeText={onChangeText} />
+        <TouchableOpacity style={[styles.checkIcon]} onPress={onPressCheck}>
           <IconFeather name="check" size={22} />
         </TouchableOpacity>
       </Appbar.Header>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={[styles.hashtagView]}
-        contentContainerStyle={{paddingHorizontal: 10}}>
-        <HashtagItem
-          items={[
-            {text: '#시작'},
-            {text: '#목포'},
-            {text: '#유달산'},
-            {text: '#유달산장'},
-            {text: '#스텔라'},
-            {text: '#목포'},
-            {text: '#장터식당'},
-            {text: '#유달산'},
-            {text: '#유달산장'},
-            {text: '#스텔라'},
-            {text: '#목포'},
-            {text: '#장터식당'},
-            {text: '#끝'},
-          ]}
-        />
-      </ScrollView>
+
+      {hashtagItems.length >= 1 ? (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={[styles.hashtagView]}
+          contentContainerStyle={{paddingHorizontal: 10}}>
+          <HashtagItem items={hashtagItems} />
+        </ScrollView>
+      ) : null}
+
       <FlatList
         data={filterData}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
-        ListEmptyComponent={<EmptyList desc="검색어를 입력해주세요." />}
+        ListEmptyComponent={<EmptyList desc="해시태그를 입력해주세요." />}
         style={{backgroundColor: 'white', height: '92%'}}
       />
     </>
@@ -120,6 +148,7 @@ const styles = StyleSheet.create({
     paddingVertical: '5%',
     borderBottomWidth: 0.4,
     borderColor: '#eaeaea',
+    justifyContent: 'center',
   },
   checkIcon: {
     width: '16%',

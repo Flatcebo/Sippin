@@ -129,3 +129,4 @@ export const globalStyles = StyleSheet.create({
 export const SignatureColor = '#571d1d';
 export const SojuColor = '#34a014';
 // '#248905cd'
+export const BackPressColor = '#00000029';

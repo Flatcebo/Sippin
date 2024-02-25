@@ -71,6 +71,7 @@ import SearchMyAroundScreen from './SearchMyAroundScreen';
 import GroupListScreen from './GroupListScreen';
 import GroupCreateScreen from './GroupCreateScreen';
 import HashtagScreen from './HashtagScreen';
+import GroupRoomScreen from './GroupRoomScreen';
 
 interface Props {
   options: NativeStackNavigationOptions;
@@ -474,6 +475,13 @@ export default function RootStack() {
           title: '그룹생성',
           // closeButton: true,
           animation: 'slide_from_bottom',
+        }}
+      />
+      <Stack.Screen
+        name="GroupRoom"
+        component={GroupRoomScreen}
+        options={{
+          headerShown: false,
         }}
       />
       <Stack.Screen

@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Button,
   Image,
   Pressable,
   ScrollView,
@@ -10,10 +11,13 @@ import {
 } from 'react-native';
 import {Checkbox} from 'react-native-paper';
 import {globalStyles} from '../lib/GlobalStyles';
+import {NativeModules} from 'react-native';
+
 export default function SelectFriendScreen() {
   return (
     <>
-      <View style={{borderBottomWidth: 1, paddingVertical: '3%'}}>
+      {/* <Button title="login" onPress={loginToKakao} /> */}
+      {/* <View style={{borderBottomWidth: 1, paddingVertical: '3%'}}>
         <TextInput
           style={{backgroundColor: '#9a9a9a'}}
           placeholder="CollapsibleSearchBar"
@@ -46,7 +50,7 @@ export default function SelectFriendScreen() {
           </View>
           <Checkbox status="checked" />
         </Pressable>
-      </ScrollView>
+      </ScrollView> */}
     </>
   );
 }

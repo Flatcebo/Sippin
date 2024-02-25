@@ -35,6 +35,9 @@ import {Appbar, Searchbar} from 'react-native-paper';
 import MapView from '../components/MapView';
 
 export default function ContentScreen({route, navigation}: ContentScreenProp) {
+  const [openTime, setOpenTime] = useState('-');
+  const [breakTime, setBreakTime] = useState('-');
+  const [closedDays, setClosedDays] = useState('-');
   const {
     id,
     title,
@@ -82,12 +85,17 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
     const setHeaderOptions = () => {
       navigation.setOptions({
         headerTransparent: true,
-        header: () => <HeaderComponent state={aa} navigation={navigation} />,
+        header: () => <HeaderComponent navigation={navigation} />,
       });
     };
     setHeaderOptions();
-  }, [aa]);
-
+  }, []);
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerTransparent: true,
+  //     headerShown: false,
+  //   });
+  // }, []);
   const data = [
     {
       id,
@@ -183,6 +191,7 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
   return (
     <>
       <View style={[styles.layout]}>
+        {/* <HeaderComponent state={aa} navigation={navigation} /> */}
         <View>
           <FlatList
             // 에러 발생함
@@ -284,22 +293,40 @@ export default function ContentScreen({route, navigation}: ContentScreenProp) {
                     />
                   </View>
                 </View>
-                <View
-                  style={{
-                    backgroundColor: 'white',
-                    paddingVertical: '5%',
-                    paddingHorizontal: '5%',
-                    rowGap: 10,
-                  }}>
-                  <Text style={{fontSize: 16, fontWeight: 'bold'}}>위치</Text>
-                  <MapView coordinate={coordinate} />
-
-                  {/* <View
-                  style={{
-                    marginBottom: '3%',
-                    backgroundColor: 'white',
-                    paddingVertical: '5%',
-                  }}></View> */}
+                <View style={[styles.contentContainer]}>
+                  <View style={{rowGap: 6}}>
+                    <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+                      영업정보
+                    </Text>
+                    <View style={[{flexDirection: 'row'}]}>
+                      <View style={{borderWidth: 0, width: '25%', rowGap: 6}}>
+                        <Text style={[styles.businessInfoTitleText]}>
+                          영업시간
+                        </Text>
+                        <Text style={[styles.businessInfoTitleText]}>
+                          브레이크타임
+                        </Text>
+                        <Text style={[styles.businessInfoTitleText]}>
+                          휴무일
+                        </Text>
+                      </View>
+                      <View style={{width: '75%', rowGap: 6}}>
+                        <Text style={[{fontSize: 13, fontWeight: 'bold'}]}>
+                          {openTime}
+                        </Text>
+                        <Text style={[{fontSize: 13, fontWeight: 'bold'}]}>
+                          {breakTime}
+                        </Text>
+                        <Text style={[{fontSize: 13, fontWeight: 'bold'}]}>
+                          {closedDays}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={{rowGap: 10}}>
+                    <Text style={{fontSize: 16, fontWeight: 'bold'}}>위치</Text>
+                    <MapView coordinate={coordinate} />
+                  </View>
                 </View>
                 {/* 추천Image */}
                 <View style={{}}>
@@ -376,16 +403,23 @@ const styles = StyleSheet.create({
     marginVertical: '1%',
     flexDirection: 'row',
     borderColor: '#9a9a9a',
-    // borderWidth: 0.4,
-    // borderRadius: 4,
-    // borderBottomWidth: 1,
-    // borderTopWidth: 1,
   },
 
   headerContainer: {
     backgroundColor: 'white',
     paddingBottom: '5%',
     marginBottom: '3%',
+  },
+  contentContainer: {
+    backgroundColor: 'white',
+    paddingVertical: '5%',
+    paddingHorizontal: '5%',
+    rowGap: 20,
+  },
+  businessInfoTitleText: {
+    fontSize: 13,
+    color: '#9a9a9a',
+    fontWeight: 'bold',
   },
 });
 

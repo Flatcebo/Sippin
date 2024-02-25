@@ -21,7 +21,8 @@ export type ContentParams = {
 };
 export type GroupCreateParams = {
   // id: number;
-  imageUri: string;
+  imageUri?: string;
+  hashtag?: {text: string}[];
 };
 
 export type ReserveOrderListParams = {

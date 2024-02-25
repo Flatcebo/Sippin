@@ -18,6 +18,7 @@ interface PressableListItemProp {
   titleStyle?: StyleProp<TextStyle>;
   titleContent?: React.ReactNode;
   content?: React.ReactNode;
+  onPress?: () => void;
 }
 
 export default function PressableListItem({
@@ -27,12 +28,21 @@ export default function PressableListItem({
   titleStyle,
   titleContent,
   content,
+  onPress,
 }: PressableListItemProp) {
   return (
-    <Pressable android_ripple={{color: '#cacaca'}} style={layoutStyle}>
+    <Pressable
+      android_ripple={{color: '#cacaca'}}
+      style={layoutStyle}
+      onPress={onPress}>
       <View style={containerStyle}>
         {content}
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
           <Text style={titleStyle}>{title}</Text>
           {titleContent}
         </View>

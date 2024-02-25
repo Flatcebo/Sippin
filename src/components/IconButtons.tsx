@@ -247,3 +247,10 @@ export function ShoppingBasketButton() {
     </Pressable>
   );
 }
+
+interface HamburgerButtonProps {
+  onPress?: () => void;
+}
+export default function HamburgerButton({onPress}: HamburgerButtonProps) {
+  return <IconEntypo name="menu" size={24} onPress={onPress} />;
+}

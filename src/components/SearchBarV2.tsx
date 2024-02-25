@@ -4,7 +4,7 @@ import {IconOcticons} from '../lib/Icon';
 import {scale} from '../utils/scaling';
 interface SearchBarV2Props {
   value?: string;
-  onChangeText?: () => void;
+  onChangeText?: (text: string) => void;
 }
 export default function SearchBarV2({value, onChangeText}: SearchBarV2Props) {
   return (
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: '5%',
     paddingRight: '14%',
     fontWeight: 'bold',
+    color: 'black',
   },
   searchIcon: {
     position: 'absolute',
