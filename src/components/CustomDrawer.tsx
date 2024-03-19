@@ -15,29 +15,34 @@ interface CustomModalProps {
   onPressBG?: () => void;
   onPressSubmit?: () => void;
   profileItem?: Array<ProfileItemProps>;
+  onPressReserve?: () => void;
 }
 export default function CustomDrawer({
   visible,
   onRequestClose,
   onPressBG,
   profileItem,
+  onPressReserve,
 }: CustomModalProps) {
   return (
     <Modal
       visible={visible}
       onRequestClose={onRequestClose}
       transparent
-      animationType="fade">
+      animationType="none">
       <Pressable style={[styles.backPressStyle]} onPress={onPressBG}>
         <View style={{flex: 0.3}} />
-        <View style={[styles.container]}>
-          <Pressable android_ripple={{color: '#cacaca'}} style={{}}>
+        <Pressable style={[styles.container]}>
+          <Pressable
+            android_ripple={{color: '#cacaca'}}
+            style={{}}
+            onPress={onPressReserve}>
             <Text style={[styles.reserveText]}>예약하기</Text>
           </Pressable>
           <Pressable android_ripple={{color: '#cacaca'}} style={{}}>
             <Text style={[styles.reserveText]}>일정보기</Text>
           </Pressable>
-          <View style={{paddingVertical: '5%', rowGap: 12}}>
+          <View style={{paddingVertical: '5%', rowGap: 6}}>
             <View style={{paddingHorizontal: '5%'}}>
               <Text style={{fontWeight: 'bold'}}>참여인원</Text>
             </View>
@@ -59,7 +64,7 @@ export default function CustomDrawer({
           <View style={[styles.absoluteBottomView]}>
             <Text>나가기</Text>
           </View>
-        </View>
+        </Pressable>
       </Pressable>
     </Modal>
   );
@@ -100,5 +105,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     columnGap: 4,
     paddingHorizontal: '5%',
+    paddingVertical: '2%',
   },
 });

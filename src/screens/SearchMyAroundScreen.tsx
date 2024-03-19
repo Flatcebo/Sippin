@@ -34,7 +34,7 @@ export default function SearchMyAroundScreen() {
       );
     });
     t.length === 0 ? setData([]) : setData(filteredData);
-    console.log(filteredData);
+    // console.log(filteredData);
   };
   return (
     <View>
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: '5%',
     paddingRight: '14%',
     fontWeight: 'bold',
+    color: 'black',
   },
   searchIcon: {
     position: 'absolute',

@@ -319,9 +319,9 @@ const HomeTab = ({navigation}: HomeTabProp) => {
           </LinearGradient>
         }
       />
-      <ScrollView style={{backgroundColor: '#333', height: 100}}>
-        <TestButton />
-      </ScrollView>
+      {/* <ScrollView style={{backgroundColor: '#333', height: 100}}> */}
+      {/* <TestButton /> */}
+      {/* </ScrollView> */}
     </>
   );
 };

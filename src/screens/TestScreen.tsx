@@ -1,4 +1,10 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   TouchableOpacity,
   Platform,
@@ -11,6 +17,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   StyleSheet,
+  Pressable,
 } from 'react-native';
 import {firebase} from '@react-native-firebase/database';
 import chatData from '../data/ChatData.json';
@@ -21,6 +28,12 @@ import CustomDrawer from '../components/CustomDrawer';
 
 export default function TestScreen({navigation}: any) {
   const [visibleDrawer, setVisibleDrawer] = useState(false);
+  const flatListRef = useRef<FlatList>(null);
+
+  useLayoutEffect(() => {
+    return flatListRef.current?.scrollToEnd({animated: true});
+  }, []);
+
   useEffect(() => {
     navigation.setOptions({
       headerShown: true,
@@ -33,10 +46,16 @@ export default function TestScreen({navigation}: any) {
       ),
     });
   }, []);
+
+  const bottomToScroll = () => {
+    flatListRef.current?.scrollToEnd({animated: true});
+  };
+
   const [profile, setProfile] =
     useState<{profileUri: string; name: string}[]>();
   const [others, setOthers] = useState(false);
   const [my, setMy] = useState(false);
+
   useEffect(() => {
     setProfile([
       {
@@ -80,6 +99,7 @@ export default function TestScreen({navigation}: any) {
   const closedDrawer = () => {
     setVisibleDrawer(false);
   };
+
   return (
     <KeyboardAvoidingView
       enabled={true}
@@ -91,16 +111,25 @@ export default function TestScreen({navigation}: any) {
           onPressBG={closedDrawer}
           onRequestClose={closedDrawer}
           profileItem={profile}
+          onPressReserve={() => {
+            navigation.push('ReserveTable');
+          }}
         />
       )}
+      <Pressable onPress={bottomToScroll}>
+        <Text>최근 대화로 이동</Text>
+      </Pressable>
 
       <FlatList
         // inverted={true}
+        ref={flatListRef}
         data={chatData}
         renderItem={renderItem}
         keyExtractor={(item, idx) => idx.toString()}
         style={{backgroundColor: 'white', height: '100%'}}
         contentContainerStyle={[styles.contentContainerStyle]}
+        ListFooterComponent={<View style={{height: 60}} />}
+        // initialScrollIndex={chatData.length - 1}
       />
       {/* <KeyboardSpacer /> */}
       <View style={[styles.absoluteBottomTextInput]}>
@@ -125,7 +154,7 @@ const styles = StyleSheet.create({
   contentContainerStyle: {
     paddingHorizontal: '3%',
     backgroundColor: 'white',
-    paddingBottom: 60,
+    // paddingBottom: 60,
   },
   absoluteBottomTextInput: {
     position: 'absolute',

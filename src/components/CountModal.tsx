@@ -62,7 +62,12 @@ export default function CountModal({
                   value={value}
                   onChangeText={onChangeText}
                   keyboardType="number-pad"
-                  style={{width: '100%', fontSize: 20, height: scale(80)}}
+                  style={{
+                    width: '100%',
+                    fontSize: 20,
+                    height: scale(80),
+                    color: 'black',
+                  }}
                   textAlign="center"
                   maxLength={2}
                 />

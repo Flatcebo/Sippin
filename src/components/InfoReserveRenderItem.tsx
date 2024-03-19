@@ -68,7 +68,7 @@ export const InfoReserveRenderItem = ({item}: any) => {
                 {
                   flexDirection: 'row',
                   justifyContent: 'space-between',
-                  marginHorizontal: '3%',
+                  marginHorizontal: '5%',
                   marginBottom: '1%',
                 },
               ]}>
@@ -92,7 +92,7 @@ export const InfoReserveRenderItem = ({item}: any) => {
               style={[
                 globalStyles.fontBold14,
                 {
-                  marginHorizontal: '3%',
+                  marginHorizontal: '5%',
                   marginBottom: '3%',
                   height: 40,
                   color: '#cacaca',
@@ -102,7 +102,7 @@ export const InfoReserveRenderItem = ({item}: any) => {
             </Text>
             <View
               style={{
-                marginHorizontal: '3%',
+                marginHorizontal: '5%',
                 // justifyContent: 'flex-end',
                 alignItems: 'flex-end',
                 // borderWidth: 1,

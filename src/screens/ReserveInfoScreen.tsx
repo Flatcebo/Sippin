@@ -85,13 +85,10 @@ export default function ReserveInfoScreen({navigation}: any) {
       const bDate = new Date(b.reservedAt);
 
       if (bDate > currentDate && aDate > currentDate) {
-        // 이후 예약부터 정렬
         return bDate.getTime() - aDate.getTime();
       } else if (bDate > currentDate) {
-        // 현재 날짜 이후의 예약을 먼저 정렬
         return -1;
       } else {
-        // 이전 예약 정렬
         return bDate.getTime() - aDate.getTime();
       }
     });

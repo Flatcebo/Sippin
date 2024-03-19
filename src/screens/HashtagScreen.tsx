@@ -95,7 +95,7 @@ export default function HashtagScreen({navigation}: HashtagScreenProp) {
 
   return (
     <>
-      <Appbar.Header style={{}} collapsable={true}>
+      <Appbar.Header style={{backgroundColor: 'white'}} collapsable={true}>
         <Appbar.BackAction onPress={goBack} />
         <SearchBarV2 value={searchText} onChangeText={onChangeText} />
         <TouchableOpacity style={[styles.checkIcon]} onPress={onPressCheck}>

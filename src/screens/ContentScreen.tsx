@@ -419,7 +419,7 @@ const styles = StyleSheet.create({
   businessInfoTitleText: {
     fontSize: 13,
     color: '#9a9a9a',
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
 });
 
